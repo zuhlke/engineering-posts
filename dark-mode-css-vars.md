@@ -4,6 +4,7 @@ domain: campzulu.hashnode.dev
 tags: web-development, css, sass
 cover: https://cdn.hashnode.com/res/hashnode/image/unsplash/xcweYgakbRo/upload/v1660032971546/KNUGnflXq.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
 publishAs: r3dDoX
+ignorePost: true
 ---
 
 # Why Dark Mode
