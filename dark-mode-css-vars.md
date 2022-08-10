@@ -16,7 +16,7 @@ We knew from the beginning, that implementing a Dark Mode will need a lot of tri
 A more promising approach seemed to be CSS variables. At runtime we would still have the references instead of hardcoded values. The Dev Tools show these variables and you can modify them:
 
 
-![CSS Variables in Dev Tools](https://cdn.hashnode.com/res/hashnode/image/upload/v1655292080502/K32RqsQ49.png align="left")
+![CSS Variables in Dev Tools](https://cdn.hashnode.com/res/hashnode/image/upload/v1660130533039/a3Y9ukL8u.png?auto=compress)
 
 This allows us to use the Dev Tools to change colors at runtime and test them on the real machines with real people. So let's look at how we can introduce CSS variables into our codebase.
 
