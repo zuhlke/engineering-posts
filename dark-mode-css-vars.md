@@ -44,19 +44,50 @@ CSS syntax:
 }
 ``` 
 
-At a first glance the CSS syntax looks more bloated but with the good IDE support nowadays you don't have to write most of it and references/autocomplete work as expected.
+At a first glance the CSS syntax looks more bloated but with the good IDE support nowadays you don't have to write most of it and references as well as autocomplete work as expected.
+
+## Scoping
+The variable in the example above is declared under `:root` which means it is in the global scope. So it is accessible anywhere in the CSS Object Model. Just like that we can also declare CSS variables in any other CSS selector making it locally scoped.
+This also allows us to overwrite the value of a variable for a specific local scope. Consider the following example:
+
+```css
+main {
+    --bg-color: palevioletred;
+}
+
+div {
+    --bg-color: papayawhip;
+}
+
+p {
+    background: var(--bg-color);
+}
+```
+
+```html
+<main>
+    <p>This will have a palevioletred background</p>
+    <div>
+        <p>This will have a papayawhip background</p>
+    </div>
+</main>
+```
+
+The paragraph that is wrapped in the `div` will get the overwritten `--bg-color` while the other paragraph gets the original value of the variable. Check it out on Codepen:
+
+%[https://codepen.io/r3dDoX/pen/WNzgYNL]
 
 ## Sass Features missing in CSS
 ### sass:math
-In Sass you can have a lot of calculations at build time which with CSS is not possible. All calculations have to be done with the `calc()` ([MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/calc)) function.
+In Sass you can have a lot of calculations at build time which with CSS is not possible. All calculations have to be done with the `calc()` ([MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/calc)) function at runtime.
 
 ### sass:color
-Sass has a lot of helper functions to adjust color values which currently is not possible with CSS. What we were mostly missing were functions like: `darken()` or `lighten()`. Right now we had to introduce new variables holding these values.
+Sass has a lot of helper functions to adjust color values which currently is not possible with CSS. What we were mostly missing were functions like: `darken()` or `lighten()`. Right now we were able to work around this by having a few more variables holding these variables.
 
-In the future we should have this functionality (and much more) in CSS described well in this blog post: [CSS relative colors](https://blog.jim-nielsen.com/2021/css-relative-colors/)
+In the future we should have this functionality (and much more) in CSS described very well in this blog post: [CSS relative colors](https://blog.jim-nielsen.com/2021/css-relative-colors/)
 
 # Actual Implementation of Dark Mode
-CSS variables allow us to overwrite the value of the variable dynamically. So introducing color variables that can dynamically change looks something like this:
+Since CSS variables allow us to overwrite the value of the variable dynamically introducing color variables for a dark mode looks something like this:
 
 ```css
 :root {
@@ -76,4 +107,6 @@ All our application has to do now is set the attribute `data-theme="dark"` on ou
 I won't go into the tedious task of going through all the components now and make sure the variables are used correctly and work properly in the dark mode.
 
 # Conclusion
-TODO
+CSS variables allowed us to incrementally introduce a dark mode while continuously testing with people that the contrasts on the machines work as expected. During our testing sessions we could just adapt certain variables at runtime allowing us to directly test their feedback.
+
+On top of that the tooling during build time as well as runtime in the browser is very compelling. Over all we only missed the ability of relative colors which should be arriving in CSS in the near future.
