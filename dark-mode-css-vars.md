@@ -7,8 +7,6 @@ publishAs: r3dDoX
 ignorePost: true
 ---
 
-# Why Dark Mode
-
 We are currently working on a machine that runs 24/7 at train stations all over Switzerland. The
 screen is fairly bright to help people navigate through our web application even when there is
 direct sunlight hitting the machine. For people with visual impairment, this brightness is a big
