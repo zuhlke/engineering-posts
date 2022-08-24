@@ -103,7 +103,7 @@ paragraph gets the original value of the variable. Check it out on Codepen:
 
 ### sass:math
 
-In Sass you can have a lot of calculations at build time which with CSS is not possible. All
+In Sass you can have a lot of calculations at build time, which is not possible with CSS. All
 calculations have to be done with
 the `calc()` ([MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/calc)) function at runtime.
 
