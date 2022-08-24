@@ -135,7 +135,7 @@ variables for a dark mode looks something like this:
 }
 ```
 
-All our application has to do now is set the attribute `data-theme="dark"` on our root element when
+All our application has to do now is to set the attribute `data-theme="dark"` on our root element when
 we want the color variables to use the values defined for the dark theme.
 
 I won't go into the tedious task of going through all the components now and make sure the variables
