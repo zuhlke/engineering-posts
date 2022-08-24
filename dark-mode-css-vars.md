@@ -109,7 +109,7 @@ the `calc()` ([MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/calc)) func
 
 ### sass:color
 
-Sass has a lot of helper functions to adjust color values which currently is not possible with CSS.
+Sass has various helper functions to adjust color values which currently is not possible with CSS.
 What we were mostly missing were functions like: `darken()` or `lighten()`. Right now we were able
 to work around this by having a few more variables holding these variables.
 
