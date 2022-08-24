@@ -147,6 +147,6 @@ CSS variables allowed us to incrementally introduce a dark mode while continuous
 people that the contrasts on the machines work as expected. During our testing sessions we could
 just adapt certain variables at runtime allowing us to directly test their feedback.
 
-On top of that the tooling during build time as well as runtime in the browser is very compelling.
-Over all we only missed the ability of relative colors which should be arriving in CSS in the near
+On top of that, the tooling during build time as well as runtime in the browser is very compelling.
+Overall we only missed the ability of relative colors which should be arriving in CSS in the near
 future.
