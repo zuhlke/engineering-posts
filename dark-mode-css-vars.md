@@ -143,9 +143,10 @@ This was rather tedious, but with the help of search and replace quite possible.
 
 # Conclusion
 
-CSS variables allowed us to incrementally introduce a Dark Mode while continuously testing with
-people that the contrasts on the machines work as expected. During our testing sessions we could
-just adapt certain variables at runtime allowing us to directly test their feedback.
+CSS variables allowed us to incrementally introduce Dark Mode while continuously testing with
+customers as well as testers that the contrasts on the machines work as expected. During our
+testing sessions we could just adapt certain variables at runtime allowing us to directly test
+their feedback.
 
 On top of that, the tooling during build time as well as runtime in the browser is very compelling.
 Overall we only missed the ability of relative colors which should be arriving in CSS in the near
