@@ -14,9 +14,9 @@ issue since some have to go very close to the screen to properly read and intera
 why we started developing a Dark Mode that is specifically designed for people with visual
 impairment.
 
-# Why CSS Vars
+# Introducing CSS variables
 
-We knew from the beginning, that implementing a Dark Mode will need a lot of trial and error due to
+We knew from the beginning, that implementing Dark Mode will need a lot of trial and error due to
 the screens in these machines differing highly from a normal computer screen. Due to this fact we
 wanted to go with a solution that allows us to easily tweak the colors at runtime during tests with
 people. Our current Sass variables did not really fit this requirement since they get hardcoded in
