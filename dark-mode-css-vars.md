@@ -119,7 +119,7 @@ blog post](https://blog.jim-nielsen.com/2021/css-relative-colors/)
 # Actual Implementation of Dark Mode
 
 Since CSS variables allow us to overwrite the value of the variable dynamically introducing color
-variables for a dark mode looks something like this:
+variables for a Dark Mode looks something like this:
 
 ```css
 :root {
@@ -139,11 +139,11 @@ All our application has to do now is to set the attribute `data-theme="dark"` on
 we want the color variables to use the values defined for the dark theme.
 
 I won't go into the tedious task of going through all the components now and make sure the variables
-are used correctly and work properly in the dark mode.
+are used correctly and work properly in the Dark Mode.
 
 # Conclusion
 
-CSS variables allowed us to incrementally introduce a dark mode while continuously testing with
+CSS variables allowed us to incrementally introduce a Dark Mode while continuously testing with
 people that the contrasts on the machines work as expected. During our testing sessions we could
 just adapt certain variables at runtime allowing us to directly test their feedback.
 
