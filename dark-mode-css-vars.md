@@ -29,7 +29,7 @@ instead of hardcoded values. The Dev Tools show these variables and you can modi
 ![CSS Variables in Dev Tools](https://cdn.hashnode.com/res/hashnode/image/upload/v1660130533039/a3Y9ukL8u.png?auto=compress)
 
 This allows us to use the Dev Tools to change colors at runtime and test them on the real machines
-with real people. So let's look at how we can introduce CSS variables into our codebase.
+with real people. So let’s look at how we can introduce CSS variables into our codebase.
 
 # Move from Sass to CSS Vars
 
