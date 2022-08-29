@@ -59,7 +59,7 @@ CSS syntax:
 }
 ``` 
 
-At a first glance, the CSS syntax looks more bloated but with the good IDE support nowadays you don't
+At a first glance, the CSS syntax looks more bloated but with the good IDE support nowadays you don’t
 have to write most of it and references as well as autocomplete work as expected.
 
 ## Scoping
