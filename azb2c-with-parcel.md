@@ -2,7 +2,7 @@
 title: Build Azure AD B2C Templates
 subtitle: A simplistic approach using parcel.js
 domain: campzulu.hashnode.dev
-tags: web-development, azure, az-b2c, sass
+tags: web-development, azure, build-tool, sass
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1663572757122/uN-z_ruLg.jpg?auto=compress
 publishAs: csalv
 ignorePost: true
@@ -13,24 +13,24 @@ ignorePost: true
 # The goal
 When integrating Azure Active Directory B2C service into your app, you can customize the ![HTML with templates](https://docs.microsoft.com/en-us/azure/active-directory-b2c/customize-ui-with-html) to provide a more immersive user experience. This article will describe a simple approach on how to setup a local project to develop such templates and create a production ready build.
 
-The basics to do so are simple enough: Publish a public available HTML page with styles/js to your liking that includes the following tag, can be used by the Azure B2C engine to render its login input fields inside:
+The basics to do so are simple enough: Publish a public available HTML page with styles/js to your liking that includes a ```div``` with id ```api``` can be used by the Azure B2C engine to render its login input fields inside:
 
 ```html
 <div id="api"></div>
 ```
 
-But immediately some challenges came to mind: How do we get a production ready optimized build (css transpiling, minifying, ...) as well as some improved developer experience (scss preprocessor)
+But immediately some challenges came to my mind: How do we get a production ready optimized build (e.g. css transpiling, minifying, ...) as well as some improved developer experience (scss preprocessor)
 
 # The idea
 
-This question lead us to ![parcel.js](https://parceljs.org/), as we wanted to have something simple and with as little configuration as needed.
+This question lead us to ![parcel.js](https://parceljs.org/), as I need a simple build for the static web content. I didn't want to pick a JS Framework to reach that goal (but be able to add any lightweight JS content if necessary at a later stage) to just create a simple static HTML file with CSS.
 
 You can jump into the ![github repo](https://github.com/csalv22/az-b2c-parcel/) directly to have a look implementation.
 
 # Setup the code
-Lets get our hands dirty and create add a the dependency to the current project (or create a new project with ```yarn init```) ```yarn add --dev parcel``` 
+Lets get our hands dirty and add the dependency to the current project (or create a new project first with ```yarn init```) ```yarn add --dev parcel``` 
 
-Create a new ```/src/``` directory and add a new file ```en.html```:
+Next I will create a new template file under ```/src/en.html``` (using en to represent the template for english) for azure b2c to be used:
 ```html
 <!DOCTYPE html>
 <html>
@@ -53,10 +53,10 @@ Congratulations, you have a basic template that would already be working.
 Now the HTML above can be extended with additional structures to fulfill the design as desired. A [sample version](https://github.com/csalv22/az-b2c-parcel/blob/main/src/en.html) with a bit more features can be found, but writing html & scss is not what this blog post is about.
 
 ## CSS
-Now to the interesting part: Styling the new template we have a few things to take care off until we can properly design our page.
+Now to the interesting part: Before writing the css styles for the templates, there are a few things we should do before.
 
 ### SASS / SCSS
-We will rely on [sass](https://sass-lang.com/) as preprocessor to have a stronger toolset at hand than just plain css. This can very easily be [added to our setup](https://parceljs.org/languages/sass/): ```yarn add --dev @parcel/transformer-sass```
+We will rely on [sass](https://sass-lang.com/) as preprocessor to have a stronger toolset at hand than just plain css. This can be [added to our setup](https://parceljs.org/languages/sass/) very easily: ```yarn add --dev @parcel/transformer-sass```
 
 Create a new stylesheet in ```/src/scss/index.scss``` with the following content
 ```scss
@@ -69,12 +69,12 @@ div {
 }
 ```
 
-Rerunning your developer process should already apply the SCSS style you created.
-Now your set up to design your html/css structure and immediately verify the result in the browser.
+Restart the developer process (```yarn start-b2c```) to apply the SCSS style you created.
+Now you're set up to design your html/css structure and canverify the result in the browser.
 
 ### CSS Normalize / Reset
 As still all browsers render unstyled html elements slightly differently, the current web site would result in different appearance on the different browsers, which we have to address.
-We decided to go for [normalize.css](github.com/necolas/normalize.css) as a hard reset felt like an overkill.
+We decided to go for [normalize.css](github.com/necolas/normalize.css) as I prefer having some basic styles in contrary to a reset css. There are many options and alternatives out there (e.g. [the-new-css-reset](https://www.npmjs.com/package/the-new-css-reset), [sanitize.css](https://csstools.github.io/sanitize.css/), [normalize.css](https://csstools.github.io/normalize.css/),...) to be explored by yourself.
 
 ### CSS Transpiling
 [Transpiling](https://parceljs.org/languages/css/#transpilation) is done out of the box by parcel.js, so if you have an appropriate configuration in your package.json, no additional steps are required.
@@ -84,8 +84,8 @@ For our usecase we dont have the need to have any custom JS, plain html & css se
 
 ## Styling and Testing the login form content
 This far we built a lovely template, but have no idea how the form fields (input for login, pw reset, ...) can be styled. To do that, we need to test our template with the content from the azure b2c flows (and every configuration might have different content).
-For that, access your current available b2c pages and on different screens use the html elements to replace ```<div id="api">...</div>``` to your local en.html. This way you can preview&design those pages before deployment.
-We added a set of those content html elements in separate [*.html files](https://github.com/csalv22/az-b2c-parcel/tree/main/src/api-snippets_de) to quickly retest different scenarios (i.e. styling of error messages).
+For that, access your current available b2c pages and on different screens use the html elements to replace ```<div id="api">...</div>``` to your local en.html. This way you can preview & design those pages before deployment.
+We added a set of those content html elements in separate [*.html files](https://github.com/csalv22/az-b2c-parcel/tree/main/src/api-snippets_de) to quickly retest different scenarios (e.g. styling of error messages).
 
 # Build
 To get a production ready build is fairly simple: Add ```build-b2c: parcel build src/*.html --dist-dir ./public``` to your scripts section in the package.json and test it with ```yarn build-b2c```.
