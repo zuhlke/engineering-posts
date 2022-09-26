@@ -74,13 +74,13 @@ Now you're set up to design your html/css structure and canverify the result in 
 
 ### CSS Normalize / Reset
 As still all browsers render unstyled html elements slightly differently, the current web site would result in different appearance on the different browsers, which we have to address.
-We decided to go for [normalize.css](github.com/necolas/normalize.css) as I prefer having some basic styles in contrary to a reset css. There are many options and alternatives out there (e.g. [the-new-css-reset](https://www.npmjs.com/package/the-new-css-reset), [sanitize.css](https://csstools.github.io/sanitize.css/), [normalize.css](https://csstools.github.io/normalize.css/),...) to be explored by yourself.
+I decided to go for [normalize.css](github.com/necolas/normalize.css) as I prefer having some basic styles in contrary to a reset css. There are many options and alternatives out there (e.g. [the-new-css-reset](https://www.npmjs.com/package/the-new-css-reset), [sanitize.css](https://csstools.github.io/sanitize.css/), [normalize.css](https://csstools.github.io/normalize.css/),...) to be explored by yourself.
 
 ### CSS Transpiling
 [Transpiling](https://parceljs.org/languages/css/#transpilation) is done out of the box by parcel.js, so if you have an appropriate configuration in your package.json, no additional steps are required.
 
 ## JS
-For our usecase we dont have the need to have any custom JS, plain html & css serves our needs. But parcel.js gives you many options into hand (you could even go for one of the big JS Frameworks and use static site rendering to create your html templates)
+In my usecase I didn't have the need to have any custom JS, plain html & css serves our needs. But parcel.js gives you many options into hand (you could even go for one of the big JS Frameworks and use static site rendering to create your html templates)
 
 ## Styling and Testing the login form content
 This far we built a lovely template, but have no idea how the form fields (input for login, pw reset, ...) can be styled. To do that, we need to test our template with the content from the azure b2c flows (and every configuration might have different content).
