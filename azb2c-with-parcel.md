@@ -11,7 +11,7 @@ ignorePost: true
 
 
 # The goal
-When integrating Azure Active Directory B2C service into your app, you can customize the ![HTML with templates](https://docs.microsoft.com/en-us/azure/active-directory-b2c/customize-ui-with-html) to provide a more immersive user experience. This article will describe a simple approach on how to setup a local project to develop such templates and create a production ready build.
+When integrating Azure Active Directory B2C service into your app, you can customize the [HTML with templates](https://docs.microsoft.com/en-us/azure/active-directory-b2c/customize-ui-with-html) to provide a more immersive user experience. This article will describe a simple approach on how to setup a local project to develop such templates and create a production ready build.
 
 The basics to do so are simple enough: Publish a public available HTML page with styles/js to your liking that includes a ```div``` with id ```api``` can be used by the Azure B2C engine to render its login input fields inside:
 
@@ -23,9 +23,9 @@ But immediately some challenges came to my mind: How do we get a production read
 
 # The idea
 
-This question lead us to ![parcel.js](https://parceljs.org/), as I need a simple build for the static web content. I didn't want to pick a JS Framework to reach that goal (but be able to add any lightweight JS content if necessary at a later stage) to just create a simple static HTML file with CSS.
+This question lead us to [parcel.js](https://parceljs.org/), as I need a simple build for the static web content. I didn't want to pick a JS Framework to reach that goal (but be able to add any lightweight JS content if necessary at a later stage) to just create a simple static HTML file with CSS.
 
-You can jump into the ![github repo](https://github.com/csalv22/az-b2c-parcel/) directly to have a look implementation.
+You can jump into the [github repo](https://github.com/csalv22/az-b2c-parcel/) directly to have a look implementation.
 
 # Setup the code
 Lets get our hands dirty and add the dependency to the current project (or create a new project first with ```yarn init```) ```yarn add --dev parcel``` 
