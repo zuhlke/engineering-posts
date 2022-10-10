@@ -23,10 +23,10 @@ But with the micro frontends architecture pattern, we have a tool in our hand to
 
 ## Sharing the layout in self-contained systems 
 
-We are actually doing the [self-contained systems](https://scs-architecture.org/) architecture in my current project. This is a special variation of the micro frontend pattern. Self-contained systems consist of multiple scalable and independent deployable web applications which are preferably linked together via HTML.
-We were facing the need to share layout components such as header and footer. Or building a dashboard, which integrates widgets from several web applications. We don't want to create libraries or something like that, because it is coupling the frameworks and their versions to the applications. The micro frontend pattern is exactly what we need.
+We are using the [self-contained systems](https://scs-architecture.org/) architecture in my current project. This is a special variation of the micro frontend pattern. Self-contained systems consist of multiple scalable and independent deployable web applications which are preferably linked together via HTML.
+We were facing the need to share layout components such as header and footer. Or building a dashboard, which integrates widgets from several web applications. We don't want to create libraries or something like that, because it would couple the frameworks and their versions to the applications. The micro frontend pattern is exactly what we need.
 
-The sounds great. Unfortunately, the technologies (i.e. the web frameworks) did not catch up yet. And because Angular, React and VueJs are not ready for this scenario, a lot of manual work is required to compose a micro frontend application.
+This sounds great. Unfortunately, the technologies (i.e. the web frameworks) did not catch up yet. And because Angular, React and VueJs are not ready for this scenario, a lot of manual work is required to compose a micro frontend application.
 
 ## Techniques to compose the UI with micro frontends
 
@@ -36,7 +36,7 @@ There are multiple ways how we can compose micro frontends together:
 
 * Integrate the HTML via iFrame. This is quite old school, but it works. iFrame integration sounds easy, but I spent a lot of time in the past on sizing and responsiveness working across the applications.
 
-* Load and integrate the HTML via vanilla javascript. This is very painful to get it right. HTML requires javascript files, styles etc. It is a lot of manual work to load everything and make it work.
+* Load and integrate the HTML via vanilla javascript. This is very painful to get it right. HTML requires JavaScript files, styles etc. It is a lot of manual work to load everything and make it work.
 
 * A modern approach would be integrating them via WebComponents. Web components can be loaded dynamically at runtime and is a standardized way of doing that with vanilla JS. And there are plenty of frameworks out there to build WebComponents.
 
@@ -57,7 +57,7 @@ This is quite shocking. The Stencil.js bundle size is only around 24% of Angular
 
 With this result, we decided to implement our layout components with Stencil.js.
 
-## Create and Stencil project
+## Create a Stencil project
 
 Let's have a look at our setup with StencilJS and the integration in our Angular applications. We are using [NX](https://nx.dev/) for our UI workspaces. Let's create an NX workspace with a StencilJS project.
 
@@ -103,7 +103,7 @@ export class MyHeader {
 }
 ```
 
-I will not be going to write a StencilJS tutorial at this place. But one thing I need to mention. Stencil provides several [output targets](https://stenciljs.com/docs/output-targets). We actually want to have a single file bundle which would be the `dist-custom-elements-bundle` out target. Unfortunately, this has been deprecated. We use its successor `dist-custom-elements`. It does basically the same thing but produces a js file per component. This is the better way because it is better to load several smaller bundles than a large one. It will also be better for leveraging `http2`. We would prefer a single file because it means less file handling in our frontend's, but we can work with that.
+I will not be going to write a StencilJS tutorial at this place. But one thing I need to mention. Stencil provides several [output targets](https://stenciljs.com/docs/output-targets). We actually want to have a single file bundle which would be the `dist-custom-elements-bundle` out target. Unfortunately, this has been deprecated. We use its successor `dist-custom-elements`. It does basically the same thing but produces a js file per component. This is the better way because it is better to load several smaller bundles than a large one. It will also be better for leveraging `http2`. We would prefer a single file because it means less file handling in our frontends, but we can work with that.
 
 ```json
 outputTargets: [
@@ -115,7 +115,7 @@ outputTargets: [
 
 Finally, we are deploying these output files in an Azure Blob Storage. But any static hosting would do the job.
 
-It sounds that easy, but nobody on our team had a real experience in StencilJS and especially in lazy load them in an Angular application. One problem worth mentioning is the handling of assets. If the component uses assets that get deployed, you need to make sure to load them with an absolute path. **Relative paths get resolved to the URL where the application is deployed**. We solved the problem by compiling everything (e.g. svg icons and json translation files) into the bundle. This way, we don't need to load them during the runtime.
+It sounds that easy, but nobody on our team had a real experience in StencilJS and especially in lazy load them in an Angular application. One problem worth mentioning is the handling of assets. If the component uses assets that get deployed, you need to make sure to load them with an absolute path. **Relative paths get resolved to the URL where the application is deployed**. We solved the problem by compiling everything (e.g. SVG icons and JSON translation files) into the bundle. This way, we don't need to load them during the runtime.
 
 ## Consuming the WebComponents dynamically during run time
 
@@ -126,7 +126,7 @@ After creating and deploying our WebComponents, they need to be integrated into 
 <my-header></my-header>
 ```
 
-We found a nice library, [ANGULAR EXTENSIONS ELEMENTS](https://angular-extensions.github.io/elements/#/home), which makes it even easier to lazy load elements in Angular. It also supports displaying special components for the loading and error cases.
+We found a nice library, [Angular Extension Elements](https://angular-extensions.github.io/elements/#/home), which makes it even easier to lazy load elements in Angular. It also supports displaying special components for the loading and error cases.
 
 ```html
 <my-header *axLazyElement="headerUrl; errorTemplate: errorHeader; loadingTemplate: loading; module: true"></my-header>
@@ -138,7 +138,7 @@ One thing which needs to be done to make this work is defining the custom elemen
 @NgModule({
   declarations: [...],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [ LazyElementsModule],
+  imports: [LazyElementsModule],
 })
 ```
 
