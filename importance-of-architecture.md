@@ -16,7 +16,7 @@ However, this ignores that developers are their software's stakeholders too. Sof
 
 Both, implementing the behavior of the software and enforcing its architectural aspects require resources. As time and money are limited in software projects (at least those of which I have been a part), we ask ourselves which one to prioritize.
 
-# The Mere-Urgency Effect a.k.a. Why We're Bad at Prioritization
+## The Mere-Urgency Effect a.k.a. Why We're Bad at Prioritization
 
 Already President Dwight D. Eisenhower recognized that we have difficulties answering that question. At the 1961 Century Association, he stated:
 
@@ -25,7 +25,7 @@ Already President Dwight D. Eisenhower recognized that we have difficulties answ
 This observation was recently confirmed by a [study](https://www.researchgate.net/publication/327103488_The_Mere_Urgency_Effect) in the Journal of Consumer Research. Researchers examined how people decide what to work on when faced with tasks of mixed urgency and importance. Across five experiments, they observed the following pattern:
 We tend to favor time-sensitive tasks over tasks that are less urgent, regardless of their long-term payoffs. This psychological quirk is called the *Mere-Urgency Effect.*
 
-# The Long-Term View
+## The Long-Term View
 
 In software projects, the software's behavior is usually urgent: If you ask the business managers, they'll say it's essential for the software to work. But this view can be challenged by examining the extremes. Look at the following example:
 
