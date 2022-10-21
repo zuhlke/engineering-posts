@@ -1,5 +1,5 @@
 ---
-title: Using tailwindcss with web components in LitElement
+title: Using tailwindcss with web components and ShadowDOM in LitElement
 domain: campzulu.hashnode.dev
 tags: web-development, tailwind-css, litelement, web-components, typescript, vite
 cover: https://cdn.hashnode.com/res/hashnode/image/unsplash/Im7lZjxeLhg/upload/v1666377414880/YI2XLcTuz.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
@@ -7,27 +7,27 @@ publishAs: r3dDoX
 ignorePost: true
 ---
 
-We recently wanted to use tailwindcss to help developers create maintainable styling. At the same
-time we were creating web components for a design system. This raises one big issue with tailwind
-since we were going to use ShadowDOM. This will prevent globally available tailwind utility classes
-to be available in our components. But with LitElement we found a good way to get the best of both
-worlds without having to disable ShadowDOM.
+We recently wanted to use tailwindcss to help developers at one of our customers create maintainable
+and scalable styling. At the same time we were creating web components for a design system. This
+raises one big issue with tailwind since we were going to use ShadowDOM. This will prevent globally
+available tailwind utility classes to be available in our components. But with LitElement we found a
+good way to get the best of both worlds without having to disable ShadowDOM!
 
 The source code referenced in this post can be
-found [here](https://github.com/r3dDoX/lit-tailwind-integration).
+found [on GitHub](https://github.com/r3dDoX/lit-tailwind-integration).
 
 ## Setup
 
-First off we want to have an easy and fast setup. We found lit and vite to be a great combination so
-I'm going to start with the vite template found [here](https://vitejs.dev/guide/):
+First off we want to have an easy and fast setup. We found lit and vite to be a great combination,
+so I'm going to start with the vite template found [in their guides](https://vitejs.dev/guide/):
 
 ```bash
 npm create vite@latest lit-tailwind-integration --template lit-ts
 ```
 
-This will setup a basic lit app with vite as our bundler and dev server. Next we need the basic
-setup for tailwind. I'll just install it like tailwind
-recommends [here](https://tailwindcss.com/docs/guides/vite#vue):
+This will set up a basic lit app with vite as our bundler and dev server. Next we need the setup for
+tailwind. I'll just install it like tailwind
+recommends [in their docs](https://tailwindcss.com/docs/guides/vite#vue):
 
 ```bash
 npm install -D tailwindcss postcss autoprefixer
@@ -36,8 +36,9 @@ npx tailwindcss init -p
 
 Before we look at the configuration lets have a look at what we got so far. We start with one
 component `my-element.ts` that has component-specific styling in the static `styles` property. Next
-to this we also have an `index.css` providing global styles for our page. All of this gets loaded in
-the `index.html` and that is already everything for our app. The rest is configuration and assets.
+to this we also have an `index.css` providing global styles for our page. All of these files get
+loaded in the `index.html` and that is already everything for our app. The rest is configuration and
+assets.
 
 ## Importing tailwind
 
@@ -63,15 +64,17 @@ bundler with ease.
 import globalStyles from './global.css?inline';
 ```
 
-Now to add them to the array of styles we need this css to be a `CSSResult`. Thankfully lit provides
-a method to parse CSS as plain string called `unsafeCSS`.
+Like this, we will get the whole CSS as a plain string in the variable `globalStyles`. Now to add
+them to the array of styles we need this CSS to be a `CSSResult`. Thankfully lit provides a method
+to parse CSS as plain string called `unsafeCSS`. Since we load our own CSS file and do not import
+or evaluate any user input here, we are safe.
 
 ```typescript
 @customElement('my-element')
 export class MyElement extends LitElement {
   static styles = [
     unsafeCSS(globalStyles),
-    css`[component styles]`,
+    css`[existing component styles]`,
   ]
 }
 ```
@@ -93,8 +96,8 @@ module.exports = {
 
 ## Testing it out
 
-To properly test it we need to use some of the tailwind classes. Lets just add some classes to one
-of our containers:
+To properly test it we need to use some tailwind classes. Let's just add some to one of our
+containers inside the component:
 
 ```html
 
@@ -115,20 +118,22 @@ of our containers:
 <p class="read-the-docs">${this.docsHint}</p>
 ```
 
-Lets run the app and go check the browser!
+Let's run the app and go check the browser!
 
 ![Test app with applied tailwindcss classes](https://cdn.hashnode.com/res/hashnode/image/upload/v1666381244612/c4nqXwrVA.png?auto=compress)
 
+Beautiful!
+
 ## But how does it work?
 
-The magic keyword is "constructable stylesheet". If you haven't heard of this yet, before lit I
+The magic keyword is "constructable stylesheets". If you haven't heard of this yet, before lit I
 didn't either. But here's a great blog post about how they work:
 [constructable stylesheets](https://web.dev/constructable-stylesheets/).
 
-We can see them in our dev tools next to the class names:
+The dev tools also help us by showing `constructed stylesheet` next to classes that originate from
+one of these.
 
 ![Dev tools showing constructed stylesheets](https://cdn.hashnode.com/res/hashnode/image/upload/v1666381493758/kwWhB-665.png?auto=compress)
-
 
 This way lit can use these stylesheets and reference them in the components. This means we will now
 have one constructed stylesheet with all the tailwind classes that have been found in our code which
