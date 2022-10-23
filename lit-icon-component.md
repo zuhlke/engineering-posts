@@ -71,10 +71,10 @@ export default class Icon extends LitElement {
 The dynamic import will return a promise with the loaded module. Our SVG string will be the default
 import, therefore we need to access the `default` property on this loaded module. What vite will do
 here is scan the folder in the dynamic import with the given partial filename and create modules for
-all files that could match it. At runtime it will be able to load the right files dynamically.
+all files that could match it. At runtime, it will be able to load the right files dynamically.
 
 LitElement provides a neat little directive `until` that will display something until a given
-promise is resolved. For now we will just return `nothing`. This may lead to unwanted layout shifts
+promise is resolved. For now, we will just return `nothing`. This may lead to unwanted layout shifts
 later but for our first test this should be good enough.
 
 ## Adding compression
