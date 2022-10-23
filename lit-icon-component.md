@@ -91,7 +91,7 @@ of the loaded SVGs. We only want the raw string for LitElement so we decided to 
 plugin using the well-known SVGO library for the compression part. You can check it out here if
 you're interested: [vite-plugin-svgo](https://github.com/r3dDoX/vite-plugin-svgo).
 
-So all we have to do now is declare the plugin in our `vite.config.ts`:
+So all we have to do is declaring the plugin in our `vite.config.ts`:
 
 ```typescript
 export default defineConfig({
