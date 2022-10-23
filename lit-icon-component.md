@@ -115,7 +115,7 @@ export default defineConfig({
 });
 ```
 
-All our icons have a specific `fill` which makes it hard to change the color of the svg. Therefore,
+All our icons have a specific `fill` which makes it hard to change the color of the icon. Therefore,
 we would like this to be the current text color for easier use of the icons. SVGO allows us to
 override the fill attribute with `currentColor` which will achieve exactly that. The closest text
 color will be used as the fill color of our icon.
