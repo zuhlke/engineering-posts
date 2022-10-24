@@ -16,6 +16,21 @@ good way to get the best of both worlds without having to disable ShadowDOM!
 The source code referenced in this post can be
 found [on GitHub](https://github.com/r3dDoX/lit-tailwind-integration).
 
+## The problem with ShadowDOM
+
+One of the basic promises of web components is the boundary that prevents styles from the outside
+leaking into the component. This is achieved with the introduction of the ShadowDOM, you can read
+more about it on
+[MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM). This way we can
+write web components that look the exact same way wherever they are used. The downside of this is
+our own global styles will also have no option to "pierce" through the ShadowDOM.
+
+There is options to allow specific elements in our web components to receive styling from the
+outside like [::part](https://developer.mozilla.org/en-US/docs/Web/CSS/::part) but this does not
+work for general styles that should be assignable on every element we want. So we need to come up
+with a way to have tailwind utility classes in each of our components without having to copy them.
+Let's get started!
+
 ## Setup
 
 First off we want to have an easy and fast setup. We found lit and vite to be a great combination,
