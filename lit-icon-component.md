@@ -87,13 +87,44 @@ content. We would like to add compression in multiple ways:
 3. Remove redundant, useless or deprecated attributes
 
 After some research we found most current plugins for vite create either react or vue components out
-of the loaded SVGs. We only want the raw string for LitElement so we decided to write our own small
-plugin using the well-known SVGO library for the compression part. You can check it out here if
-you're interested: [vite-plugin-svgo](https://github.com/r3dDoX/vite-plugin-svgo).
+of the loaded SVGs. We only want the raw string for LitElement, so we decided to write our own small
+plugin using the well-known [SVGO](https://github.com/svg/svgo) library for the compression part.
+You can check it out here if you're
+interested: [vite-plugin-svgo](https://github.com/r3dDoX/vite-plugin-svgo).
 
 So all we have to do is declaring the plugin in our `vite.config.ts`:
 
 ```typescript
+import svg from 'vite-plugin-svgo';
+
+export default defineConfig({
+  // rest of config omitted
+  plugins: [
+    svg(),
+  ]
+});
+```
+
+This will let vite load SVG files and compress them on the fly. Since the plugin is now able to load
+SVG files without any flag we can get rid of `?raw` and let our plugin decide how to handle SVG
+files properly.
+
+```typescript
+import(`../assets/icons/${IconMap[this.icon]}.included.svg`)
+```
+
+## SVGO optimizations
+
+All our icons have a specific `fill` which makes it hard to change the color of the icon. Since we
+are using the ShadowDOM, we are not easily able to change the `fill` attribute via CSS from outside
+the component. Therefore, we would like this to be the current text color for easier use of the
+icons. SVGO allows us to override the fill attribute with `currentColor` which will achieve exactly
+that. The closest text color will be used as the fill color of our icon. Since text colors get
+inherited even through the ShadowDOM this will allow us to easily set the color of used icons.
+
+```typescript
+import svg from 'vite-plugin-svgo';
+
 export default defineConfig({
   // rest of config omitted
   plugins: [
@@ -114,19 +145,6 @@ export default defineConfig({
   ]
 });
 ```
-
-All our icons have a specific `fill` which makes it hard to change the color of the icon. Therefore,
-we would like this to be the current text color for easier use of the icons. SVGO allows us to
-override the fill attribute with `currentColor` which will achieve exactly that. The closest text
-color will be used as the fill color of our icon.
-
-Now there is one last change to do since the plugin is now able to load SVG files without any flag:
-
-```typescript
-import(`../assets/icons/${IconMap[this.icon]}.included.svg`)
-```
-
-We can get rid of `?raw` and let our plugin decide how to handle SVG files properly.
 
 ## Going forward
 
