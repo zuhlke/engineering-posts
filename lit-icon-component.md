@@ -35,6 +35,7 @@ The `?raw` will tell vite to load the file as a raw string. Together this will l
 this:
 
 ```typescript
+import {customElement} from 'lit/decorators.js';
 import {LitElement} from 'lit';
 import icon from './assets/icons/icon.svg?raw';
 
@@ -52,6 +53,7 @@ We saw how to load one icon. What we need for our component is to load any given
 this we need to add a property which can be passed from outside the component and a dynamic import.
 
 ```typescript
+import {customElement, property} from 'lit/decorators.js';
 import {LitElement, nothing} from 'lit';
 import {until} from 'lit-html/directives/until.js';
 
@@ -95,6 +97,7 @@ interested: [vite-plugin-svgo](https://github.com/r3dDoX/vite-plugin-svgo).
 So all we have to do is declaring the plugin in our `vite.config.ts`:
 
 ```typescript
+import { defineConfig } from 'vite';
 import svg from 'vite-plugin-svgo';
 
 export default defineConfig({
@@ -123,6 +126,7 @@ that. The closest text color will be used as the fill color of our icon. Since t
 inherited even through the ShadowDOM this will allow us to easily set the color of used icons.
 
 ```typescript
+import { defineConfig } from 'vite';
 import svg from 'vite-plugin-svgo';
 
 export default defineConfig({
