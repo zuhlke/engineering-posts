@@ -11,7 +11,7 @@ Recently we started working on a design system at one of our customers. One of t
 to create quite early in the process was an icon component loading their custom icons.
 
 Since there is a considerable amount of icons, we wanted to make sure, that they are loaded lazily.
-As a tool to write our web components we use LitElement without any other ui framework around it.
+As a tool to write our web components we use [LitElement](https://lit.dev/docs/) without any other ui framework around it.
 Therefore, we set out to implement our own custom small and simple lit component meeting these
 requirements.
 
