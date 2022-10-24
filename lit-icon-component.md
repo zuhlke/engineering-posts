@@ -73,7 +73,8 @@ export default class Icon extends LitElement {
 The dynamic import will return a promise with the loaded module. Our SVG string will be the default
 import, therefore we need to access the `default` property on this loaded module. What vite will do
 here is scan the folder in the dynamic import with the given partial filename and create modules for
-all files that could match it. At runtime, it will be able to load the right files dynamically.
+all files that could match it. At runtime, it will be able to load the right files dynamically. It's
+important to note, that vite will only scan this folder and no descendants of it.
 
 LitElement provides a neat little directive `until` that will display something until a given
 promise is resolved. For now, we will just return `nothing`. This may lead to unwanted layout shifts
@@ -97,7 +98,7 @@ interested: [vite-plugin-svgo](https://github.com/r3dDoX/vite-plugin-svgo).
 So all we have to do is declaring the plugin in our `vite.config.ts`:
 
 ```typescript
-import { defineConfig } from 'vite';
+import {defineConfig} from 'vite';
 import svg from 'vite-plugin-svgo';
 
 export default defineConfig({
@@ -126,7 +127,7 @@ that. The closest text color will be used as the fill color of our icon. Since t
 inherited even through the ShadowDOM this will allow us to easily set the color of used icons.
 
 ```typescript
-import { defineConfig } from 'vite';
+import {defineConfig} from 'vite';
 import svg from 'vite-plugin-svgo';
 
 export default defineConfig({
