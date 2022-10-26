@@ -110,7 +110,7 @@ the `calc()` ([MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/calc)) func
 
 Sass has various helper functions to adjust color values which currently is not possible with CSS.
 What we were mostly missing were functions like: `darken()` or `lighten()`. Right now we were able
-to work around this by having a few more variables holding these variables.
+to work around this by having a few more variables holding these adapted color values.
 
 In the future we should have this functionality (and much more) in CSS described very well [in this
 blog post](https://blog.jim-nielsen.com/2021/css-relative-colors/)
