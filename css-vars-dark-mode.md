@@ -50,7 +50,7 @@ CSS syntax:
 
 ```css
 :root {
-    --test-var: #1e90ff;
+    --test-var: 13rem;
 }
 
 .test {
