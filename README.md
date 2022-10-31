@@ -9,3 +9,6 @@ When you are ready you can then open a pull request to this repository and set s
 
 ## Upload and use pictures
 To use pictures you can upload them with the Hashnode [uploader tool](https://hashnode.com/uploader). This will output a url which you can include in your blog post.
+
+## Links
+It seems that Hashnode adds backslashes when using underscore in a URL. So encode underscores with "%5F".
