@@ -112,8 +112,8 @@ Sass has various helper functions to adjust color values which currently is not 
 What we were mostly missing were functions like: `darken()` or `lighten()`. Right now we were able
 to work around this by having a few more variables holding these adapted color values.
 
-In the future we should have this functionality (and much more) in CSS described very well [in this
-blog post](https://blog.jim-nielsen.com/2021/css-relative-colors/)
+In the future we should have this functionality (and much more) in CSS, which is described very well 
+[in this blog post](https://blog.jim-nielsen.com/2021/css-relative-colors/).
 
 # Actual Implementation of Dark Mode
 
