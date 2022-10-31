@@ -5,6 +5,7 @@ domain: campzulu.hashnode.dev
 tags: architecture, software-architecture, design-and-architecture
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1665328931237/kXGgAFOdK.jpg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
 publishAs: romanutti
+ignorePost: false
 ---
 
 A software project generally has different stakeholders.
