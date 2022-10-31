@@ -22,7 +22,7 @@ Already President Dwight D. Eisenhower recognized that we have difficulties answ
 
 > Who can define for us with accuracy the difference between the long and short term! Especially whenever our affairs seem to be in crisis, we are almost compelled to give our first attention to the urgent present rather than to the important future.
 
-This observation was recently confirmed by a [study](https://www.researchgate.net/publication/327103488_The_Mere_Urgency_Effect) in the Journal of Consumer Research. Researchers examined how people decide what to work on when faced with tasks of mixed urgency and importance. Across five experiments, they observed the following pattern:
+This observation was recently confirmed by a [study](https://www.researchgate.net/publication/327103488\_The\_Mere\_Urgency\_Effect) in the Journal of Consumer Research. Researchers examined how people decide what to work on when faced with tasks of mixed urgency and importance. Across five experiments, they observed the following pattern:
 We tend to favor time-sensitive tasks over tasks that are less urgent, regardless of their long-term payoffs. This psychological quirk is called the *Mere-Urgency Effect.*
 
 ## The Long-Term View
