@@ -1,3 +1,12 @@
+---
+title: An Introduction to Unit Testing
+domain: campzulu.hashnode.dev
+tags: Unit Testing, C#, NUnit
+cover: 
+publishAs: fabioscagliola
+ignorePost: true
+---
+
 # An Introduction to Unit Testing
 
 This article provides an introduction to unit testing.
@@ -34,25 +43,15 @@ Integration tests are any tests that aren’t fast and consistent, and that use 
 
 ### Integration tests drawbacks
 
-If a test uses the real database, then it’s no longer only running in memory; in that, its actions are harder to erase than when using only in-memory fake data.
-
-Integration tests increase the risk of another problem: testing too many things at once.
-
-In an integration test you can have many failure points and, therefore, finding the cause of the problem is harder.
-
-An integration test uses real dependencies.
+If a test uses the real database, then it’s no longer only running in memory; in that, its actions are harder to erase than when using only in-memory fake data. Integration tests increase the risk of another problem: testing too many things at once. In an integration test you can have many failure points and, therefore, finding the cause of the problem is harder. An integration test uses real dependencies.
 
 ### Unit tests vs integration tests
 
-Can I run and get results from the test I wrote two weeks, months, or years ago?
-
-Can any member of my team run and get results from tests I wrote two months ago?
-
-Can I run all the tests I’ve written in no more than a few minutes?
-
-Can I run all the tests I’ve written at the push of a button?
-
-Can I write a basic test in no more than a few minutes?
+- Can I run and get results from the test I wrote two weeks, months, or years ago?
+- Can any member of my team run and get results from tests I wrote two months ago?
+- Can I run all the tests I’ve written in no more than a few minutes?
+- Can I run all the tests I’ve written at the push of a button?
+- Can I write a basic test in no more than a few minutes?
 
 If the answer to one or more of the questions above is no, then I have stepped into the realm of integration testing.
 
@@ -68,11 +67,11 @@ When refactoring your code (refactoring means changing a piece of code without c
 
 ### Types of unit testing
 
-Value-based testing checks the value returned from a function.
+**Value-based testing** checks the value returned from a function.
 
-State-based testing is about checking for noticeable behavior changes.
+**State-based testing** is about checking for noticeable behavior changes.
 
-Interaction testing is testing how an object sends messages (i.e. calls methods) to other objects. You use interaction testing when calling another object is the end result of a specific unit of work.
+**Interaction testing** is testing how an object sends messages (i.e. calls methods) to other objects. You use interaction testing when calling another object is the end result of a specific unit of work.
 
 ## Unit testing in practice
 
@@ -80,9 +79,7 @@ This section introduces the xUnit testing frameworks.
 
 ### Unit testing frameworks
 
-Unit tests are written as code, using libraries from the unit testing framework.
-
-The tests are run from a separate unit testing tool or inside the IDE, and the results are reviewed (either as output text, the IDE, or the unit testing framework application UI) by the developer or an automated build process.
+Unit tests are written as code, using libraries from the unit testing framework. The tests are run from a separate unit testing tool or inside the IDE, and the results are reviewed (either as output text, the IDE, or the unit testing framework application UI) by the developer or an automated build process.
 
 ### The xUnit frameworks
 
@@ -116,11 +113,7 @@ An external dependency is an object in your system that your code under test int
 
 ### Fakes: stubs and mocks
 
-A fake is a generic term that can describe either a stub or a mock.
-
-A stub is a controllable replacement for an existing dependency: by using a stub, you can test your code without dealing with the dependency directly.
-
-Mocks are just like stubs, but you can assert against the mock object, whereas you do not assert against a stub.
+A fake is a generic term that can describe either a stub or a mock. A stub is a controllable replacement for an existing dependency: by using a stub, you can test your code without dealing with the dependency directly. Mocks are just like stubs, but you can assert against the mock object, whereas you do not assert against a stub.
 
 ### Abstraction and dependency injection
 
@@ -128,13 +121,7 @@ When you cannot test something, either you add a layer that wraps up the calls t
 
 ### Refactoring
 
-Refactoring means changing a piece of code without changing its functionality.
-
-There are two types of dependency-breaking refactoring, and one depends on the other: abstracting concrete objects into interfaces, and refactoring to allow the injection of fakes of those interfaces.
-
-In order to abstract concrete objects into interfaces, extract an interface to allow replacing the underlying implementation.
-
-In order to allow the injection of fakes of the interfaces, inject a stub into a class under test, inject a mock using a constructor, inject a mock using a property, or inject a mock using a method.
+Refactoring means changing a piece of code without changing its functionality. There are two types of dependency-breaking refactoring, and one depends on the other: abstracting concrete objects into interfaces, and refactoring to allow the injection of fakes of those interfaces. In order to abstract concrete objects into interfaces, extract an interface to allow replacing the underlying implementation. In order to allow the injection of fakes of the interfaces, inject a stub into a class under test, inject a mock using a constructor, inject a mock using a property, or inject a mock using a method.
 
 ### Isolation frameworks
 
@@ -150,7 +137,7 @@ This section describes the examples included in my unit testing training project
 
 The **UnitTesting01.cs** file includes two unit tests that verify the Boolean values returned by the  `IsRedBloodCell`  method of the  `OpticalSensor`  class.
 
-```c#
+```csharp
 using NUnit.Framework;
 
 namespace UnitTesting01
@@ -198,7 +185,7 @@ namespace UnitTesting01
 
 The **UnitTesting02.cs** file introduces the use of the  `TestCase`  attribute to merge the two unit tests of example 1 into one test that verifies the Boolean values returned by the  `IsRedBloodCell`  method of the  `OpticalSensor`  class.
 
-```c#
+```csharp
 using NUnit.Framework;
 
 namespace UnitTesting02
@@ -240,7 +227,7 @@ namespace UnitTesting02
 
 The **UnitTesting03.cs** file, in addition to what is sown in example 2, demonstrates how to test for an exception that may now be thrown by the  `IsRedBloodCell`  method of the  `OpticalSensor`  class.
 
-```c#
+```csharp
 using NUnit.Framework;
 using System;
 
@@ -296,7 +283,7 @@ namespace UnitTesting03
 
 All the previous files provide examples of value-based testing (checking the value returned by a method). The **UnitTesting04.cs** file provides an example of state-based testing (checking for noticeable behavior changes).
 
-```c#
+```csharp
 using NUnit.Framework;
 
 namespace UnitTesting04
@@ -348,7 +335,7 @@ namespace UnitTesting04
 
 In the **UnitTesting05.cs** file, the  `GoHome`  method of the  `PressController`  class depends on some piece of hardware; the dependency is now simulated by throwing an exception; in such a scenario, unless we get rid of the dependency, the unit test can only verify that the exception is thrown.
 
-```c#
+```csharp
 using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
@@ -415,7 +402,7 @@ namespace UnitTesting05
 
 In the **UnitTesting06.cs** file, the  `IPressController`  interface is extracted from the  `PressController`  class, and two stubs are introduced: the  `PressControllerStub`  class and the  `PressControllerStubNotGoingHome`  class, both implementing the  `IPressController`  interface; with minor adjustments to the  `Extraction`  class and to the unit tests, the code is now covered: we got rid of the dependency using the stubs; please note that we never make assertions against the stubs.
 
-```c#
+```csharp
 using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
@@ -521,7 +508,7 @@ namespace UnitTesting06
 
 In the **UnitTesting07.cs** file, the  `Open`  method of the  `ClampController`  class depends on some piece of hardware; the dependency is now simulated by throwing an exception; in such a scenario, unless we get rid of the dependency, the unit test can only verify that the exception is thrown.
 
-```c#
+```csharp
 using NUnit.Framework;
 using System;
 
@@ -588,7 +575,7 @@ namespace UnitTesting07
 
 In the **UnitTesting08.cs** file, the  `IClampController`  interface is extracted from the  `ClampController`  class, and the  `ClampControllerMock`  class is introduced as a mock, implementing the  `IClampController`  interface; with minor adjustments to the  `Extraction`  class and to the unit test, the code is now covered: we got rid of the dependency using the mock; please note that we do make assertions against the mock. In this example the mock is injected using a constructor.
 
-```c#
+```csharp
 using NUnit.Framework;
 using System;
 
@@ -680,7 +667,7 @@ namespace UnitTesting08
 
 In this example the mock is injected using a method.
 
-```c#
+```csharp
 using NUnit.Framework;
 using System;
 
@@ -768,7 +755,7 @@ namespace UnitTesting09
 
 In this example the mock is injected using a property.
 
-```c#
+```csharp
 using NUnit.Framework;
 using System;
 
