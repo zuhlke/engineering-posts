@@ -13,7 +13,7 @@ At one of our customers, we therefore migrated the existing Protractor tests to 
 We used this as a chance to improve the tests themselves.
 One way to do this were Cypress app actions.
 
-## The Problem
+# The Problem
 
 <!--
     - repeating actions going through ui 
@@ -22,14 +22,14 @@ One way to do this were Cypress app actions.
     - different ports/apps, CORS handling
 -->
 
-## App Actions
+# App Actions
 
 <!--
     - link to Cypress best practices about app actions
     - explanation of purpose and functionality
 -->
 
-## Angular
+# Angular
 
 <!--
     - how to setup in Angular
@@ -55,6 +55,13 @@ export class BackendService {
     // ...
 }
 ```
+
+# Abstraction through Commands
+
+<!--
+    - add Command and Utils function
+    - reasoning
+-->
 
 `cypress/support/commands.ts`:
 ```typescript
@@ -87,13 +94,6 @@ declare global {
 }
 ```
 
-## Abstraction through Commands
-
-<!--
-    - add Command and Utils function
-    - reasoning
--->
-
 `cypress/support/utils.ts`:
 ```typescript
 export function createNewItem(itemName: string): void {
@@ -102,4 +102,4 @@ export function createNewItem(itemName: string): void {
 }
 ```
 
-## Conclusion
+# Conclusion
