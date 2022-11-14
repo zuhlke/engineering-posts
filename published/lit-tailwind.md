@@ -4,7 +4,6 @@ domain: campzulu.hashnode.dev
 tags: web-development, tailwind-css, litelement, web-components, typescript, vite
 cover: https://cdn.hashnode.com/res/hashnode/image/unsplash/Im7lZjxeLhg/upload/v1666377414880/YI2XLcTuz.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
 publishAs: r3dDoX
-ignorePost: true
 ---
 
 We recently wanted to use tailwindcss to help developers at one of our customers create maintainable
