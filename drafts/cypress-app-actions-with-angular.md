@@ -19,6 +19,7 @@ One way to do this were Cypress app actions.
     - repeating actions going through ui 
     - slow, brittle, many requests
     - due to structure of application and general testing strategy
+    - different ports/apps, CORS handling
 -->
 
 ## App Actions
@@ -40,14 +41,15 @@ One way to do this were Cypress app actions.
 ```typescript
 @Injectable()
 export class BackendService {
-
-    // ...
-
     constructor() {
         if (window.hasOwnProperty('Cypress')) {
             window.app4cy = window.app4cy ?? {};
             window.app4cy.BackendService = this;
         }
+    }
+
+    public get<T>(url: string): Observable<T> {
+        return this.http.get<T>(url);
     }
 
     // ...
@@ -56,22 +58,6 @@ export class BackendService {
 
 `cypress/support/commands.ts`:
 ```typescript
-declare global {
-    namespace Cypress {
-        // ...
-
-        /**
-         * Make a request to API via the Angular app's `BackendService`.
-         * ...
-         */
-        interface Chainable<Subject> {
-            backendRequest<M extends keyof BackendService>(method: M, ...args: Parameters<BackendService[M]>): Chainable<ReturnType<BackendService[M]>>;
-        }
-    }
-}
-
-// ...
-
 Cypress.Command.add('backendRequest',
     {prevSubject: false},
     <M extends keyof BackendService>(method: M, ...args: Parameters<BackendService[M]>) =>
@@ -81,6 +67,24 @@ Cypress.Command.add('backendRequest',
         // @ts-ignore (TS compiler sadly struggles with the relationship between "method" and "args")
         .then(async (service: BackendService) => firstValueFrom(service[method](..args)))
 );
+```
+
+`cypress/support/commands.ts`:
+```typescript
+declare global {
+    namespace Cypress {
+        /**
+         * Make a request to API via the Angular app's `BackendService`.
+         * ...
+         */
+        interface Chainable<Subject> {
+            backendRequest<M extends keyof BackendService>(
+                method: M,
+                ...args: Parameters<BackendService[M]>
+            ): Chainable<ReturnType<BackendService[M]>>;
+        }
+    }
+}
 ```
 
 ## Abstraction through Commands
