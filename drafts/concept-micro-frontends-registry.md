@@ -1,7 +1,7 @@
 ---
 title: A conceptual idea for building a registry to access micro frontend's
 domain: campzulu.hashnode.dev
-tags: web-development, angular, microservices, software-architecture, javascript
+tags: web-development, microservices, software-architecture, frontend, frontend-development, web-components
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1668423299979/YPcjXO5yK.jpg?auto=compress
 publishAs: lehmamic
 ignorePost: true
