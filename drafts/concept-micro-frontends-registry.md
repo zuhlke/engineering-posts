@@ -7,11 +7,11 @@ publishAs: lehmamic
 ignorePost: true
 ---
 
-This time I am not going to write about experiences I made in my daily life as an software architect and developer. But I will dump my brain about about something that currently flutters around in my head. This is more of a conceptual nature.
+This time I am not going to write about experiences I made in my daily life as an software architect and developer. But I will dump my brain about about something that currently flutters around in my head. This is more of conceptual nature.
 
 ## What's pinching me?
 
-So, what is the problem which makes me writing this article? In my current project we working with a [Self Contained System Architecture](https://scs-architecture.org/), short SCS, combined with a minimal [Micro Frontend](https://micro-frontends.org/) approach. We dynamically integrate web components from other SCS to keep the responsibility of rendering the data in the SCS which is responsible for the corresponding data. We call that *widgets*.
+So, what is the problem that makes me writing this article? In my current project we working with a [Self Contained System Architecture](https://scs-architecture.org/), short SCS. Combined with a minimal [Micro Frontend](https://micro-frontends.org/) approach. We dynamically integrate web components from other SCS to keep the responsibility of rendering the data in the SCS where the corresponding data belongs to. In the project, we generally are talking about *widgets*.
 
 ![Self Contained Systems with Widgets](https://cdn.hashnode.com/res/hashnode/image/upload/v1668429113017/1Yp5XUXPE.png?auto=compress)
 
