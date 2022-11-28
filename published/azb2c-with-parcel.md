@@ -5,7 +5,6 @@ domain: campzulu.hashnode.dev
 tags: web-development, azure, build-tool, sass
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1663572757122/uN-z_ruLg.jpg?auto=compress
 publishAs: csalv
-ignorePost: true
 ---
 
 
