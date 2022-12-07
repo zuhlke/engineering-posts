@@ -27,32 +27,40 @@ As first, we started to brainstorm individually for about 10 minutes and collect
 
 <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1670406732876/FXyyefueU.png?auto=compress" alt="domain-event" width="100"/>
 
-The collected events can be chaotic on the board. But that's okay. The important benefit of this step is that it gives everyone the chance to think off and collect events from their perspective.
+The collected events can be chaotic and redundant on the board. That is okay. The important benefit of this step is that it gives everyone the chance to think off and collect events from their perspective.
 
 **2. Pick some pivotal events (~5min)**
 
-**3. Arrange events in a timeline (~30min)**
+As next step, we tried to pick few pivotal events together. A pivotal event means it is a very significant event in the process. They are very helpful to initially set the timeline. An example of the initial timeline with few pivotal events would look as shown below.
 
-**4. Storytelling (~2min)**
+![Pivotal Events](https://cdn.hashnode.com/res/hashnode/image/upload/v1670414430346/KeLQdHR4t.png?auto=compress)
 
-## Result
+| *Source: https://leanpub.com/ddd_first_15_years – Discovering Bounded Contexts with EventStorming — Alberto Brandolini*
 
-The example above is not a real-life scenario of the software system.
+Tip: Don't spend too much time on discussing if it is a pivotal event or not. The main purpose of this step is to have a widespread timeline as a baseline.
+
+**3. Order the events in a timeline (~30min)**
+
+In the next step, we started to order the remaining domain events in-between the pivotal events. Thereby, we enforce a timeline and remove any duplicates. If two events could happen in any order (also known as `causally unrelated`), put the sticky notes in parallel.
+
+During the discussion, a domain event could trigger some questions, problems or conflicts. It is well worth to capture them as shown below and continue with the ordering.
+
+<img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1670417329757/gShyOCEmz.png?auto=compress" alt="hot spots" width="150"/>
+
+**4. Recap (~5min)**
+
+Once the events were ordered in a timeline, we recaped the session by briefly telling a story based on the events from left to right. This short summary gave us a good overview of the process flow.
+
+The final output of the session looks as shown below. 
 
 ![Event Storming](https://cdn.hashnode.com/res/hashnode/image/upload/v1670243304928/PlghMRLDK.png?auto=compress)
 
 ## Next Steps
 
 
+
 ## Key Takeaways
 
-
-
-## Another Example
-
-UNO
-
-![UNO Event Storming](https://raw.githubusercontent.com/tk-codes/uno/master/doc/event-storming.jpg)
 
 ## Helpful Resources
 * [Event Storming Glossary & Cheet Sheet](https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet)
