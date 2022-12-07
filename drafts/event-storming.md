@@ -19,7 +19,15 @@ The result of the meeting is sticky notes spread around in a feasible timeline. 
 
 ## The Procedure
 
-**1. Collect events individually (~10min)**
+To practise during the DDD Topic Team meeting, we decided to do event storming for the time period between the marriage proposal💍 and the wedding 👰🤵. It was not a real work example for desigining a software system, however it was good to understand the method outside software development.
+
+**1. Collect domain events individually (~10min)**
+
+As first, we started to brainstorm individually for about 10 minutes and collected possible domain events. An event is written in the passive form (e.g. *Invitations are sent*) and denoted in an orange sticky as shown below.
+
+<img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1670406732876/FXyyefueU.png?auto=compress" alt="domain-event" width="100"/>
+
+The collected events can be chaotic on the board. But that's okay. The important benefit of this step is that it gives everyone the chance to think off and collect events from their perspective.
 
 **2. Pick some pivotal events (~5min)**
 
@@ -28,6 +36,8 @@ The result of the meeting is sticky notes spread around in a feasible timeline. 
 **4. Storytelling (~2min)**
 
 ## Result
+
+The example above is not a real-life scenario of the software system.
 
 ![Event Storming](https://cdn.hashnode.com/res/hashnode/image/upload/v1670243304928/PlghMRLDK.png?auto=compress)
 
