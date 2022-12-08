@@ -23,9 +23,9 @@ To practise during the DDD Topic Team meeting, we decided to do event storming f
 
 **1. Collect domain events individually (~10min)**
 
-As first, we started to brainstorm individually for about 10 minutes and collected possible domain events. An event is written in the passive form (e.g. *Invitations are sent*) and denoted in an orange sticky as shown below.
+As first, we started to brainstorm individually for about 10 minutes and collected possible domain events. An event is written in the passive form, for example *'Invitations (are) sent'*, and denoted in an orange sticky as shown below.
 
-<img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1670406732876/FXyyefueU.png?auto=compress" alt="domain-event" width="100"/>
+<img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1670502974569/BCP4uy8Du.png?auto=compress" alt="domain-event" width="100"/>
 
 The collected events can be chaotic and redundant on the board. That is okay. The important benefit of this step is that it gives everyone the chance to think off and collect events from their perspective.
 
@@ -47,7 +47,7 @@ During the discussion, a domain event could trigger some questions, problems or 
 
 <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1670417329757/gShyOCEmz.png?auto=compress" alt="hot spots" width="150"/>
 
-**4. Recap (~5min)**
+**4. Recap (~3min)**
 
 Once the events were ordered in a timeline, we recaped the session by briefly telling a story based on the events from left to right. This short summary gave us a good overview of the process flow.
 
@@ -55,12 +55,18 @@ The final output of the session looks as shown below.
 
 ![Event Storming](https://cdn.hashnode.com/res/hashnode/image/upload/v1670243304928/PlghMRLDK.png?auto=compress)
 
-## Next Steps
-
-
-
 ## Key Takeaways
 
+* Every participant is engaged in the meeting thanks to the hands-on approach. They can share their domain knowledge and learn from each other.
+* Event storming is simple. There is no UML-like notation, so both technical and non-technical stakeholders can understand and communicate easily.
+* Since all stakeholders can join, event storming is a good starting point to initiate discussions and discover gaps through the collective effort.
+* The output of the meeting gives a good overview of the business process and lays the foundation to further development.
 
-## Helpful Resources
-* [Event Storming Glossary & Cheet Sheet](https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet)
+## Further Steps
+
+In addition to domain events, the timeline could be further extended by adding actors, commands, external systems etc. Please refer to [Event Storming Glossary & Cheet Sheet](https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet) for more information.
+
+---
+
+Have you done Event Storming in your projects? What are your experiences? Please share them in the comment below.
+
