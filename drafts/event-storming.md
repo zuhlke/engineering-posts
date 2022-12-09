@@ -46,7 +46,7 @@ Tip: Do not spend too much time discussing whether it is a pivotal event or not.
 
 In the next step, we started to order the remaining domain events in-between the pivotal events. Thereby, we enforce a timeline and remove any duplicates. If two events could happen in any order (also known as `causally unrelated`), put the sticky notes in parallel.
 
-During the discussion, a domain event could trigger some questions, problems, or conflicts. It is well worth capturing them as shown below and continue with the ordering.
+During the discussion, a domain event could trigger some questions, problems, or conflicts. It is well worth capturing them as shown below. In such a case, the discussion should then be stopped and clarified later so that the event storming and the ordering could be continued.
 
 <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1670417329757/gShyOCEmz.png?auto=compress" alt="hot spots" width="150"/>
 
