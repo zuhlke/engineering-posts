@@ -13,7 +13,7 @@ At Zühlke, there is a **DDD Topic Team** to discuss about various topics relate
 
 ## What is Event Storming?
 
-Event Storming is a workshop-based method to collect all possible events that can happen in the system. This workshop takes place as one of the early meetings where software developers and domain experts bring in as much ideas/events as possible from their domain knowledge. This facilitates the participants to learn from each other and get the big picture of the problem domain.
+Event Storming is a workshop-based method to collect all possible domain events that can happen in the system. This workshop takes place as one of the early meetings where software developers and domain experts bring in as much ideas/events as possible from their domain knowledge. This facilitates the participants to learn from each other and get the big picture of the problem domain.
 
 The result of the meeting is sticky notes spread around in a feasible timeline. This artifact can then be used as a means for requirement engineering.
 
@@ -23,7 +23,10 @@ To practice during the DDD Topic Team meeting, we decided to do event storming f
 
 **1. Collect domain events individually (~10min)**
 
-Firstly, we started to brainstorm individually for about 10 minutes and collected possible domain events. An event is written in the passive form, for example *'Invitations (are) sent'*, and denoted in an orange sticky as shown below.
+Firstly, we started to brainstorm individually for about 10 minutes and collected possible domain events. A domain event is a significant occurance within a system that has an impact on one or more entities within the domain, for example sending invitations to the guests. These events are often used to trigger other actions within the system.
+
+
+A domain event is written in the passive form, for example *'Invitations (are) sent'*, and denoted in an orange sticky as shown below.
 
 <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1670502974569/BCP4uy8Du.png?auto=compress" alt="domain-event" width="100"/>
 
