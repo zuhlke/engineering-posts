@@ -67,7 +67,11 @@ The final output of the session looks as shown below.
 
 ## Further Steps
 
-In addition to domain events, the timeline could be further extended by adding actors, commands, external systems etc. Please refer to [Event Storming Glossary & Cheet Sheet](https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet) for more information.
+In addition to domain events, the timeline could be further extended by adding actors, commands, external systems etc. Please refer to the following resources for more information:
+* [Glossary & Cheet Sheet by DDD Crew](https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet)
+* Book: [Introducing EventStorming - An act of Deliberate Collective Learning](https://leanpub.com/introducing_eventstorming)
+* YouTube: [Event Storming Demo & Discussion](https://youtu.be/xIB_VQVVWKk)
+* LinkedIn Learning: [Event Storming - Part of DDD Series by Allen Holub](https://www.linkedin.com/learning/software-architecture-domain-driven-design/demo-activities-flow?resume=false)
 
 ---
 
