@@ -7,8 +7,6 @@ publishAs: keerthikan
 ignorePost: true
 ---
 
-# DDD: How to do Event Storming?
-
 At Zühlke, there is a **DDD Topic Team** to discuss about various topics related to Domain-Driven-Design. Recently, we had a session about **Event Storming**. In this post, I would like to share how we did it and some key takeaways.
 
 ## What is Event Storming?
@@ -21,7 +19,7 @@ The result of the meeting is sticky notes spread around in a feasible timeline. 
 
 To practice during the DDD Topic Team meeting, we decided to do event storming for the time period between the marriage proposal💍 and the wedding 👰🤵. It was not a real work example, however it was good to understand the method outside software development context.
 
-**1. Collect domain events individually (~10min)**
+### 1. Collect domain events individually (~10min)
 
 Firstly, we started to brainstorm individually for about 10 minutes and collected possible domain events. A domain event is a significant occurance within a system that has an impact on one or more entities within the domain, for example sending invitations to the guests. These events are often used to trigger other actions within the system.
 
@@ -32,7 +30,7 @@ A domain event is written in the passive form, for example *'Invitations (are) s
 
 The collected events can be chaotic and redundant on the board. That is okay. The important benefit of this step is that it gives everyone the chance to think off and collect events from their perspective.
 
-**2. Pick some pivotal events (~5min)**
+### 2. Pick some pivotal events (~5min)
 
 As the next step, we tried to pick few pivotal events together. A pivotal event means it is a very significant event in the process. They are very helpful to initially set the timeline. An example of the initial timeline with a few pivotal events would look as shown below.
 
@@ -42,7 +40,7 @@ As the next step, we tried to pick few pivotal events together. A pivotal event 
 
 Tip: Do not spend too much time discussing whether it is a pivotal event or not. The main purpose of this step is to have a widespread timeline as a baseline.
 
-**3. Order the events in a timeline (~30min)**
+### 3. Order the events in a timeline (~30min)
 
 In the next step, we started to order the remaining domain events in-between the pivotal events. Thereby, we enforce a timeline and remove any duplicates. If two events could happen in any order (also known as `causally unrelated`), put the sticky notes in parallel.
 
@@ -50,7 +48,7 @@ During the discussion, a domain event could trigger some questions, problems, or
 
 <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1670417329757/gShyOCEmz.png?auto=compress" alt="hot spots" width="150"/>
 
-**4. Recap (~3min)**
+### 4. Recap (~3min)
 
 Once the events were ordered in a timeline, we recapped the session by briefly telling a story based on the events from left to right. This short summary gave us a good overview of the process flow.
 
