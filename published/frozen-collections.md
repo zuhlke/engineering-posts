@@ -1,7 +1,7 @@
 ---
 title: Blazor Project Structure
 domain: campzulu.hashnode.dev
-tags: .NET, C#, .NET 8
+tags: .NET, C#
 cover: https://linkdotnetblogstorage.azureedge.net/blog/20221121_Frozen/Thumbnail.jpg
 publishAs: linkdotnet
 ---
