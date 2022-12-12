@@ -18,11 +18,19 @@ One way to do this was using Cypress app actions.
 
 Due to the nature of the application, many tests required multiple steps to reach the desired start conditions.
 The existing tests would go through the same parts of the UI again and again.
-That was slow and often the source of flakiness on the CI.
+Other tests would rely on a pre-defined set of test data, which is left in an inconsistent state after an error.
+That caused the following tests that relied on the same data to also fail.
+All in all, this setup lead to slow tests and was often the source of flakiness on the CI.
 
-We first tried using `cy.request()` directly to set up and manipulate test data.
+Completely reorganising the end-to-end tests for an optimised flow through the application was not a viable option.
+We simply didn't have the time for it (or rather: it wasn't a high enough priority) and even then, we wouldn't be able to eliminate all issues.
+
+Looking at the capabilities of Cypress, we first tried using `cy.request()` to call the API directly to set up and manipulate test data.
 Sadly, for a couple of reasons, this turned into more effort than we were willing to put in.
-Especially since our Angular app already knew how to handle all communication with the API.
+On different stages, the app and API run on different ports and need respective credentials.
+Rather than configuring Cypress to work properly in every case, we wanted to rely on what we had.
+Our Angular app already knew how to handle all communication with the API. 
+So why not use that to our advantage?
 
 # App Actions
 
