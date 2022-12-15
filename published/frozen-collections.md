@@ -4,6 +4,7 @@ domain: campzulu.hashnode.dev
 tags: net, csharp
 cover: https://linkdotnetblogstorage.azureedge.net/blog/20221121_Frozen/Thumbnail.jpg
 publishAs: LinkDotNet
+hideFromHashnodeCommunity: false
 ---
 
 .NET 7 was freshly released but Microsoft does not sleep. .NET 8 is already in the making and I want to showcase to you one new area where the dotnet team is working on **Frozen collections**. 
