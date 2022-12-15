@@ -5,6 +5,7 @@ tags: web-development, angular, microservices, software-architecture, javascript
 cover: https://cdn.hashnode.com/res/hashnode/image/unsplash/ok10xLscBDo/upload/v1656322995141/sjo2_6C6u.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
 publishAs: lehmamic
 ignorePost: true
+hideFromHashnodeCommunity: false
 ---
 
 Micro frontends is an emerging frontend architecture pattern defined by [Martin Fowler](https://martinfowler.com/articles/micro-frontends.html). The pattern slices a web frontend into loosely coupled, scaleable, and independent deployable components.
@@ -21,7 +22,7 @@ But with the micro frontends architecture pattern, we have a tool in our hand to
 
 ![scs.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1657876204859/2qYNvTWb2.png align="center")
 
-## Sharing the layout in self-contained systems 
+## Sharing the layout in self-contained systems
 
 We are using the [self-contained systems](https://scs-architecture.org/) architecture in my current project. This is a special variation of the micro frontend pattern. Self-contained systems consist of multiple scalable and independent deployable web applications which are preferably linked together via HTML.
 We were facing the need to share layout components such as header and footer. Or building a dashboard, which integrates widgets from several web applications. We don't want to create libraries or something like that, because it would couple the frameworks and their versions to the applications. The micro frontend pattern is exactly what we need.
@@ -34,11 +35,11 @@ So let's have a look at our approach for building micro frontends supporting our
 
 There are multiple ways how we can compose micro frontends together:
 
-* Integrate the HTML via iFrame. This is quite old school, but it works. iFrame integration sounds easy, but I spent a lot of time in the past on sizing and responsiveness working across the applications.
+- Integrate the HTML via iFrame. This is quite old school, but it works. iFrame integration sounds easy, but I spent a lot of time in the past on sizing and responsiveness working across the applications.
 
-* Load and integrate the HTML via vanilla javascript. This is very painful to get it right. HTML requires JavaScript files, styles etc. It is a lot of manual work to load everything and make it work.
+- Load and integrate the HTML via vanilla javascript. This is very painful to get it right. HTML requires JavaScript files, styles etc. It is a lot of manual work to load everything and make it work.
 
-* A modern approach would be integrating them via WebComponents. Web components can be loaded dynamically at runtime and is a standardized way of doing that with vanilla JS. And there are plenty of frameworks out there to build WebComponents.
+- A modern approach would be integrating them via WebComponents. Web components can be loaded dynamically at runtime and is a standardized way of doing that with vanilla JS. And there are plenty of frameworks out there to build WebComponents.
 
 We decided to go for WebComponents. WebComponents are standardized and it seems to be the most painless approach. Browser support is not an issue anymore. In the meanwhile, most of the browsers caught up or have been abandoned.
 
@@ -46,12 +47,12 @@ We decided to go for WebComponents. WebComponents are standardized and it seems 
 
 After that decision, we needed to find a suitable framework to build the WebComponents. It is possible to build WebComponents with Angular by using Angular Elements. Using Angular would be a good fit because the whole team knows and is developing Angular. Unfortunately, Angular Elements build a complete Angular application into the WebComponents, which results in rather large bundles.
 
-I compared the bundle sizes a while ago. I used [ngx-build-plus](https://github.com/manfredsteyer/ngx-build-plus) to build a single file Angular Elements bundle. Stencil.js outputs a bundle per WebComponent. 
+I compared the bundle sizes a while ago. I used [ngx-build-plus](https://github.com/manfredsteyer/ngx-build-plus) to build a single file Angular Elements bundle. Stencil.js outputs a bundle per WebComponent.
 
 For my example, I got the following values (round in kB):
 
-* Angular: 186 kB
-* Stencil.js: 13kB
+- Angular: 186 kB
+- Stencil.js: 13kB
 
 This is quite shocking. The Stencil.js bundle size is only around 24% of Angular Elements bundle size.
 
@@ -84,8 +85,8 @@ This outputs a component skeleton like this:
 
 ```ts
 @Component({
-  tag: 'my-header',
-  styleUrl: 'my-header.scss',
+  tag: "my-header",
+  styleUrl: "my-header.scss",
   shadow: true,
 })
 export class MyHeader {
@@ -94,7 +95,11 @@ export class MyHeader {
   @Prop() last: string;
 
   private getText(): string {
-    return (this.first || '') + (this.middle ? ` ${this.middle}` : '') + (this.last ? ` ${this.last}` : '');
+    return (
+      (this.first || "") +
+      (this.middle ? ` ${this.middle}` : "") +
+      (this.last ? ` ${this.last}` : "")
+    );
   }
 
   render() {
@@ -122,14 +127,16 @@ It sounds that easy, but nobody on our team had a real experience in StencilJS a
 After creating and deploying our WebComponents, they need to be integrated into the frontend of our applications. A simple script element loading js bundle will do the job. Then we just can use the custom element:
 
 ```html
-<script type="module" src='https://cdn.jsdelivr.net/npm/my-name@0.0.1/dist/myname.js'></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/my-name@0.0.1/dist/myname.js"></script>
 <my-header></my-header>
 ```
 
 We found a nice library, [Angular Extension Elements](https://angular-extensions.github.io/elements/#/home), which makes it even easier to lazy load elements in Angular. It also supports displaying special components for the loading and error cases.
 
 ```html
-<my-header *axLazyElement="headerUrl; errorTemplate: errorHeader; loadingTemplate: loading; module: true"></my-header>
+<my-header
+  *axLazyElement="headerUrl; errorTemplate: errorHeader; loadingTemplate: loading; module: true"
+></my-header>
 ```
 
 One thing which needs to be done to make this work is defining the custom elements schema on the corresponding Angular module.
@@ -146,5 +153,4 @@ That is basically everything you need to dynamically compose a web application d
 
 ## Summary
 
-Micro frontends allow us to split a UI monolith apart. Every micro service provides its own UI components which get composed in a shell application. With that, we reduce the coupling between our applications and services to a minimum.  And to a point where doesn't hurt very much, due to the loose coupling via links and UI composition.
-
+Micro frontends allow us to split a UI monolith apart. Every micro service provides its own UI components which get composed in a shell application. With that, we reduce the coupling between our applications and services to a minimum. And to a point where doesn't hurt very much, due to the loose coupling via links and UI composition.

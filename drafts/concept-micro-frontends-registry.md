@@ -5,13 +5,14 @@ tags: web-development, microservices, software-architecture, frontend, frontend-
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1668423299979/YPcjXO5yK.jpg?auto=compress
 publishAs: lehmamic
 ignorePost: true
+hideFromHashnodeCommunity: false
 ---
 
 This time I am not going to write about experiences I made in my daily life as a software architect and developer. But I will dump my brain about something that currently flutters around in my head. This is more of conceptual nature.
 
 ## What's pinching me?
 
-So, what is the problem that makes me write this article? In my current project, we are working with a [Self Contained System Architecture](https://scs-architecture.org/), short SCS. Combined with a minimal [Micro Frontend](https://micro-frontends.org/) approach. We dynamically integrate web components from other SCS to keep the responsibility of rendering the data in the SCS where the corresponding data belongs to. In the project, we generally are talking about *widgets*.
+So, what is the problem that makes me write this article? In my current project, we are working with a [Self Contained System Architecture](https://scs-architecture.org/), short SCS. Combined with a minimal [Micro Frontend](https://micro-frontends.org/) approach. We dynamically integrate web components from other SCS to keep the responsibility of rendering the data in the SCS where the corresponding data belongs to. In the project, we generally are talking about _widgets_.
 
 ![Self Contained Systems with Widgets](https://cdn.hashnode.com/res/hashnode/image/upload/v1668429113017/1Yp5XUXPE.png?auto=compress)
 
@@ -31,16 +32,15 @@ So we need to configure the URL of the widgets and the API endpoints they are us
     "SCS_B": {
       "BundleFileUrl": "http://localhost:4700/dist/components/",
       "ApiBaseUrl": "http://localhost:5700/dist/components/"
-    },
-  },
+    }
+  }
 }
 ```
 
 To load those settings into the Angular frontend we provide an API endpoint. At the end, we render the web component with the [Angular Extensions for Lazy Elements](https://angular-extensions.github.io/elements/#/home).
 
 ```html
-<some-element *axLazyElement="bundleFileUrl" [backend-api]="apiBaseUrl">
-</some-element>
+<some-element *axLazyElement="bundleFileUrl" [backend-api]="apiBaseUrl"> </some-element>
 ```
 
 At the time of writing this, we don't have a lot of widgets. But it keeps growing and I am afraid to get a mess with this configuration approach. How can we make sure the configurations are consistent across the whole system? How can we avoid to adding so many configurations in our app settings to keep it readable? How can we avoid to keep repeating those configurations again and again?
@@ -50,13 +50,13 @@ At the time of writing this, we don't have a lot of widgets. But it keeps growin
 I have basically two solution approaches in my mind.
 
 1. We leverage a reverse proxy or an API gateway to do the routing to the correct CDN and file.
-2. We introduce a *registry* for our micro frontends.
+2. We introduce a _registry_ for our micro frontends.
 
 Both are viable solutions and have their advantages and disadvantages.
 
 ### Use a reverse proxy to decouple the routing configuration from the SCS
 
-We are actually already using the *Azure Front Door* reverse proxy. We could extend its routing configuration in order to route the URL of the JavaScript bundle automatically.
+We are actually already using the _Azure Front Door_ reverse proxy. We could extend its routing configuration in order to route the URL of the JavaScript bundle automatically.
 
 This would have the advantage, that we don't need to configure an url in the SCS at all. Since we are using SPA web applications, our frontends are running in the browser of our user. We could just simply use relative paths to address the JavaScript file. E.g. `/SCS_A/widgets/main.js`. And we would also leverage existing infrastructure.
 
@@ -70,14 +70,14 @@ Well, the other idea would be introducing a service which is dedicated to solve 
 
 ```js
 registerApplication(
-  'app2',
-  () => import('src/app2/main.js'),
-  (location) => location.pathname.startsWith('/app2'),
-  { some: 'value' }
+  "app2",
+  () => import("src/app2/main.js"),
+  (location) => location.pathname.startsWith("/app2"),
+  { some: "value" }
 );
 ```
 
-What I like about this approach is the commitment to the *single responsibility* principle. We would have a service that is explicitly designed and dedicated to this task. It would also be possible to decouple the full URL from the code but still avoid the configuration in the SCS applications.
+What I like about this approach is the commitment to the _single responsibility_ principle. We would have a service that is explicitly designed and dedicated to this task. It would also be possible to decouple the full URL from the code but still avoid the configuration in the SCS applications.
 
 ```ts
 const microServiceConfig: { bundleFileUrl: string; backendApiUrl: string; } = registry.resolveMicroFrontendConfig(key: 'scs_A_widgets');
