@@ -5,6 +5,7 @@ tags: architecture, .NET, C#, Blazor
 cover: https://linkdotnetblogstorage.azureedge.net/blog/20220923_BlazorProject/Thumbnail.jpg
 publishAs: linkdotnet
 ignorePost: true
+hideFromHashnodeCommunity: false
 ---
 
 Did you ever wonder what is a nice way of structuring your Blazor application?
@@ -12,6 +13,7 @@ Did you ever wonder what is a nice way of structuring your Blazor application?
 I will show you how I structure my Blazor projects (as well as this very blog). What are the upside in contrast to the "default" structuring you get with the Blazor template.
 
 The default has basically three main folders:
+
 ```no-class
 Data/
 Pages/
@@ -20,12 +22,12 @@ Shared/
 
 **Pages** describe basically every Blazor component, which has the `@page` directive with a given route. **Shared** should describe **Blazor** components, which are used by the **Pages**. Last but not least we have **Data**, which in theory describes all DTO's as well as services which in some way or another load data and put them into the data.
 
-In an ideal world, your **page** would load some data via the services in **data**. Afterwards depending on the needs your **page** then is composed out of multiple components, which live in **Shared**. If we want to go further and follow the smart-dumb components idea, then really only your pages should have the services and the components in **shared** should basically be slices of these data-holders. 
+In an ideal world, your **page** would load some data via the services in **data**. Afterwards depending on the needs your **page** then is composed out of multiple components, which live in **Shared**. If we want to go further and follow the smart-dumb components idea, then really only your pages should have the services and the components in **shared** should basically be slices of these data-holders.
 
 **What is the problem?** Well that seems pretty nice and neat but as soon as your applications grows, these folders will get bloated. Sure you can compete against that with subfolders. The second and for me larger problem is, that you don't see what belongs together, because everything is in different places. For me it is important that everything should stay together, which belongs together.
 
 So I propose a similar way as the .NET namespaces are organised. Have a look for example at:
-`System.Collections`. There you find `System.Collections.Generic`. So the deeper you go down the namespace "tree" the more specific you get. 
+`System.Collections`. There you find `System.Collections.Generic`. So the deeper you go down the namespace "tree" the more specific you get.
 
 Bringing this now to the Blazor world. The first thing I propose: **Put everything together in one folder** and call this folder: **Features**. Yes, just that: **Features**. It is important to understand that your application consists out of multiple features. That is the reason your user are using your software, so do the mental shift as well. That is important and helps a lot.
 
@@ -67,4 +69,5 @@ Features/
 ```
 
 ## Resources
+
 I hope I could give you a "better" way of structuring your Blazor project. If you want check out this "in action" [check out the source of my private blog.](https://github.com/linkdotnet/Blog/tree/master/src/LinkDotNet.Blog.Web).
