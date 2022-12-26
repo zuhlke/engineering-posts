@@ -13,13 +13,13 @@ Micro frontends is an emerging frontend architecture pattern defined by [Martin 
 
 Traditionally, when building a microservice application, we'll end up in a UI monolith.
 
-![ui-monolith.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1657876177570/E56kWsPFi.png align="center")
+![ui-monolith.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1657876177570/E56kWsPFi.png)
 
 This hurts because we are losing our benefit from the microservice architecture in the frontend. It might be a drawback which you purposely take into account and pay the price for it.
 
 But with the micro frontends architecture pattern, we have a tool in our hand to bring the microservice pattern into the frontend. Each microservice has its own frontend which gets composed together in a shell web application.
 
-![scs.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1657876204859/2qYNvTWb2.png align="center")
+![scs.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1657876204859/2qYNvTWb2.png)
 
 ## Sharing the layout in self-contained systems
 
