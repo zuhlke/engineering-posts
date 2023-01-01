@@ -28,7 +28,7 @@ The solution presented in this article consists of two projects: **WebApi** and 
 
 The complete source code of the solution is available [here](https://github.com/fabioscagliola/Integration-Testing).
 
-# Web API
+## Web API
 
 Let us start developing the “system under stress” by creating an ASP.NET Core web API that uses EF Core and Migrations with Microsoft SQL Server.
 
