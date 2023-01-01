@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+      "yzhang.markdown-all-in-one",
+      "davidanson.vscode-markdownlint",
+      "esbenp.prettier-vscode",
+      "editorconfig.editorconfig",
+      "znck.grammarly"
+    ]
+  }

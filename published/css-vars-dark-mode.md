@@ -4,7 +4,7 @@ domain: campzulu.hashnode.dev
 tags: web-development, css, sass
 cover: https://cdn.hashnode.com/res/hashnode/image/unsplash/xcweYgakbRo/upload/v1660032971546/KNUGnflXq.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
 publishAs: r3dDoX
-ignorePost: true
+hideFromHashnodeCommunity: false
 ---
 
 We are currently working on a machine that runs 24/7 at train stations all over Switzerland. The
@@ -51,7 +51,7 @@ CSS syntax:
 
 ```css
 :root {
-    --test-var: #1e90ff;
+    --test-var: 13rem;
 }
 
 .test {
@@ -111,10 +111,10 @@ the `calc()` ([MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/calc)) func
 
 Sass has various helper functions to adjust color values which currently is not possible with CSS.
 What we were mostly missing were functions like: `darken()` or `lighten()`. Right now we were able
-to work around this by having a few more variables holding these variables.
+to work around this by having a few more variables holding these adapted color values.
 
-In the future we should have this functionality (and much more) in CSS described very well [in this
-blog post](https://blog.jim-nielsen.com/2021/css-relative-colors/)
+In the future we should have this functionality (and much more) in CSS, which is described very well 
+[in this blog post](https://blog.jim-nielsen.com/2021/css-relative-colors/).
 
 # Actual Implementation of Dark Mode
 
