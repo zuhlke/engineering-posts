@@ -5,6 +5,7 @@ tags: csharp, sql
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1670761204821/1E2EV1Iel.jpeg
 publishAs: fabioscagliola
 ignorePost: true
+hideFromHashnodeCommunity: false
 ---
 
 # SQL Server CLR Integration
@@ -41,8 +42,8 @@ Should you want to use the features of the latest C# version, you may want to ed
 
 Add a couple of references:
 
- - System
- - System.Data
+- System
+- System.Data
 
 Add a class similar to the following one.
 
@@ -97,13 +98,13 @@ go
 
 Here is the description of each step performed by the code:
 
- 1. Enable the advanced configuration options, which is a prerequisite for the next step.
- 2. Disable the strict security policy that would prevent us from registering and executing our assembly -- for the sake of simplicity, I do not want to enter the Code Access Security realm in this article; however, disabling the strict security policy is not a good practice, especially in production environments.
- 3. Enable the SQL Server CLR Integration, which is disabled by default.
- 4. Delete the user-defined function entry, if it already exists.
- 5. Delete the assembly, if it is already registered with the SQL Server CLR.
- 6. Register the assembly with the SQL Server CLR.
- 7. Create the user-defined function entry.
+1.  Enable the advanced configuration options, which is a prerequisite for the next step.
+2.  Disable the strict security policy that would prevent us from registering and executing our assembly -- for the sake of simplicity, I do not want to enter the Code Access Security realm in this article; however, disabling the strict security policy is not a good practice, especially in production environments.
+3.  Enable the SQL Server CLR Integration, which is disabled by default.
+4.  Delete the user-defined function entry, if it already exists.
+5.  Delete the assembly, if it is already registered with the SQL Server CLR.
+6.  Register the assembly with the SQL Server CLR.
+7.  Create the user-defined function entry.
 
 Now you can try and execute the following code in SQL Server, and you will get **12.34**.
 
@@ -112,4 +113,3 @@ select dbo.MATH_ROUND(12.345, 2)
 ```
 
 A sample project is available at [https://github.com/fabioscagliola/SQL-Server-CLR-Integration](https://github.com/fabioscagliola/SQL-Server-CLR-Integration)
-
