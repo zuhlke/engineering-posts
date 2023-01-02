@@ -21,7 +21,7 @@ However, while performing integration testing of a system that depends on a data
 
 This is neither cheating nor *faking*, this is *mocking*: we can still make any kind of assertion against the mocked database, either directly or indirectly.
 
-The solution presented in this article consists of two projects: **WebApi** and **WebApiTest**:
+The solution presented in this article consists of two projects: **WebApi** and **WebApiTest**.
 
  - **WebApi** is an ASP.NET Core web API that uses EF Core and Migrations with Microsoft SQL Server.
  - **WebApiTest** is an NUnit test project responsible for the integration testing of the web API and for mocking the database context in order to use an SQLite in-memory database.
