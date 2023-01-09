@@ -2,12 +2,13 @@
 title: Cypress app actions with Angular
 domain: campzulu.hashnode.dev
 tags: web-development, frontend-development, angular, testing, cypress
-cover: https://cdn.hashnode.com/res/hashnode/image/unsplash/_zKxPsGOGKg/upload/v1666550567525/TYz2JBy-V.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1673264332496/a9-qPZTKf.jpg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
+hideFromHashnodeCommunity: false
 publishAs: culas
 ignorePost: true
 ---
 
-It was no surprise when Angular announced last August [on their official blog](https://blog.angular.io/the-state-of-end-to-end-testing-with-angular-d175f751cb9c) that they've decided to deprecate Protractor.
+It came as no surprise when the Angular team announced last August [on their official blog](https://blog.angular.io/the-state-of-end-to-end-testing-with-angular-d175f751cb9c) that they've decided to deprecate Protractor.
 They've been public about evaluating the future of Protractor.
 Version 12 of Angular already added support for other e2e testing frameworks.
 As a result, we migrated the existing Protractor tests at one of our customers to Cypress.
@@ -16,18 +17,18 @@ One way to do this was using Cypress app actions.
 
 # The Problem
 
-Due to the nature of the application, many tests required multiple steps to reach the desired start conditions.
+Due to the nature of the application in question, many tests required multiple steps to reach the desired start conditions.
 The existing tests would go through the same parts of the UI again and again.
 Other tests would rely on a pre-defined set of test data, which is left in an inconsistent state after an error.
-That caused the following tests that relied on the same data to also fail.
-All in all, this setup lead to slow tests and was often the source of flakiness on the CI.
+That caused the following tests that relied on the same data to fail too.
+All in all, this led to slow tests and was often the source of flakiness on the CI.
 
 Completely reorganising the end-to-end tests for an optimised flow through the application was not a viable option.
-We simply didn't have the time for it (or rather: it wasn't a high enough priority) and even then, we wouldn't be able to eliminate all issues.
+We simply didn't have the time for it (or rather: it wasn't a high enough priority), and even then, we wouldn't be able to eliminate all issues.
 
-Looking at the capabilities of Cypress, we first tried using `cy.request()` to call the API directly to set up and manipulate test data.
+Looking at the capabilities of Cypress, we first tried using `cy.request()` to call our API directly to set up and manipulate test data.
 Sadly, for a couple of reasons, this turned into more effort than we were willing to put in.
-On different stages, the app and API run on different ports and need respective credentials.
+On different deployment stages the app and API run on different ports and need respective credentials.
 Rather than configuring Cypress to work properly in every case, we wanted to rely on what we had.
 Our Angular app already knew how to handle all communication with the API. 
 So why not use that to our advantage?
@@ -35,7 +36,7 @@ So why not use that to our advantage?
 # App Actions
 
 In a [blog post from 2019](https://www.cypress.io/blog/2019/01/03/stop-using-page-objects-and-start-using-app-actions/#application-actions), Cypress engineer Gleb Bahmutov explained the concept of "application actions".
-Cypress ambassador Filip Hric also went into [the difference between app actions and page objects](https://applitools.com/blog/page-objects-app-actions-cypress/).¨
+Cypress ambassador Filip Hric also went into [the difference between app actions and page objects](https://applitools.com/blog/page-objects-app-actions-cypress/).
 They leverage the fact that Cypress runs inside the browser and therefore has access to the application.
 That allows us to skip interacting with sections of the UI that aren't part of the test and directly manipulate the state.
 The command `window` gives us access to the window object.
@@ -51,7 +52,9 @@ First, we needed to make the desired service accessible on the window object.
 We decided against overusing app actions for the time being.
 The interface, respectively dependency, between Cypress and our Angular app should be kept small.
 As we had a `BackendService` that centrally handled all requests to our API, it was an obvious choice.
-In the constructor, we verify whether the app is running inside Cypress and expose the service.
+It would be only one connection point while offering a high degree of flexibility.
+In the constructor of the service, we verify whether the app is running inside Cypress and then expose the service.
+This way, it's not accessible in any other situation.
 
 `src/app/.../backend.service.ts`:
 ```typescript
@@ -72,11 +75,6 @@ export class BackendService {
 ```
 
 # Abstraction through Commands
-
-<!--
-    - add Command and Utils function
-    - reasoning
--->
 
 The action should be easy to use in Cypress, so we created a custom command: `backendRequest`.
 This way, we keep the dependency on the app in one central place and abstract the app action.
@@ -112,7 +110,8 @@ declare global {
 
 We then went even one step further.
 Repeated actions, such as creating a specific item, were put into a utility function.
-One could argue this was unnecessary.
+One could argue this was unnecessary, but depending on your needs it might prove to be helpful.
+The actual test looks more readable when calling `createNewItem("Just do it")` than understanding what that request is doing.
 
 `cypress/support/utils.ts`:
 ```typescript
@@ -124,11 +123,16 @@ export function createNewItem(itemName: string): void {
 
 # Conclusion
 
-Once we set this app action up, the affected tests greatly improved stability, readability and speed.
+Once we set this app action up, the affected tests greatly improved stability, readability, and speed.
 Using app actions halved the duration of some tests.
+Unexpected side effects and resolved most unwanted dependencies.
 By choosing to expose only one central service, we kept the impact on the Angular app itself minimal.
-In another app, it might make sense to use more specified services or components to manipulate the state.
+In another app, it might make sense to use more specified services or components to manipulate the client-side state.
 Our experiences with this setup are very positive.
 I would recommend looking into making use of the potential of Cypress if you have similar problems.
-The setup is straightforward.
+The setup is straightforward and adjustable.
 
+Additionally, it doesn't have to be a hard line between app actions and page objects.
+Even if you prefer the structure of page objects, you could profit.
+I could imagine page objects containing logic to decide whether to go through the UI or use app actions.
+But in any case, app actions are not a silver bullet and should be used only selectively and deliberately.
