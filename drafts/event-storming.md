@@ -1,5 +1,5 @@
 ---
-title: DDD: How to do Event-Storming?
+title: DDD - How to do Event-Storming?
 domain: campzulu.hashnode.dev
 tags: software-architecture, ddd
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1670243050541/SwGJDMFY4.png?auto=compress
