@@ -24,7 +24,7 @@ That caused the following tests that relied on the same data to fail too.
 All in all, this led to slow tests and was often the source of flakiness on the CI.
 
 Completely reorganising the end-to-end tests for an optimised flow through the application was not a viable option.
-We simply didn't have the time for it (or rather: it wasn't a high enough priority), and even then, we wouldn't be able to eliminate all issues.
+We simply didn't have the time for it (or rather: it wasn't a high enough priority), and even then, we wouldn't have been able to eliminate all issues.
 
 Looking at the capabilities of Cypress, we first tried using `cy.request()` to call our API directly to set up and manipulate test data.
 Sadly, for a couple of reasons, this turned into more effort than we were willing to put in.
