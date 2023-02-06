@@ -28,7 +28,7 @@ A domain event is written in the passive form, for example *'Invitations (are) s
 
 <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1670502974569/BCP4uy8Du.png?auto=compress" alt="domain-event" width="100"/>
 
-The collected events can be chaotic and redundant on the board. That is okay. The important benefit of this step is that it gives everyone the chance to think off and collect events from their perspective.
+The collected events can be chaotic and redundant on the board. That is okay. The important benefit of this step is that it gives everyone the chance to think of and collect events from their perspective.
 
 ### 2. Pick some pivotal events (~5min)
 
@@ -67,8 +67,7 @@ The final output of the session looks as shown below.
 
 In addition to domain events, the timeline could be further extended by adding actors, commands, external systems etc. Please refer to the following resources for more information:
 * [Glossary & Cheet Sheet by DDD Crew](https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet)
-* Book: [Introducing EventStorming - An act of Deliberate Collective Learning](https://leanpub.com/introducing_eventstorming)
-* YouTube: [Event Storming Demo & Discussion](https://youtu.be/xIB_VQVVWKk)
+* Book: [Introducing EventStorming - An act of Deliberate Collective Learning](https://www.eventstorming.com/book/)
 * LinkedIn Learning: [Event Storming - Part of DDD Series by Allen Holub](https://www.linkedin.com/learning/software-architecture-domain-driven-design/demo-activities-flow?resume=false)
 
 ---
