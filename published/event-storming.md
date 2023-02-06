@@ -5,7 +5,6 @@ tags: software-architecture, ddd
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1670243050541/SwGJDMFY4.png?auto=compress
 publishAs: keerthikan
 hideFromHashnodeCommunity: false
-ignorePost: true
 ---
 
 At Zühlke, there is a **DDD Topic Team** to discuss about various topics related to Domain-Driven-Design. Recently, we had a session about **Event Storming**. In this post, I would like to share how we did it and some key takeaways.
