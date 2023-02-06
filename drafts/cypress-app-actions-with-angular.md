@@ -123,16 +123,15 @@ export function createNewItem(itemName: string): void {
 
 # Conclusion
 
-Once we set this app action up, the affected tests greatly improved stability, readability, and speed.
-Using app actions halved the duration of some tests.
-Unexpected side effects and resolved most unwanted dependencies.
+Once we set this app action up, the affected tests greatly improved in stability, readability, and speed.
+Using app actions halved the duration of some tests and resolved most unwanted dependencies between them.
 By choosing to expose only one central service, we kept the impact on the Angular app itself minimal.
 In another app, it might make sense to use more specified services or components to manipulate the client-side state.
 Our experiences with this setup are very positive.
 I would recommend looking into making use of the potential of Cypress if you have similar problems.
 The setup is straightforward and adjustable.
 
-Additionally, it doesn't have to be a hard line between app actions and page objects.
+Additionally, you don't have to draw a hard line between app actions and page objects.
 Even if you prefer the structure of page objects, you could profit.
 I could imagine page objects containing logic to decide whether to go through the UI or use app actions.
 But in any case, app actions are not a silver bullet and should be used only selectively and deliberately.
