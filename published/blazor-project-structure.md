@@ -4,7 +4,6 @@ domain: campzulu.hashnode.dev
 tags: architecture, .NET, C#, Blazor
 cover: https://linkdotnetblogstorage.azureedge.net/blog/20220923_BlazorProject/Thumbnail.jpg
 publishAs: linkdotnet
-ignorePost: true
 hideFromHashnodeCommunity: false
 ---
 
