@@ -9,7 +9,7 @@ hideFromHashnodeCommunity: false
 
 Did you ever wonder what is a nice way of structuring your Blazor application?
 
-I will show you how I structure my Blazor projects (as well as this very blog). What are the upside in contrast to the "default" structuring you get with the Blazor template.
+I will show you how I structure my Blazor projects. What are the upside in contrast to the "default" structuring you get with the Blazor template.
 
 The default has basically three main folders:
 
