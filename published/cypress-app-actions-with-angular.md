@@ -5,7 +5,6 @@ tags: web-development, frontend-development, angular, testing, cypress
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1673264332496/a9-qPZTKf.jpg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
 hideFromHashnodeCommunity: false
 publishAs: culas
-ignorePost: true
 ---
 
 It came as no surprise when the Angular team announced last August [on their official blog](https://blog.angular.io/the-state-of-end-to-end-testing-with-angular-d175f751cb9c) that they've decided to deprecate Protractor.
