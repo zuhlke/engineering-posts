@@ -34,6 +34,7 @@ Let us start developing the “system under stress” by creating an ASP.NET Cor
 
 Add references to the following NuGet packages:
 
+ - FluentValidation
  - Microsoft.AspNetCore.OpenApi
  - Microsoft.EntityFrameworkCore.SqlServer
  - Microsoft.EntityFrameworkCore.Tools
@@ -124,13 +125,14 @@ Let us continue by creating an NUnit test project.
 
 Add references to the following NuGet packages:
 
+ - FluentAssertions
  - Microsoft.AspNetCore.Mvc.Testing
  - Microsoft.EntityFrameworkCore.Design
  - Microsoft.EntityFrameworkCore.Sqlite
  - Microsoft.NET.Test.Sdk
  - NUnit
- - NUnit3TestAdapter
  - NUnit.Analyzers
+ - NUnit3TestAdapter
  - coverlet.collector
 
 And add a reference to the web API project, of course.
@@ -306,7 +308,7 @@ public async Task<IActionResult> Create(PersonCreateData personCreateData)
 
 The following test ensures that the web API method returns a bad request error if the first name or the last name are null or empty.
 
-Please note that the test are named according to the [Given-When-Then](https://en.wikipedia.org/wiki/Given-When-Then) convention.
+Please note that the tests are named in compliance with the [Given-When-Then](https://en.wikipedia.org/wiki/Given-When-Then) convention.
 
 ```csharp
 [Test]
