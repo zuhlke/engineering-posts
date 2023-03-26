@@ -29,12 +29,13 @@ The solution presented in this article consists of two projects: **WebApi** and 
 
 The complete source code of the solution is available [here](https://github.com/fabioscagliola/Integration-Testing).
 
-## Web API
+# Web API
 
 Let us start developing the “system under stress” by creating an ASP.NET Core web API that uses EF Core and Migrations with Microsoft SQL Server.
 
 Add references to the following NuGet packages:
 
+ - FluentValidation
  - Microsoft.AspNetCore.OpenApi
  - Microsoft.EntityFrameworkCore.SqlServer
  - Microsoft.EntityFrameworkCore.Tools
@@ -48,18 +49,17 @@ Here is the code of the database context.
 ```csharp
 using Microsoft.EntityFrameworkCore;
 
-namespace com.fabioscagliola.IntegrationTesting.WebApi
+namespace com.fabioscagliola.IntegrationTesting.WebApi;
+
+public class WebApiDbContext : DbContext
 {
-    public class WebApiDbContext : DbContext
+    public WebApiDbContext(DbContextOptions options) : base(options) { }
+
+    public DbSet<Person> People { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        public WebApiDbContext(DbContextOptions options) : base(options) { }
-
-        public DbSet<Person> People { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Person>().ToTable(nameof(Person));
-        }
+        modelBuilder.Entity<Person>().ToTable(nameof(Person));
     }
 }
 ```
@@ -69,16 +69,15 @@ And here is the code of the entity.
 ```csharp
 #nullable disable
 
-namespace com.fabioscagliola.IntegrationTesting.WebApi
+namespace com.fabioscagliola.IntegrationTesting.WebApi;
+
+public class Person
 {
-    public class Person
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        public string FName { get; set; }
+    public string FName { get; set; }
 
-        public string LName { get; set; }
-    }
+    public string LName { get; set; }
 }
 ```
 
@@ -127,13 +126,14 @@ Let us continue by creating an NUnit test project.
 
 Add references to the following NuGet packages:
 
+ - FluentAssertions
  - Microsoft.AspNetCore.Mvc.Testing
  - Microsoft.EntityFrameworkCore.Design
  - Microsoft.EntityFrameworkCore.Sqlite
  - Microsoft.NET.Test.Sdk
  - NUnit
- - NUnit3TestAdapter
  - NUnit.Analyzers
+ - NUnit3TestAdapter
  - coverlet.collector
 
 And add a reference to the web API project, of course.
@@ -149,35 +149,34 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Data.Common;
 
-namespace com.fabioscagliola.IntegrationTesting.WebApiTest
+namespace com.fabioscagliola.IntegrationTesting.WebApiTest;
+
+public class WebApiTestWebApplicationFactory<T> : WebApplicationFactory<T> where T : class
 {
-    public class WebApiTestWebApplicationFactory<T> : WebApplicationFactory<T> where T : class
+    protected override void ConfigureWebHost(IWebHostBuilder webHostBuilder)
     {
-        protected override void ConfigureWebHost(IWebHostBuilder webHostBuilder)
+        webHostBuilder.ConfigureServices(configureServices =>
         {
-            webHostBuilder.ConfigureServices(configureServices =>
+            configureServices.Remove(configureServices.Single(d => d.ServiceType == typeof(DbContextOptions<WebApiDbContext>)));
+
+            configureServices.AddSingleton((Func<IServiceProvider, DbConnection>)(implementationFactory =>
             {
-                configureServices.Remove(configureServices.Single(d => d.ServiceType == typeof(DbContextOptions<WebApiDbContext>)));
+                SqliteConnection sqliteConnection = new(Settings.Instance.SqliteConnectionString);
+                sqliteConnection.Open();
+                return sqliteConnection;
+            }));
 
-                configureServices.AddSingleton((Func<IServiceProvider, DbConnection>)(implementationFactory =>
-                {
-                    SqliteConnection sqliteConnection = new(Settings.Instance.SqliteConnectionString);
-                    sqliteConnection.Open();
-                    return sqliteConnection;
-                }));
-
-                configureServices.AddDbContext<WebApiDbContext>((serviceProvider, dbContextOptionBuilder) =>
-                {
-                    DbConnection dbConnection = serviceProvider.GetRequiredService<DbConnection>();
-                    dbContextOptionBuilder.UseSqlite(dbConnection);
-                });
-
-                ServiceProvider serviceProvider = configureServices.BuildServiceProvider();
-                IServiceScope serviceScope = serviceProvider.CreateScope();
-                WebApiDbContext webApiDbContext = serviceScope.ServiceProvider.GetRequiredService<WebApiDbContext>();
-                webApiDbContext.Database.EnsureCreated();
+            configureServices.AddDbContext<WebApiDbContext>((serviceProvider, dbContextOptionBuilder) =>
+            {
+                DbConnection dbConnection = serviceProvider.GetRequiredService<DbConnection>();
+                dbContextOptionBuilder.UseSqlite(dbConnection);
             });
-        }
+
+            ServiceProvider serviceProvider = configureServices.BuildServiceProvider();
+            IServiceScope serviceScope = serviceProvider.CreateScope();
+            WebApiDbContext webApiDbContext = serviceScope.ServiceProvider.GetRequiredService<WebApiDbContext>();
+            webApiDbContext.Database.EnsureCreated();
+        });
     }
 }
 ```
@@ -189,16 +188,15 @@ using com.fabioscagliola.IntegrationTesting.WebApi;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace com.fabioscagliola.IntegrationTesting.WebApiTest
+namespace com.fabioscagliola.IntegrationTesting.WebApiTest;
+
+public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<WebApiDbContext>
 {
-    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<WebApiDbContext>
+    public WebApiDbContext CreateDbContext(string[] args)
     {
-        public WebApiDbContext CreateDbContext(string[] args)
-        {
-            DbContextOptionsBuilder dbContextOptionsBuilder = new DbContextOptionsBuilder<WebApiDbContext>();
-            dbContextOptionsBuilder.UseSqlite(Settings.Instance.SqliteConnectionString, sqliteOptionsAction => sqliteOptionsAction.MigrationsAssembly("WebApiTest"));
-            return new(dbContextOptionsBuilder.Options);
-        }
+        DbContextOptionsBuilder dbContextOptionsBuilder = new DbContextOptionsBuilder<WebApiDbContext>();
+        dbContextOptionsBuilder.UseSqlite(Settings.Instance.SqliteConnectionString, sqliteOptionsAction => sqliteOptionsAction.MigrationsAssembly("WebApiTest"));
+        return new(dbContextOptionsBuilder.Options);
     }
 }
 ```
@@ -212,32 +210,31 @@ using Microsoft.Extensions.Configuration;
 
 #nullable disable
 
-namespace com.fabioscagliola.IntegrationTesting.WebApiTest
+namespace com.fabioscagliola.IntegrationTesting.WebApiTest;
+
+class Settings
 {
-    class Settings
+    static Settings instance;
+
+    public static Settings Instance
     {
-        static Settings instance;
-
-        public static Settings Instance
+        get
         {
-            get
+            if (instance == null)
             {
+                IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").AddEnvironmentVariables().Build();
+                instance = configuration.GetSection(nameof(Settings)).Get<Settings>();
                 if (instance == null)
-                {
-                    IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").AddEnvironmentVariables().Build();
-                    instance = configuration.GetSection("Settings").Get<Settings>();
-                    if (instance == null)
-                        throw new ApplicationException("Something went wrong while initializing the settings.");
-                }
-
-                return instance;
+                    throw new ApplicationException("Something went wrong while initializing the settings.");
             }
+
+            return instance;
         }
-
-        public string WebApiUrl { get; set; }
-
-        public string SqliteConnectionString { get; set; }
     }
+
+    public string WebApiUrl { get; set; }
+
+    public string SqliteConnectionString { get; set; }
 }
 ```
 
@@ -266,23 +263,22 @@ Create a base class for all the integration tests, which is responsible for init
 using com.fabioscagliola.IntegrationTesting.WebApi;
 using NUnit.Framework;
 
-namespace com.fabioscagliola.IntegrationTesting.WebApiTest
+namespace com.fabioscagliola.IntegrationTesting.WebApiTest;
+
+public abstract class BaseTest
 {
-    public abstract class BaseTest
+    protected WebApiTestWebApplicationFactory<Program> WebApiTestWebApplicationFactory;
+
+    [SetUp]
+    public void Setup()
     {
-        protected WebApiTestWebApplicationFactory<Program> WebApiTestWebApplicationFactory;
+        WebApiTestWebApplicationFactory = new();
+    }
 
-        [SetUp]
-        public void Setup()
-        {
-            WebApiTestWebApplicationFactory = new WebApiTestWebApplicationFactory<Program>();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            WebApiTestWebApplicationFactory.Dispose();
-        }
+    [TearDown]
+    public void TearDown()
+    {
+        WebApiTestWebApplicationFactory.Dispose();
     }
 }
 ```
@@ -296,13 +292,15 @@ First, consider the following web API method, responsible for creating a new per
 ```csharp
 [HttpPost]
 [Route("[action]")]
-[SwaggerResponse(200, Type = typeof(Person))]
-[SwaggerResponse(400)]
+[SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Person))]
+[SwaggerResponse(StatusCodes.Status400BadRequest)]
 public async Task<IActionResult> Create(PersonCreateData personCreateData)
 {
-    if (string.IsNullOrEmpty(personCreateData.FName) || string.IsNullOrEmpty(personCreateData.LName))
-        return BadRequest(FNAMEORLNAMEARENULLOREMPTY);
     Person person = new() { FName = personCreateData.FName, LName = personCreateData.LName, };
+    PersonValidation personValidation = new();
+    ValidationResult validationResult = personValidation.Validate(person);
+    if (!validationResult.IsValid)
+        return BadRequest(validationResult.ToString());
     dbContext.People.Add(person);
     await dbContext.SaveChangesAsync();
     return Ok(person);
@@ -311,17 +309,28 @@ public async Task<IActionResult> Create(PersonCreateData personCreateData)
 
 The following test ensures that the web API method returns a bad request error if the first name or the last name are null or empty.
 
+Please note that the tests are named in compliance with the [Given-When-Then](https://en.wikipedia.org/wiki/Given-When-Then) convention.
+
 ```csharp
 [Test]
-public async Task Person_Create_WhenFNameOrLNameAreNullOrEmpty_ReturnsBadRequest()
+[TestCase(" ", " ")]
+[TestCase(" ", "")]
+[TestCase(" ", null)]
+[TestCase("", " ")]
+[TestCase("", "")]
+[TestCase("", null)]
+[TestCase(null, " ")]
+[TestCase(null, "")]
+[TestCase(null, null)]
+public async Task GivenFNameOrLNameAreNullOrEmpty_WhenCreatingPerson_ThenReturnsBadRequest(string fName, string lName)
 {
     HttpClient httpClient = WebApiTestWebApplicationFactory.CreateClient();
-    PersonCreateData personCreateData = new() { FName = null, LName = "" };
+    PersonCreateData personCreateData = new() { FName = fName, LName = lName };
     HttpResponseMessage httpResponseMessage = await httpClient.PostAsync($"{Settings.Instance.WebApiUrl}/Person/Create", JsonContent.Create(personCreateData));
-    Assert.That(httpResponseMessage.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+    httpResponseMessage.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     string fNameOrLNameAreNullOrEmpty = await httpResponseMessage.Content.ReadAsStringAsync();
-    Assert.That(fNameOrLNameAreNullOrEmpty, Is.Not.Null);
-    Assert.That(fNameOrLNameAreNullOrEmpty, Is.EqualTo(PersonController.FNAMEORLNAMEARENULLOREMPTY));
+    fNameOrLNameAreNullOrEmpty.Should().NotBeNull();
+    fNameOrLNameAreNullOrEmpty.Should().Be($"{WebApi.Properties.Resources.PersonValidationFNameIsEmpty}\r\n{WebApi.Properties.Resources.PersonValidationLNameIsEmpty}");
 }
 ```
 
@@ -329,23 +338,20 @@ The following test ensures that the web API method succeeds.
 
 ```csharp
 [Test]
-public async Task Person_Create_Succeeds()
+public async Task GivenFNameAndLNameAreNotNullOrEmpty_WhenCreatingPerson_ThenSucceeds()
 {
-    Person? person = await CreatePerson(FNAME, LNAME);
-    Assert.That(person, Is.Not.Null);
-    Assert.Multiple(() =>
-    {
-        Assert.That(person.Id, Is.Not.Zero);
-        Assert.That(person.FName, Is.EqualTo(FNAME));
-        Assert.That(person.LName, Is.EqualTo(LNAME));
-    });
+    Person person = await CreatePerson(FNAME, LNAME);
+    person.Should().NotBeNull();
+    person.Id.Should().NotBe(0);
+    person.FName.Should().Be(FNAME);
+    person.LName.Should().Be(LNAME);
 }
 ```
 
 I extracted the **CreatePerson** method because it is used in multiple tests.
 
 ```csharp
-async Task<Person?> CreatePerson(string fName, string lName)
+async Task<Person> CreatePerson(string fName, string lName)
 {
     HttpClient httpClient = WebApiTestWebApplicationFactory.CreateClient();
     PersonCreateData personCreateData = new() { FName = fName, LName = lName };
@@ -362,13 +368,13 @@ Second, consider the following web API method, responsible for retrieving an exi
 ```csharp
 [HttpGet]
 [Route("[action]/{id}")]
-[SwaggerResponse(200, Type = typeof(Person))]
-[SwaggerResponse(400)]
+[SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Person))]
+[SwaggerResponse(StatusCodes.Status400BadRequest)]
 public async Task<IActionResult> Read(int id)
 {
     Person? person = await dbContext.People.SingleOrDefaultAsync(x => x.Id == id);
     if (person == null)
-        return BadRequest(NOTFOUND);
+        return BadRequest(Properties.Resources.PersonNotFound);
     return Ok(person);
 }
 ```
@@ -377,14 +383,14 @@ The following test ensures that the web API method returns a bad request error i
 
 ```csharp
 [Test]
-public async Task Person_Read_ReturnsBadRequest()
+public async Task GivenNonExistingId_WhenReadingPerson_ThenReturnsBadRequest()
 {
     HttpClient httpClient = WebApiTestWebApplicationFactory.CreateClient();
     HttpResponseMessage httpResponseMessage = await httpClient.GetAsync($"{Settings.Instance.WebApiUrl}/Person/Read/0");
-    Assert.That(httpResponseMessage.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+    httpResponseMessage.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     string notfound = await httpResponseMessage.Content.ReadAsStringAsync();
-    Assert.That(notfound, Is.Not.Null);
-    Assert.That(notfound, Is.EqualTo(PersonController.NOTFOUND));
+    notfound.Should().NotBeNull();
+    notfound.Should().Be(WebApi.Properties.Resources.PersonNotFound);
 }
 ```
 
@@ -392,15 +398,15 @@ And the following test ensures that the web API method succeeds.
 
 ```csharp
 [Test]
-public async Task Person_Read_Succeeds()
+public async Task GivenExistingId_WhenReadingPerson_ThenSucceeds()
 {
-    Person? expected = await CreatePerson(FNAME, LNAME);
-    Assert.That(expected, Is.Not.Null);
+    Person expected = await CreatePerson(FNAME, LNAME);
+    expected.Should().NotBeNull();
 
     HttpClient httpClient = WebApiTestWebApplicationFactory.CreateClient();
     HttpResponseMessage httpResponseMessage = await httpClient.GetAsync($"{Settings.Instance.WebApiUrl}/Person/Read/{expected.Id}");
     httpResponseMessage.EnsureSuccessStatusCode();
-    Person? actual = await httpResponseMessage.Content.ReadFromJsonAsync(typeof(Person)) as Person;
+    Person actual = await httpResponseMessage.Content.ReadFromJsonAsync(typeof(Person)) as Person;
     MakeAssertions(expected, actual);
 }
 ```
@@ -408,13 +414,13 @@ public async Task Person_Read_Succeeds()
 Once again, I extracted the **MakeAssertions** method because it is used in multiple tests.
 
 ```csharp
-static void MakeAssertions(Person? expected, Person? actual)
+static void MakeAssertions(Person expected, Person actual)
 {
-    Assert.That(expected, Is.Not.Null);
-    Assert.That(actual, Is.Not.Null);
-    Assert.That(actual.Id, Is.EqualTo(expected.Id));
-    Assert.That(actual.FName, Is.EqualTo(expected.FName));
-    Assert.That(actual.LName, Is.EqualTo(expected.LName));
+    expected.Should().NotBeNull();
+    actual.Should().NotBeNull();
+    actual.Id.Should().Be(expected.Id);
+    actual.FName.Should().Be(expected.FName);
+    actual.LName.Should().Be(expected.LName);
 }
 ```
 
@@ -425,7 +431,7 @@ Third, consider the following web API method, responsible for retrieving the lis
 ```csharp
 [HttpGet]
 [Route("[action]")]
-[SwaggerResponse(200, Type = typeof(List<Person>))]
+[SwaggerResponse(StatusCodes.Status200OK, Type = typeof(List<Person>))]
 public async Task<IActionResult> ReadList()
 {
     List<Person> people = await dbContext.People.ToListAsync();
@@ -437,18 +443,18 @@ The following test ensures that the web API method succeeds.
 
 ```csharp
 [Test]
-public async Task Person_ReadList_Succeeds()
+public async Task WhenReadingPersonList_ThenSucceeds()
 {
-    Person? expected = await CreatePerson(FNAME, LNAME);
-    Assert.That(expected, Is.Not.Null);
+    Person expected = await CreatePerson(FNAME, LNAME);
+    expected.Should().NotBeNull();
 
     HttpClient httpClient = WebApiTestWebApplicationFactory.CreateClient();
     HttpResponseMessage httpResponseMessage = await httpClient.GetAsync($"{Settings.Instance.WebApiUrl}/Person/ReadList");
     httpResponseMessage.EnsureSuccessStatusCode();
-    List<Person>? people = await httpResponseMessage.Content.ReadFromJsonAsync(typeof(List<Person>)) as List<Person>;
-    Assert.That(people, Is.Not.Null);
-    Assert.That(people, Is.Not.Empty);
-    Person? actual = people.SingleOrDefault(x => x.Id == expected.Id);
+    List<Person> people = await httpResponseMessage.Content.ReadFromJsonAsync(typeof(List<Person>)) as List<Person>;
+    people.Should().NotBeNull();
+    people.Should().NotBeEmpty();
+    Person actual = people.SingleOrDefault(x => x.Id == expected.Id);
     MakeAssertions(expected, actual);
 }
 ```
@@ -460,15 +466,17 @@ Fourth, consider the following web API method, responsible for updating an exist
 ```csharp
 [HttpPost]
 [Route("[action]")]
-[SwaggerResponse(200, Type = typeof(Person))]
-[SwaggerResponse(400)]
+[SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Person))]
+[SwaggerResponse(StatusCodes.Status400BadRequest)]
 public async Task<IActionResult> Update(Person person)
 {
     Person? existing = await dbContext.People.SingleOrDefaultAsync(x => x.Id == person.Id);
     if (existing == null)
-        return BadRequest(NOTFOUND);
-    if (string.IsNullOrEmpty(person.FName) || string.IsNullOrEmpty(person.LName))
-        return BadRequest(FNAMEORLNAMEARENULLOREMPTY);
+        return BadRequest(Properties.Resources.PersonNotFound);
+    PersonValidation personValidation = new();
+    ValidationResult validationResult = personValidation.Validate(person);
+    if (!validationResult.IsValid)
+        return BadRequest(validationResult.ToString());
     existing.FName = person.FName;
     existing.LName = person.LName;
     await dbContext.SaveChangesAsync();
@@ -480,15 +488,15 @@ The following test ensures that the web API method returns a bad request error i
 
 ```csharp
 [Test]
-public async Task Person_Update_WhenNotFound_ReturnsBadRequest()
+public async Task GivenNonExistingPerson_WhenUpdatingPerson_ThenReturnsBadRequest()
 {
     HttpClient httpClient = WebApiTestWebApplicationFactory.CreateClient();
     Person expected = new();
     HttpResponseMessage httpResponseMessage = await httpClient.PostAsync($"{Settings.Instance.WebApiUrl}/Person/Update", JsonContent.Create(expected));
-    Assert.That(httpResponseMessage.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+    httpResponseMessage.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     string notfound = await httpResponseMessage.Content.ReadAsStringAsync();
-    Assert.That(notfound, Is.Not.Null);
-    Assert.That(notfound, Is.EqualTo(PersonController.NOTFOUND));
+    notfound.Should().NotBeNull();
+    notfound.Should().Be(WebApi.Properties.Resources.PersonNotFound);
 }
 ```
 
@@ -496,18 +504,27 @@ The following test ensures that the web API method returns a bad request error i
 
 ```csharp
 [Test]
-public async Task Person_Update_WhenFNameOrLNameAreNullOrEmpty_ReturnsBadRequest()
+[TestCase(" ", " ")]
+[TestCase(" ", "")]
+[TestCase(" ", null)]
+[TestCase("", " ")]
+[TestCase("", "")]
+[TestCase("", null)]
+[TestCase(null, " ")]
+[TestCase(null, "")]
+[TestCase(null, null)]
+public async Task GivenFNameOrLNameAreNullOrEmpty_WhenUpdatingPerson_ThenReturnsBadRequest(string fName, string lName)
 {
-    Person? temp = await CreatePerson(FNAME, LNAME);
-    Assert.That(temp, Is.Not.Null);
+    Person temp = await CreatePerson(FNAME, LNAME);
+    temp.Should().NotBeNull();
 
     HttpClient httpClient = WebApiTestWebApplicationFactory.CreateClient();
-    Person expected = new() { Id = temp.Id, FName = null, LName = "" };
+    Person expected = new() { Id = temp.Id, FName = fName, LName = lName };
     HttpResponseMessage httpResponseMessage = await httpClient.PostAsync($"{Settings.Instance.WebApiUrl}/Person/Update", JsonContent.Create(expected));
-    Assert.That(httpResponseMessage.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+    httpResponseMessage.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     string fNameOrLNameAreNullOrEmpty = await httpResponseMessage.Content.ReadAsStringAsync();
-    Assert.That(fNameOrLNameAreNullOrEmpty, Is.Not.Null);
-    Assert.That(fNameOrLNameAreNullOrEmpty, Is.EqualTo(PersonController.FNAMEORLNAMEARENULLOREMPTY));
+    fNameOrLNameAreNullOrEmpty.Should().NotBeNull();
+    fNameOrLNameAreNullOrEmpty.Should().Be($"{WebApi.Properties.Resources.PersonValidationFNameIsEmpty}\r\n{WebApi.Properties.Resources.PersonValidationLNameIsEmpty}");
 }
 ```
 
@@ -515,16 +532,16 @@ And the following test ensures that the web API method succeeds.
 
 ```csharp
 [Test]
-public async Task Person_Update_Succeeds()
+public async Task GivenFNameAndLNameAreNotNullOrEmpty_WhenUpdatingPerson_ThenSucceeds()
 {
-    Person? temp = await CreatePerson(FNAME, LNAME);
-    Assert.That(temp, Is.Not.Null);
+    Person temp = await CreatePerson(FNAME, LNAME);
+    temp.Should().NotBeNull();
 
     HttpClient httpClient = WebApiTestWebApplicationFactory.CreateClient();
     Person expected = new() { Id = temp.Id, FName = "Laura", LName = "Bernasconi" };
     HttpResponseMessage httpResponseMessage = await httpClient.PostAsync($"{Settings.Instance.WebApiUrl}/Person/Update", JsonContent.Create(expected));
     httpResponseMessage.EnsureSuccessStatusCode();
-    Person? actual = await httpResponseMessage.Content.ReadFromJsonAsync(typeof(Person)) as Person;
+    Person actual = await httpResponseMessage.Content.ReadFromJsonAsync(typeof(Person)) as Person;
     MakeAssertions(expected, actual);
 }
 ```
@@ -534,15 +551,15 @@ public async Task Person_Update_Succeeds()
 Last, consider the following web API method, responsible for deleting an existing person record.
 
 ```csharp
-[HttpGet]
+[HttpDelete]
 [Route("[action]/{id}")]
-[SwaggerResponse(200, "Deletes a person.")]
-[SwaggerResponse(400)]
+[SwaggerResponse(StatusCodes.Status200OK)]
+[SwaggerResponse(StatusCodes.Status400BadRequest)]
 public async Task<IActionResult> Delete(int id)
 {
     Person? person = await dbContext.People.SingleOrDefaultAsync(x => x.Id == id);
     if (person == null)
-        return BadRequest(NOTFOUND);
+        return BadRequest(Properties.Resources.PersonNotFound);
     dbContext.People.Remove(person);
     await dbContext.SaveChangesAsync();
     return Ok();
@@ -553,14 +570,14 @@ The following test ensures that the web API method returns a bad request error i
 
 ```csharp
 [Test]
-public async Task Person_Delete_ReturnsBadRequest()
+public async Task GivenNonExistingId_WhenDeletingPerson_ThenReturnsBadRequest()
 {
     HttpClient httpClient = WebApiTestWebApplicationFactory.CreateClient();
-    HttpResponseMessage httpResponseMessage = await httpClient.GetAsync($"{Settings.Instance.WebApiUrl}/Person/Delete/0");
-    Assert.That(httpResponseMessage.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+    HttpResponseMessage httpResponseMessage = await httpClient.DeleteAsync($"{Settings.Instance.WebApiUrl}/Person/Delete/0");
+    httpResponseMessage.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     string notfound = await httpResponseMessage.Content.ReadAsStringAsync();
-    Assert.That(notfound, Is.Not.Null);
-    Assert.That(notfound, Is.EqualTo(PersonController.NOTFOUND));
+    notfound.Should().NotBeNull();
+    notfound.Should().Be(WebApi.Properties.Resources.PersonNotFound);
 }
 ```
 
@@ -568,24 +585,24 @@ And the following test ensures that the web API method succeeds.
 
 ```csharp
 [Test]
-public async Task Person_Delete_Succeeds()
+public async Task GivenExistingId_WhenDeletingPerson_ThenSucceeds()
 {
-    Person? expected = await CreatePerson(FNAME, LNAME);
+    Person expected = await CreatePerson(FNAME, LNAME);
 
     HttpClient httpClient = WebApiTestWebApplicationFactory.CreateClient();
 
     {
-        Assert.That(expected, Is.Not.Null);
-        HttpResponseMessage httpResponseMessage = await httpClient.GetAsync($"{Settings.Instance.WebApiUrl}/Person/Delete/{expected.Id}");
+        expected.Should().NotBeNull();
+        HttpResponseMessage httpResponseMessage = await httpClient.DeleteAsync($"{Settings.Instance.WebApiUrl}/Person/Delete/{expected.Id}");
         httpResponseMessage.EnsureSuccessStatusCode();
     }
 
     {
         HttpResponseMessage httpResponseMessage = await httpClient.GetAsync($"{Settings.Instance.WebApiUrl}/Person/Read/{expected.Id}");
-        Assert.That(httpResponseMessage.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+        httpResponseMessage.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         string notfound = await httpResponseMessage.Content.ReadAsStringAsync();
-        Assert.That(notfound, Is.Not.Null);
-        Assert.That(notfound, Is.EqualTo(PersonController.NOTFOUND));
+        notfound.Should().NotBeNull();
+        notfound.Should().Be(WebApi.Properties.Resources.PersonNotFound);
     }
 }
 ```
