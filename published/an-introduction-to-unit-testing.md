@@ -4,7 +4,6 @@ domain: campzulu.hashnode.dev
 tags: csharp, software-testing, tdd, test, test-driven-development, testing, testing-library, unit-testing
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1668080970548/myC4ov8zN.jpeg
 publishAs: fabioscagliola
-ignorePost: true
 hideFromHashnodeCommunity: false
 ---
 

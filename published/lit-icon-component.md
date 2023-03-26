@@ -4,7 +4,6 @@ domain: campzulu.hashnode.dev
 tags: web-development, css, sass
 cover: https://cdn.hashnode.com/res/hashnode/image/unsplash/_zKxPsGOGKg/upload/v1666550567525/TYz2JBy-V.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
 publishAs: r3dDoX
-ignorePost: true
 hideFromHashnodeCommunity: false
 ---
 
