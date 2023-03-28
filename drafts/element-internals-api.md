@@ -44,14 +44,14 @@ As there are numerous properties and methods available, let's focus on the most 
 There is essentially two things we have to do, to use the ElementInternals API:
 
 * Flag the web component as being `formAssociated`
-* Inject the ElementInterals in the constructor of our web component
+* Attach the ElementInterals in the constructor of our web component
 
 I'm putting together a showcase for a design system and will be using examples written in
 [Lit](https://lit.dev), but they should be easily adaptable to plain web components. You can find
 the project on [Github](https://github.com/r3dDoX/design-system-showcase).
 
 Below you can see the most basic example of allowing a web component to be associated with a form as
-well as inject the ElementInternals to use internally.
+well as attaching the ElementInternals to use internally.
 
 ```typescript
 import {customElement} from 'lit/decorators.js';
