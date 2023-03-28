@@ -156,7 +156,7 @@ submit the form our component would report the validity of the native checkbox.
 Many 3rd party form libraries allow you to run validations on `change` or on `blur`. This means our
 web component needs to dispatch those events. For our `switch` component, we already dispatch
 a `change` event, and we won't have to worry about focus/blur events. Since we have a native input
-in our ShadowDOM our component will dispathc focus and blur events when the native input receives or
+in our ShadowDOM our component will dispatch focus and blur events when the native input receives or
 loses focus.
 
 There is an edge case which you can see in the `buttongroup` component
