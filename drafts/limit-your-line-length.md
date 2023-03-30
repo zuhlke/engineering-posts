@@ -50,7 +50,7 @@ In my experience diffing tools manage changes on different lines much better tha
 # Accessibility
 
 Accessability is an important consideration in software development not just when we talk about end users.
-Shorter lines are easier to read for people with visual impairments.
+Shorter lines can aid individuals with visual impairments to read code more comfortably, especially when using larger font sizes.
 However, accessibility is about all of us, regardless of our visual abilities.
 Your own long lines may come back to haunt you while fixing a bug on a notebook during a train ride, during a presentation, or resolving a merge conflict in split view.
 
@@ -70,5 +70,16 @@ This negatively impacts readability, as each line requires more mental effort to
 If variable and function names are too long to allow for shorter lines, it may be a sign that they are also doing too much and should be refactored.
 
 # Conclusion
+
+Limiting line lengths is key for better code quality, collaboration, readability, and accessibility.
+However, defining the exact limit is an ongoing debate.
+While some advocate for sticking to the old 80-column standard, others believe it is acceptable to double that number.
+Ultimately, the ideal limit depends on several factors, such as the programming language, used frameworks and overall coding style.
+In my experience, a reasonable compromise is to target 80 columns but permit up to 120 columns.
+
+I would love to hear your opinion on this topic.
+Are you already enforcing a limit on line lengths in your codebase?
+If so, what limit do you find works best for you?
+If not, do you think it's worth considering?
 
 <!-- TODO: arguments wrapping of editors is no alternative -->
