@@ -1,9 +1,9 @@
 ---
-title: Limit your code line lenth
-subtitle: Why we should still enforce limits to the length of lines in 2023
-domain: campzulu.hashnode.dev
-tags: development, code-style, lint,
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1673264332496/a9-qPZTKf.jpg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
+title: "Breaking the Line: The Benefits of Limited Line Lengths"
+subtitle: The impact of long lines on software projects and why we should still enforce limits in 2023
+domain: software-engineering-corner.hashnode.dev
+tags: development, code-style, lint
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1680181506757/dqCCyfD4E.jpg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
 hideFromHashnodeCommunity: false
 publishAs: culas
 ---
@@ -86,5 +86,3 @@ I would love to hear your opinion on this topic.
 Are you already enforcing a limit on line lengths in your codebase?
 If so, what limit do you find works best for you?
 If not, do you think it's worth considering?
-
-<!-- TODO: arguments wrapping of editors is no alternative -->
