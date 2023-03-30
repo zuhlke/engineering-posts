@@ -26,9 +26,14 @@ Shorter lines of code can help to avoid that by making it easier to scan and und
 [Research by Edward Scott of the Baymard Institute](https://baymard.com/blog/line-length-readability) suggests an optimal line length of 50 to 75 characters for body text.
 However, code isn't quite like English prose.
 With additional syntactic symbols and a larger word length of variables and functions, a higher line length limit is reasonable.
-The PEP 8 style guide for Python recommends a limit of 79 characters and Google suggests 80 for JavaScript and 100 for Java.
+The PEP 8 style guide for Python recommends a limit of 79 columns and Google suggests 80 for JavaScript and 100 for Java.
 The [PEP 8 style guide for Python](https://peps.python.org/pep-0008/#maximum-line-length) recommends a limit of 79 characters, Google suggests [80 for JavaScript](https://google.github.io/styleguide/jsguide.html#formatting-column-limit) and [100 for Java](https://google.github.io/styleguide/javaguide.html#s4.4-column-limit).
 Somewhere in that range of 80 to 100 is likely the ideal limit for code readability.
+
+While line wrapping in code editors can visually break long lines into multiple lines, it does not actually solve the problem.
+It can still make the code difficult to read and understand as the logical flow and visual hierarchy can be disrupted by arbitrary line breaks.
+Additionally, line wrapping can also create inconsistencies in indentation and make it harder to search for specific lines of code.
+It's better to limit the length of lines of code from the start rather than relying on line wrapping as a band-aid solution.
 
 # Debugging
 
