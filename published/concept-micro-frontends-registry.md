@@ -1,6 +1,6 @@
 ---
 title: A conceptual idea for building a registry to access micro frontends
-domain: campzulu.hashnode.dev
+domain: software-engineering-corner.hashnode.dev
 tags: web-development, microservices, software-architecture, frontend, frontend-development, web-components
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1668423299979/YPcjXO5yK.jpg?auto=compress
 publishAs: lehmamic

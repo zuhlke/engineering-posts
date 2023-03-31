@@ -1,6 +1,6 @@
 ---
 title: Cypress app actions with Angular
-domain: campzulu.hashnode.dev
+domain: software-engineering-corner.hashnode.dev
 tags: web-development, frontend-development, angular, testing, cypress
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1673264332496/a9-qPZTKf.jpg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
 hideFromHashnodeCommunity: false
