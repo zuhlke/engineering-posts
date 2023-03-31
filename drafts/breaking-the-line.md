@@ -27,7 +27,6 @@ Shorter lines of code can help to avoid that by making it easier to scan and und
 [Research by Edward Scott of the Baymard Institute](https://baymard.com/blog/line-length-readability) suggests an optimal line length of 50 to 75 characters for body text.
 However, code isn't quite like English prose.
 With additional syntactic symbols and a larger word length of variables and functions, a higher line length limit is reasonable.
-The PEP 8 style guide for Python recommends a limit of 79 columns and Google suggests 80 for JavaScript and 100 for Java.
 The [PEP 8 style guide for Python](https://peps.python.org/pep-0008/#maximum-line-length) recommends a limit of 79 characters, Google suggests [80 for JavaScript](https://google.github.io/styleguide/jsguide.html#formatting-column-limit) and [100 for Java](https://google.github.io/styleguide/javaguide.html#s4.4-column-limit).
 Somewhere in that range of 80 to 100 is likely the ideal limit for code readability.
 
@@ -81,7 +80,7 @@ Limiting line lengths is key for better code quality, collaboration, readability
 However, defining the exact limit is an ongoing debate.
 While some advocate for sticking to the old 80-column standard, others believe it is acceptable to double that number.
 Ultimately, the ideal limit depends on several factors, such as the programming language, used frameworks and overall coding style.
-In my experience, a reasonable compromise is to target 80 columns but permit up to 120 columns.
+In my experience, a reasonable compromise is to **target 80 columns but permit up to 120 columns.**
 
 I would love to hear your opinion on this topic.
 Are you already enforcing a limit on line lengths in your codebase?
