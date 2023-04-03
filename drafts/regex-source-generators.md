@@ -1,6 +1,6 @@
 ---
 title: Source Generators and regular expressions
-domain: campzulu.hashnode.dev
+domain: software-engineering-corner.hashnode.dev
 tags: architecture, .NET, C#, Blazor
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1672652289997/68d840b3-1d4d-483d-91cd-4a92a638db85.jpeg
 publishAs: linkdotnet
