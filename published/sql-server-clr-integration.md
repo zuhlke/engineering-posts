@@ -4,7 +4,6 @@ domain: software-engineering-corner.hashnode.dev
 tags: csharp, sql
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1670761204821/1E2EV1Iel.jpeg
 publishAs: fabioscagliola
-ignorePost: true
 hideFromHashnodeCommunity: false
 ---
 
