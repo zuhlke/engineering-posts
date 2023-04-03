@@ -1,6 +1,6 @@
 ---
 title: Building micro-frontends with Angular and StencilJS
-domain: campzulu.hashnode.dev
+domain: software-engineering-corner.hashnode.dev
 tags: web-development, angular, microservices, software-architecture, javascript
 cover: https://cdn.hashnode.com/res/hashnode/image/unsplash/ok10xLscBDo/upload/v1656322995141/sjo2_6C6u.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
 publishAs: lehmamic

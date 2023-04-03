@@ -1,7 +1,7 @@
 ---
 title: Build Azure AD B2C Templates
 subtitle: A simplistic approach using parcel.js
-domain: campzulu.hashnode.dev
+domain: software-engineering-corner.hashnode.dev
 tags: web-development, azure, build-tool, sass
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1663572757122/uN-z_ruLg.jpg?auto=compress
 publishAs: Salv

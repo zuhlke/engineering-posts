@@ -1,6 +1,6 @@
 ---
 title: Creating an icon web component with lazy loading in LitElement
-domain: campzulu.hashnode.dev
+domain: software-engineering-corner.hashnode.dev
 tags: web-development, css, sass
 cover: https://cdn.hashnode.com/res/hashnode/image/unsplash/_zKxPsGOGKg/upload/v1666550567525/TYz2JBy-V.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
 publishAs: r3dDoX

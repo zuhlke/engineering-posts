@@ -1,6 +1,6 @@
 ---
 title: Frozen Collections in .NET 8
-domain: campzulu.hashnode.dev
+domain: software-engineering-corner.hashnode.dev
 tags: net, csharp
 cover: https://linkdotnetblogstorage.azureedge.net/blog/20221121_Frozen/Thumbnail.jpg
 publishAs: LinkDotNet

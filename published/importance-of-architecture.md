@@ -1,7 +1,7 @@
 ---
 title: Avoid the urgency trap 
 subtitle: Or: Why architecture matters in software projects
-domain: campzulu.hashnode.dev
+domain: software-engineering-corner.hashnode.dev
 tags: architecture, software-architecture, design-and-architecture
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1665328931237/kXGgAFOdK.jpg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
 publishAs: romanutti
