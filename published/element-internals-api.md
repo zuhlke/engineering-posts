@@ -5,7 +5,6 @@ tags: web-development, lit, web-components, shadow-dom, form
 cover: https://cdn.hashnode.com/res/hashnode/image/stock/unsplash/jJT2r2n7lYA/upload/76adc03462239d3b3e6cb53f44b60b20.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
 publishAs: r3dDoX
 hideFromHashnodeCommunity: false
-ignorePost: true
 ---
 
 In the world of web development, creating custom form elements has always been a bit of a challenge.
