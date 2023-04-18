@@ -3,24 +3,24 @@ title: RxJS Memory Leaks in Angular
 domain: software-engineering-corner.hashnode.dev
 tags: web-development, rxjs, form, bugs-and-errors
 cover: https://cdn.hashnode.com/res/hashnode/image/stock/unsplash/xqFCy9AbHP4/upload/a6072d56d7c313baa3d0eafda3ebbd24.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
-publishAs: tispBe
+publishAs: timouti
 hideFromHashnodeCommunity: false
 ignorePost: true
 ---
 
-Memory leaks do not sound like something you want in your Angular application. Yet, nearly all applications using [RxJS Observables](https://rxjs.dev/guide/observable) face the challenge of mitigating this threat. You might already wonder, what these memory leaks are and how they can affect your application. And what is more, how can you prevent them?
+Memory leaks are a dreadful little nightmare to fix in your web application. Yet, when using [RxJS Observables](https://rxjs.dev/guide/observable) you face the challenge of mitigating the threat of creating memory leaks. You might already wonder - what are memory leaks and how can I fix them?
 
 This article describes RxJS Observable memory leaks and presents various techniques and patterns to tackle them in Angular applications.
 
 ### Memory Leaks in a Nutshell
 
-In Angular web applications, memory leaks are caused by a mismanagement of [RxJs Observables](https://rxjs.dev/guide/observable). Thereby, allocated heap memory space is not freed up by the application when a component with an Observable is destroyed. This memory leak will result in performance issues, i.e. the page gets slower and slower. Higher load times negatively impact the user experience and increase the bounce rate [[1]](https://www.nngroup.com/articles/response-times-3-important-limits/). If a page load goes from 1s to 5s, then the bounce rate increases by 90% [[2]](https://www.thinkwithgoogle.com/consumer-insights/consumer-trends/mobile-page-speed-new-industry-benchmarks/). A page refresh will clear the heap memory again, and "reset" the memory leak. So, the longer an Angular component lives on your page, the higher the chance of experiencing a memory leak.
+In Angular web applications, memory leaks are oftentimes caused by a mismanagement of [RxJs Observables](https://rxjs.dev/guide/observable). Thereby, heap memory space allocated to Observable subscriptions is not freed up when a component is destroyed. This memory leak will result in performance issues, i.e. the page gets slower and slower. Higher load times negatively impact the user experience and increase the bounce rate [[1]](https://www.nngroup.com/articles/response-times-3-important-limits/). If a page load goes from 1s to 5s, the bounce rate increases by 90% [[2]](https://www.thinkwithgoogle.com/consumer-insights/consumer-trends/mobile-page-speed-new-industry-benchmarks/). A page refresh will clear the heap memory again, and "reset" the memory leak.
 
-Luckily, we can easily prevent those memory leaks. But first, let us go into more detail about the origins of memory leaks.
+Luckily, we can easily prevent memory leaks. But first, let us go into more detail about the origins of memory leaks.
 
 ### RxJs Observables
 
-Let us start at the beginning - what are [RxJs Observables](https://rxjs.dev/guide/observable)? The _Reactive Extensions for Javascript_ (RxJs), is a library for reactive programming concerned with asynchronous data streams and the propagation of data changes. Thereby, you can consider a data stream as a _collection_ of data arriving and potentially changing over time, e.g. when fetching data from backend services using HTTP.
+Let us start at the beginning - what are [RxJs Observables](https://rxjs.dev/guide/observable)? The _Reactive Extensions for Javascript_ (RxJs), is a library for reactive programming concerned with asynchronous data streams and the propagation of data changes. Thereby, you can consider a data stream as a _collection_ of data arriving, e.g. when fetching data from backend services using HTTP. This data stream can potentially change over time.
 
 To that end, RxJS provides one core type - the _Observable_ - representing a collection of future values and events. Observables are lazy push-based systems, similar to JavaScript [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global%5FObjects/Promise). The consumer of the data is unaware of when it will receive the data. It is the data producer that determines when to "push" data to its consumers. Compared to Promises, however, an Observable can produce multiple values over time, i.e. a stream of data. This data stream can return zero to potentially infinite values from its invocation onward, synchronously or asynchronously.
 
@@ -28,11 +28,13 @@ To that end, RxJS provides one core type - the _Observable_ - representing a col
 
 Observables are lazy computations, so, unless you _subscribe_ to them, no data will be transmitted. In Angular applications, we use Observables mostly to fetch data from backend services using HTTP, for routing purposes, and to respond to user events e.g. in forms.
 
-**Please note**: There are Observables that auto-complete, i.e. don't need a specific unsubscribe. This is the case for Angular HttpClient or Angular Router Observables [[3]](https://lukaonik.medium.com/do-we-need-to-unsubscribe-http-client-in-angular-86d781522b99). However, we still recommend applying the same mechanisms to prevent memory leaks as with other Observables, ensuring consistency among the code.
+**Finite and Infinite Observables**
+There are two types of Observables in that respect - finite and infinite. Finite Observables will always emit a value (or an error) and then complete. So, there is no explicit need for unsubscribing, since RxJs Observables will also unsubscribe on error. Examples are the Angular `HttpClient` and `Router`[[3]](https://lukaonik.medium.com/do-we-need-to-unsubscribe-http-client-in-angular-86d781522b99). Thus, you don't have to explicitly unsubscribe to HTTP requests using the `HttpClient`.
+Infinite Observables, on the other hand, will potentially never complete e.g. a click listener. There is no clear termination to the sequence of values emitted. Therefore, the subscription will live on in the memory if not explicitly unsubscribed.
 
 ### Subscriptions
 
-Subscriptions are used to consume data provided by Observables. Subscribers - or rather data consumers - thereby, _subscribe_ to the Observables, which creates the subscription. Subscriptions are disposable resources that live in the heap memory. By _unsubscribing_ from an Observable, the resource is destroyed and the allocated heap memory is freed up again. Unsubscribing will also cancel the Observable execution.
+Subscriptions are used to consume data provided by Observables. Subscribers, or rather data consumers, _subscribe_ to an Observable, creating the subscription. Subscriptions are disposable resources that live in the heap memory. By _unsubscribing_ from an Observable, the resource is destroyed and the allocated heap memory is freed up again. Unsubscribing will also cancel the Observable execution.
 
 ### **Memory Leaks - A Detailed Example**
 
@@ -67,13 +69,13 @@ export class SearchComponent implements OnInit {
 </mat-form-field>
 ```
 
-The `valueChanges` returns an Observable of type _any_. It emits an event when the value of the search control changes, so, with every new user keystroke. We use the [RxJs operator](https://rxjs.dev/api/operators/debounceTime) `debounceTime` to only emit a value when there is no user input for at least 1s. In our callback, we simply call the backend service to update the search results.
+The `valueChanges` returns an Observable of type _any_. It emits an event when the value of the search control changes, so, with every new user keystroke (infinite Observable). We use the [RxJs operator](https://rxjs.dev/api/operators/debounceTime) `debounceTime` to only emit a value when there is no user input for at least 1s. In our callback, we simply call the backend service to update the search results.
 
 **Identifying the Memory Leak**  
 Now, when we subscribe to the search input changes, a subscription is created in the heap memory. Currently, we do not unsubscribe from the `valueChanges` Observable.  
-As soon as the `SearchComponent` is destroyed, the subscription is still active and not cleaned up by the garbage collector. This becomes a problem when the `SearchComponent` is created and destroyed frequently, e.g. when the search input is only displayed after clicking a search button before. In that case, more and more heap space is occupied by those obsolete `valueChanges` subscriptions. The browser will become slower and slower and the search feature unusable. We have a memory leak.
+If the `SearchComponent` is destroyed, the subscription would still be active in memory and not be cleaned up by the garbage collector. This becomes a problem when the `SearchComponent` is created and destroyed frequently, e.g. when the search input is only displayed after clicking a search button before. In that case, more and more heap space is occupied by those obsolete `valueChanges` subscriptions. The browser will become slower and slower and the search feature unusable. We have a memory leak.
 
-A page refresh would clear the heap memory and reset the problem state. Making it difficult to identify issues like that during development with frequent re-compilations and page refreshes.
+A page refresh would clear the heap memory and reset the problem state, making it difficult to identify due to frequent re-compilations and page refreshes during development.
 
 Luckily there are various techniques to deal with memory leaks. In the following, we present the most popular ones. Additionally, we outline the extension of the linting rules to prevent memory leaks before they occur.
 
@@ -88,7 +90,7 @@ Here are the most common ones.
 3. **Mixin**
 
 **1\. ngOnDestroy**  
-A straightforward approach is to simply unsubscribe from all Observables within a component before it gets destroyed. It is recommended to do this in the `ngOnDestroy` lifecycle hook. To that end, we assign the subscription to a variable `searchTerm$` and unsubscribe from this subscription when the component gets destroyed.
+A straightforward approach is to simply unsubscribe from all Observables when the component is destroyed. It is recommended to do this in the `ngOnDestroy` lifecycle hook. To that end, we assign the subscription to a variable `searchTerm$` and unsubscribe in the `ngOnDestroy` hook.
 
 ```typescript
 @Component({
@@ -98,7 +100,7 @@ A straightforward approach is to simply unsubscribe from all Observables within 
 })
 export class SearchComponent implements OnInit, OnDestroy {
   searchCtrl: FormControl = new FormControl();
-  searchTerm$: Subscription;
+  searchTerm$?: Subscription;
 
   ngOnInit(): void {
     this.searchTerm$ = this.searchCtrl.valueChanges
@@ -109,7 +111,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.searchTerm$.unsubscribe();
+    this.searchTerm$?.unsubscribe();
   }
 ```
 
@@ -117,7 +119,7 @@ This works well for smaller components with only a few subscriptions. However, i
 
 **2\. Scalable ngOnDestroy**  
 We can easily deal with the scalability issue of the first approach by using the [RxJs `takeUntil` operator](https://www.google.com/search?client=safari&rls=en&q=rxjs+takeuntil&ie=UTF-8&oe=UTF-8). This operator allows us to automatically unsubscribe from the Observable at a given trigger. The trigger has to be an Observable itself.  
-In our case, the trigger is the destruction of the component, i.e. we want to keep the subscription active _until_ the component is destroyed. The `ngOnDestroy` does not expose an Observable we could use in the `takeUntil` operator, thus, we have to create our own:
+In our case, the trigger is the destruction of the component, i.e. we want to keep the subscription active _until_ the component is destroyed. As the `ngOnDestroy` does not expose an Observable, we have to create our own:
 
 ```typescript
 @Component({
@@ -141,8 +143,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.destroy$?.next();
+    this.destroy$?.complete();
   }
 ```
 
@@ -161,8 +163,8 @@ export function WithDestroy<T extends Constructor<{}>>(Base: T = class {} as nev
     public destroy$ = new Subject<void>();
 
     public ngOnDestroy(): void {
-      this.destroy$.next();
-      this.destroy$.complete();
+      this.destroy$?.next();
+      this.destroy$?.complete();
     }
   };
 }
@@ -201,13 +203,11 @@ export class SearchComponent extends WithDestroy implements OnInit, OnDestroy {
   }
 ```
 
-We can completely remove the `ngOnDestroy` hook and `destroy$` Subject in our component. The only thing we have to do is extend the class with the newly added `WithDestroy` and add a constructor. Much cleaner than before, isn't it?
+We can completely remove the `ngOnDestroy` hook and `destroy$` Subject in our component. The only addition is to extend the class using `WithDestroy` and adding a constructor. Smooth, isn't it?
 
 ## Linting to Prevent Memory Leaks
 
-To prevent memory leaks in our project and ensure that all subscriptions are terminated, we introduce new linting rules.
-
-We recommend adding the following eslint plugins and rules:
+We recommend the following linting rules to prevent Observable-based memory leaks in your project.
 
 - [eslint-plugin-rxjs](https://github.com/cartant/eslint-plugin-rxjs)
   - `no-unsafe-takeuntil` \- disallows operators after the `takeUntil` operator
@@ -216,7 +216,7 @@ We recommend adding the following eslint plugins and rules:
 
 ## **Conclusion**
 
-We showed how to identify memory leaks and how to fix them. Unfortunately, there is no integrated solution from RxJs to automatically unsubscribe Observables with component destruction. Let's hope that this will change at some point in the future.
+Memory leaks in Angular applications are oftentimes caused by not unsubscribing from infinite RxJs Observable subscriptions. Unfortunately, there is no integrated solution to automatically unsubscribe Observables during component destruction. We proposed three different approaches to fix this type of memory leak and propose linting rules to enforce those prevention mechanisms.
 
 [1] [Nielsen Norman Group, Response Times: The 3 Important Limits, State April 2023](https://www.nngroup.com/articles/response-times-3-important-limits/)  
 [2] [Google Consumer Insights, State April 2023](https://www.thinkwithgoogle.com/consumer-insights/consumer-trends/mobile-page-speed-new-industry-benchmarks/)  
