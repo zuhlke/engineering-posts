@@ -1,9 +1,9 @@
 ---
-title: MicroFrontend - Module Federation with Vite for React
+title: Micro Frontend - Module Federation with Vite for React
 domain: software-engineering-corner.hashnode.dev
 tags: web-development, microfrontend, module-federation, react, vite
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1681956795984/TRA8XJ_Ir.webp?auto=format
-publishAs: NipunaMarcus
+publishAs: NipunaMarcusZuhlke
 hideFromHashnodeCommunity: false
 ignorePost: true
 ---
@@ -18,8 +18,8 @@ Module federation is concept which get different builds to come together to make
 ![How federation looks like](https://cdn.hashnode.com/res/hashnode/image/upload/v1681957205265/bcuUQoe-I.webp?auto=format)
 
 Figure 1 shows rough explanation on how it works. In host application there will be a reference to each remote component as an import or a Lazy Loaded module. 
-At the remote servers where each “HomePage App” and “Payment App” hosted, shared components are packaged into a javascript module and will be publicly available as a built javascript files (in above example “homepage.js” and “payment.js”). 
-Then from host application side these remote components will be brought in at runtime as javascript module and will be treated as components in hosted application.
+At the remote servers where each “HomePage App” and “Payment App” hosted, shared components are packaged into a JavaScript module and will be publicly available as a built JavaScript files (in above example “homepage.js” and “payment.js”). 
+Then from host application side these remote components will be brought in at runtime as JavaScript module and will be treated as components in hosted application.
 
 More details can be found [here](https://webpack.js.org/concepts/module-federation/) about concept of Module Federation.
 
@@ -28,7 +28,7 @@ More details can be found [here](https://webpack.js.org/concepts/module-federati
 To get the module federation functionality we need to add a plugin to Vite. [Plugin can be found here](https://github.com/originjs/vite-plugin-federation).
 
 There are always minimum two places where we need to configure to get the module federation functionality. One configuration should be applied on the remote application where we have the components to be shared to tell Vite that what are the components that will be shared as modules and what is the entry name for the build.
-Other Configuration should be applied on the host application side where we gonna use the federated modules.
+Other Configuration should be applied on the host application side where we going to use the federated modules.
 
 Following are the configurations to be applied on both sides.
 
@@ -53,9 +53,9 @@ export default defineConfig({
 
 Let’s go through each of the fields in federation plugin.
 
-**Name**: is the module name to be given to the javascript module that will be built including shared components. This is required. More details can be found [here](https://github.com/originjs/vite-plugin-federation#name-string).
+**Name**: is the module name to be given to the JavaScript module that will be built including shared components. This is required. More details can be found [here](https://github.com/originjs/vite-plugin-federation#name-string).
 
-**FileName**: is the Filename of the entry file for the javascript module. This is not required though as the default value for this will be `remoteEntry.js`. More details can be found [here](https://github.com/originjs/vite-plugin-federation#filenamestring).
+**FileName**: is the Filename of the entry file for the JavaScript module. This is not required though as the default value for this will be `remoteEntry.js`. More details can be found [here](https://github.com/originjs/vite-plugin-federation#filenamestring).
 
 **Exposes**: is where we need to list down the components that we are going to expose as remote component with the remote module. More details can be found [here](https://github.com/originjs/vite-plugin-federation#exposes).
 
@@ -65,7 +65,7 @@ Let’s go through each of the fields in federation plugin.
 
 ## Host Application Basic Configuration
 
-There are two ways to configure host application to bring in remote modules. One is directly referring to the URL of the remote module entry file. Second is dynamically populate the reference. Both has a smilier set of properties as to the remote side except for the property remotes . As Nameand Shared property are same as explain above following is the explanation for remotes property.
+There are two ways to configure host application to bring in remote modules. One is directly referring to the URL of the remote module entry file. Second is dynamically populate the reference. Both has a similar set of properties as to the remote side except for the property remotes . As Name and Shared property are same as explain above following is the explanation for remotes property.
 
 Remotes: holds references to entry files of remote modules. Following are the examples of how we can use remotes property. More details can be found [here](https://github.com/originjs/vite-plugin-federation#remotes).
 
@@ -111,9 +111,9 @@ export default defineConfig({
 
 **From**: will let the Vite know that from where the remote module coming from. Whether it’s coming from Webpack or Vite. More details can be found [here](https://github.com/originjs/vite-plugin-federation#from--vitewebpack).
 
-**ExternalType**: will set what type of external reference will be used in external property. So value for this can be url or promise . More details can be found [here](https://github.com/originjs/vite-plugin-federation#externaltype-urlpromise).
+**ExternalType**: will set what type of external reference will be used in external property. So value for this can be URL or promise . More details can be found [here](https://github.com/originjs/vite-plugin-federation#externaltype-urlpromise).
 
-**NOTE**: _here in the sample we are using `window.remoteURL` to get the url. So this is set from host application startup. so this property can be set on `app.tsx` or somewhere which is the root component of the application._
+**NOTE**: _here in the sample we are using `window.remoteURL` to get the URL. So this is set from host application start up. so this property can be set on `app.tsx` or somewhere which is the root component of the application._
 
 ## How to use remote module inside the host application
 
@@ -163,7 +163,7 @@ export default App;
 ```
 This is my recommended way of using remote modules as this give us ability to handle network related issues and performance related issues.
 
-**NOTE**: _if you prefer to implement this using typescript make sure you add a custom type declaration file to your src root and add the name of the remotes config as a module. file can be named something like `module.d.ts` ._
+**NOTE**: _if you prefer to implement this using typescript make sure you add a custom type declaration file to your source root and add the name of the remotes config as a module. file can be named something like `module.d.ts` ._
 
 ```typescript
 declare module 'sharedComp/*' {}
@@ -174,11 +174,11 @@ declare module 'sharedComp/*' {}
 There are few things we need to keep in mind when we are running the both Host and Remote applications.
 
 - Remember to run the remote application and host application in `Preview mode` when developing instead of `Development mode` to get the file serving working. Otherwise if we ran applications on dev mode because of dev server doesn’t serve files we cannot get the module federation working in dev mode.
-- Also remember when a component is shared it will be shared as a javascript module and not as an application. The responsibility of an application will be carried out by the host application that will bring in and uses the shared module. Hence when remote component uses environment variable or any other process related data will be pushed through host application to remote components. So when using remote component remember that host application will always be the platform that this remote component running on. Because even though remote component running on a separate server remember that remote server only serving a file at this point when comes to module federation and nothing more. You still can see the remote server side application running using URL but from host application side we are only referencing to the shared javascript module entry `.js` file. So make sure to provide every process related data from Host application even though they are provided in you remote application side.
+- Also remember when a component is shared it will be shared as a JavaScript module and not as an application. The responsibility of an application will be carried out by the host application that will bring in and uses the shared module. Hence when remote component uses environment variable or any other process related data will be pushed through host application to remote components. So when using remote component remember that host application will always be the platform that this remote component running on. Because even though remote component running on a separate server remember that remote server only serving a file at this point when comes to module federation and nothing more. You still can see the remote server side application running using URL but from host application side we are only referencing to the shared JavaScript module entry `.js` file. So make sure to provide every process related data from Host application even though they are provided in you remote application side.
 
 ### Lets implement a Basic Scenario with what we learnt so far
 
-Let’s consider an application use case which has different components which we can divide between different teams. Let’s take E-Commerce site as a scenario. Lets develop E-Commerce web app as host and then payment component and Home Page component. For Basic scenario lets implement only Home page use case for now.
+Let’s consider an application use case which has different components which we can divide between different teams. Let’s take E-Commerce site as a scenario. Let’s develop E-Commerce web app as host and then payment component and Home Page component. For Basic scenario lets implement only Home page use case for now.
 
 I borrowed some code from [the vite-plugin-federation samples for react and Vite](https://github.com/originjs/vite-plugin-federation/tree/main/packages/examples/react-vite) to get the base application and created a [sample application](https://github.com/NipunaMarcus/module-federation) which showcase a basic use case of module federation.
 
@@ -368,7 +368,7 @@ function App() {
 export default App;
 ```
 
-In line 6 and 7 I have lazy loading the components from remote module. And then we are using that inside a `Suspense` component to load it in async and have a fall back component applied incase of loading takes time.
+In line 6 and 7 I have lazy loading the components from remote module. And then we are using that inside a `Suspense` component to load it in async and have a fall back component applied in case of loading takes time.
 
 Also when importing these from remote modules if you are using typescript remember to add a custom definition file for types. So here in my implementation I have added the `custom.d.ts` file. This file help you to get rid of the compilation error `Module not found` .
 
@@ -429,7 +429,7 @@ export default defineConfig({
   }
 })
 ```
-Here in the config you can see I have added two different remotes configs to load the payment and home remote modules and two different external type for each. Here, as we did in the earlier examples, we are loading the home component with a static url which is embedded in to the config. But to load the payment module we are using the externalType, promise. I’m using this to demonstrate that incase I don’t know what will be the URL ,where Payment remote module is hosted on, in the build phase I should be able to set it in the runtime. This will be helpful if we are using and pipeline to host our applications and all the urls will be resolved at runtime. So as you can see in the line 25 I’m using below config to use a promise to load the payment remote module’s url during runtime.
+Here in the config you can see I have added two different remotes configs to load the payment and home remote modules and two different external type for each. Here, as we did in the earlier examples, we are loading the home component with a static URL which is embedded in to the config. But to load the payment module we are using the `externalType`, promise. I’m using this to demonstrate that in case I don’t know what will be the URL ,where Payment remote module is hosted on, in the build phase I should be able to set it in the runtime. This will be helpful if we are using and pipeline to host our applications and all the URLs will be resolved at runtime. So as you can see in the line 25 I’m using below config to use a promise to load the payment remote module’s URL during runtime.
 
 ```typescript
 remotes: [
@@ -444,7 +444,7 @@ remotes: [
 ...
 ```
 
-And inside the `App.tsx` component inside the host application I have set the payment remote module url to the `window` object and lazy load the payment remote module addition to the home page remote module.
+And inside the `App.tsx` component inside the host application I have set the payment remote module URL to the `window` object and lazy load the payment remote module addition to the home page remote module.
 
 ```typescript
 import './App.css';
@@ -520,14 +520,14 @@ What you need to check is
   * Check whether each remote module names in host side Vite config is unique.
   * Check whether correct component name is mentioned in the remote side Vite config. inside the config the component name should be similar to the component you are looking to share.
   * Check whether component is exported as default from the remote application side.
-3. **If all the packages are in a monorepo structure there is an issue with npm hoisting and sharing libs between host and remote modules.**
+3. **If all the packages are in a monorepo structure there is an issue with NPM hoisting and sharing libs between host and remote modules.**
    
 [Building host side fails with hoisted dependencies in monorepo when using lerna](https://github.com/originjs/vite-plugin-federation/issues/276)
 
-This is the opened issue for this in the vite-plugin-federation side. But if you need to keep the monorepo structure what you need to do is follow what i have done in the above sample projects, install node modules in each individual application instead of root of the workspace.
+This is the opened issue for this in the vite-plugin-federation side. But if you need to keep the monorepo structure what you need to do is follow what I have done in the above sample projects, install node modules in each individual application instead of root of the workspace.
 
 ## Conclusion
 * Always better to use lazy loading when it comes to importing remote modules instead of static import.
 * Use static URL in config if you know the URL for remotely hosted modules and if need to resolve the URL dynamically at runtime then use promise method to resolve the URL.
 * Remember to add everything to the shared component for it to work without a hitch. Examples: if there is a provider which you have applied in you remote application root level and you are using this inside the shared component remember to either add this provide inside the shared component or create a provider from host application side and wrap the remote component with that(haven’t tested this way though)… This is because once you share the component only that component and imports needed for it will be packed together to the remote module. So what you add in the root component of the remote app won’t be available inside the shared component.
-* Always share a core libraries such as vue and react between the host and remotes.
+* Always share a core libraries such as Vue and React between the host and remotes.
