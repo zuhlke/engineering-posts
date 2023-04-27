@@ -88,6 +88,7 @@ Here are the most common ones.
 1. **ngOnDestroy**
 2. **Scalable ngOnDestroy**
 3. **Mixin**
+4. **takeUntilDestroyed Operator**
 
 **1\. ngOnDestroy**  
 A straightforward approach is to simply unsubscribe from all Observables when the component is destroyed. It is recommended to do this in the `ngOnDestroy` lifecycle hook. To that end, we assign the subscription to a variable `searchTerm$` and unsubscribe in the `ngOnDestroy` hook.
@@ -205,6 +206,40 @@ export class SearchComponent extends WithDestroy implements OnInit, OnDestroy {
 
 We can completely remove the `ngOnDestroy` hook and `destroy$` Subject in our component. The only addition is to extend the class using `WithDestroy` and adding a constructor. Smooth, isn't it?
 
+**4\. takeUntilDestroyed Operator**
+Luckily, Angular v16 provides a new opearator `takeUntilDestroyed`. This new operator finally provides an easy to use solution for our problem. Generally, it works similar to the `takeUntil(this.destroy$)` presented earlier. Instead of the manually created destroy Observable, Angular 16 introduces a new `DestroyRef` provider to register destroy callbacks, similar to the `ngOnDestroy` lifecycle hook. This new provider can be used without the inheritence aspect demonstrated by our Mixin `WithDestroy` solution. So it is pretty neat and clean.
+
+```typescript
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
+@Component({
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.scss'],
+})
+export class SearchComponent implements OnInit, OnDestroy {
+  private destroyRef$ = inject(DestroyRef);
+  searchCtrl: FormControl = new FormControl();
+
+  constructor() {
+    super();
+  }
+
+  ngOnInit(): void {
+    this.searchCtrl.valueChanges
+      .pipe(
+        debounceTime(1000),
+        takeUntilDestroyed(this.destroyRef$)
+      )
+      .subscribe((searchTerm: string) => {
+        ...
+      });
+  }
+}
+```
+
+When you use the `takeUntilDestroyed` inside the constructor, you can even remove the injection of the `DestroyRef` as it will be done automatically by Angular.
+
 ## Linting to Prevent Memory Leaks
 
 We recommend the following linting rules to prevent Observable-based memory leaks in your project.
@@ -216,7 +251,7 @@ We recommend the following linting rules to prevent Observable-based memory leak
 
 ## **Conclusion**
 
-Memory leaks in Angular applications are oftentimes caused by not unsubscribing from infinite RxJs Observable subscriptions. Unfortunately, there is no integrated solution to automatically unsubscribe Observables during component destruction. We proposed three different approaches to fix this type of memory leak and propose linting rules to enforce those prevention mechanisms.
+Memory leaks in Angular applications are oftentimes caused by not unsubscribing from infinite RxJs Observable subscriptions. Luckily, Angular 16 finally introduces an integrated approach to deal with this issue. Additionally, we proposed three alternative approaches to fix this type of memory leak and propose linting rules to enforce those prevention mechanisms.
 
 [1] [Nielsen Norman Group, Response Times: The 3 Important Limits, State April 2023](https://www.nngroup.com/articles/response-times-3-important-limits/)  
 [2] [Google Consumer Insights, State April 2023](https://www.thinkwithgoogle.com/consumer-insights/consumer-trends/mobile-page-speed-new-industry-benchmarks/)  
