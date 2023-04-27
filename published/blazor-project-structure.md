@@ -2,7 +2,7 @@
 title: Blazor Project Structure
 domain: software-engineering-corner.hashnode.dev
 tags: architecture, .NET, C#, Blazor
-cover: https://linkdotnetblogstorage.azureedge.net/blog/20220923_BlazorProject/Thumbnail.jpg
+cover: https://linkdotnetblog.azureedge.net/blog/20220923_BlazorProject/Thumbnail.jpg
 publishAs: LinkDotNet
 hideFromHashnodeCommunity: false
 ---
