@@ -16,8 +16,9 @@ When you are ready you can then open a pull request to this repository and set s
 We recognized that there are some things which are important in the frontmatter of the articles:
 
 1. Please add a `ignorePost: true` to the frontmatter. We will remove this when we publish the article.
-2. Please add a `hideFromHashnodeCommunity: false` to the frontmatter. This makes the blog post searchable from within hashnode.
-3. Only use tags which are listed here [https://github.com/Hashnode/support/blob/main/misc/tags.json](https://github.com/Hashnode/support/blob/main/misc/tags.json). You need to use the **slug** of the tags. If you do it wrong, hashnode will fail to import the article.
+2. Please add a `hideFromHashnodeCommunity: false` to the frontmatter. This makes the blog post searchable from within Hashnode.
+3. Use your **Hashnode** username for `publishAs`. You can see it in the [Hashnode user settings](https://hashnode.com/settings).
+4. Only use tags which are listed here [https://github.com/Hashnode/support/blob/main/misc/tags.json](https://github.com/Hashnode/support/blob/main/misc/tags.json). You need to use the **slug** of the tags. If you do it wrong, hashnode will fail to import the article.
 
 
 ## Upload and use pictures
