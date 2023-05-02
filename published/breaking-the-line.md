@@ -1,5 +1,5 @@
 ---
-title: "Breaking the Line: The Benefits of Limited Line Lengths"
+title: Breaking the Line: The Benefits of Limited Line Lengths
 subtitle: The impact of long lines on software projects and why we should still enforce limits in 2023
 domain: software-engineering-corner.hashnode.dev
 tags: development, code-style, lint
