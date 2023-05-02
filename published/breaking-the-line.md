@@ -6,7 +6,6 @@ tags: development, code-style, lint
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1680181506757/dqCCyfD4E.jpg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
 hideFromHashnodeCommunity: false
 publishAs: culas
-ignorePost: true
 ---
 
 "Everyone has widescreen monitors nowadays."
