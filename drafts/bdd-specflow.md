@@ -2,14 +2,14 @@
 title: How to use Behaviour-Driven Development (BDD) with C# and SpecFlow
 subtitle: Here is an introductory guide on how to use Behaviour-Driven Development (BDD) with C# and SpecFlow in a .NET application.
 domain: software-engineering-corner.hashnode.dev
-tags: web-development, azure, build-tool, sass
+tags: dotnet,bdd,tdd,testing,csharp
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1682689039164/_2bkGoHwv.webp?auto=format
-publishAs: alexander-duschek
+publishAs: aldu
 hideFromHashnodeCommunity: false
 ignorePost: true
 ---
 
-Behaviour-Driven Development (BDD) is a technique of agile software development to ensure that the requirements of the software to be developed are fulfilled. To achieve this a special syntax called Gherkin (see below) is used to write down the specification which then can be translated by tools into test case skeletons. The developers add the test code and write/enhance the application until the test passes.
+[Behaviour-Driven Development (BDD)](https://en.wikipedia.org/wiki/Behavior-driven_development) is a technique of agile software development to ensure that the requirements of the software to be developed are fulfilled. To achieve this a special syntax called **Gherkin** (see below) is used to write down the specification which then can be translated by tools into test case skeletons. The developers add the test code and write/enhance the application until the test passes.
 A big advantage is that stakeholders, customers, business analysts, requirement engineers, all parties of a project can provide tests.
 
 ## BDD Key features
@@ -19,18 +19,16 @@ A big advantage is that stakeholders, customers, business analysts, requirement 
 - Good tool support for automation
 - Developers need less domain knowledge
 - Developers can focus on writing tests and features instead of finding test cases
-- Project documentation on the fly
+- [Project documentation on the fly](https://docs.specflow.org/projects/specflow-livingdoc/en/latest/)
 
 ## What about Test-Driven Development (TDD)?
 
-Simply put, if a software developer uses the TDD technique, he first creates unit tests based on the requirements or the specification of the software or feature. Afterward, he enhances the software until the tests will eventually pass. For more details read the following article.
+Simply put, if software developers use the TDD technique, they first creates unit tests based on the requirements or the specification of the software or feature. Afterward, they enhance the software until the tests will eventually pass. [This article on Medium](https://medium.com/geekculture/test-driven-development-that-every-developer-should-know-about-with-example-c5f68af547a6) explains TDD more in detail.
 
-https://medium.com/geekculture/test-driven-development-that-every-developer-should-know-about-with-example-c5f68af547a6
-
-As you probably noticed, BDD and TDD can be combined. The main difference is that with TDD the developer creates the test cases and with BDD every person related to the project can supply tests with the common Gherkin syntax (see next paragraph).
+As you probably noticed, BDD and TDD can be combined. The main difference is that with TDD the developer creates the test cases and with BDD every person related to the project can supply tests with the common Gherkin syntax.
 
 ## Gherkin syntax
-The Gherkin syntax is a way to describe can be seen in the image below. It consists of keywords at the beginning of each line followed by explaining text.
+The [Gherkin syntax](https://cucumber.io/docs/gherkin/reference/) is a way to describe test cases and can be seen in the code example below. It consists of keywords at the beginning of each line followed by explaining text.
 
 ```
 Feature: Login
@@ -50,9 +48,9 @@ Scenario: Valid login credentials allow access to internal areas
     Then the user is redirected to an internal page
 ```
 
-Feature describes a high-level software feature and is used to group Scenarios. A Scenario is a test case for the feature. It consists of preconditions (Given), actions (When), and assertions (Then). There are many possibilities to provide more detailed information but the basic set of a feature file looks like this in Gherkin syntax.
+`Feature` describes a high-level software feature and is used to group scenarios. A `Scenario` is a test case for the feature. It consists of preconditions (`Given`), actions (`When`), and assertions (`Then`). There are many possibilities to provide more detailed information but the basic set of a feature file looks like this in Gherkin syntax.
 
-To make it more natural, identical keywords can be chained by and. So instead of
+To make it more natural, identical keywords can be chained by `and`. So instead of
 
 ```
 Given ...
@@ -76,20 +74,20 @@ Ok, we have our text file in Gherkin syntax. To create test case skeletons we ne
 
 You can install the extension from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/search?term=specflow&target=VS&category=All%20categories&vsVersion=&sortBy=Relevance) (or follow this [video guide](https://docs.specflow.org/projects/getting-started/en/latest/GettingStarted/Step1.html) for further assistance).
 
-SpecFlow works with a .feature file (a simple text file with the ending .feature) that contains the Gherkin text and a binding file (a C# code file) that contains the actual C# test code. Every line in the feature file is mapped to a call of a method in the C# file. Based on the image above our C# file should have 7 methods (some lines are identical and share the same code).
+SpecFlow works with a .feature file (a simple text file with the ending `.feature`) that contains the Gherkin text and a binding file (a C# code file) that contains the actual C# test code. Every line in the feature file is mapped to a call of a method in the C# file. Based on the example feature file above, our C# file should have 7 methods (some lines are identical and share the same code).
 
-To generate the binding file add the feature file to your project (or write it from scratch), open it, right-click in the editor and choose Define Steps. This command will create the file for you.
+To generate the binding file add the feature file to your project (or write it from scratch), open it, right-click in the editor and choose **Define Steps**. This command will create the file for you.
 
 ![Generating step definitions for a feature file](https://cdn.hashnode.com/res/hashnode/image/upload/v1682673140883/1FwNlUtLx.webp?auto=format)
 
 ***Generating step definitions for a feature file***
 
-It is good practice to have one binding file per feature file. If you add tests later, then the Copy to clipboard button is your friend which will allow you to insert the bindings into an existing file.
+It is good practice to have one binding file per feature file. If you add tests later, then the **Copy to clipboard** button is your friend which will allow you to insert the bindings into an existing file.
 
 ## Writing the tests
 
 The binding file contains methods without a body (or just a placeholder). The task is now to fill the body with a reasonable test code.
-A Givenmethod is supposed to prepare data like setting up a database or starting a service. A Whenmethod should perform user or system actions like clicking a button or writing text in fields. A Thenmethod finally ensures that the outcome of the action combined with the preconditions fulfills the expected behavior. See the example image below for inspiration.
+A `Given` method is supposed to prepare data like setting up a database or starting a service. A `When` method should perform user or system actions like clicking a button or writing text in fields. A `Then` method finally ensures that the outcome of the action combined with the preconditions fulfills the expected behavior. See the code example below for inspiration.
 
 ```csharp
 [Binding]
@@ -156,10 +154,10 @@ Build your project and then the test runner should find the new tests and be abl
 
 The tests won’t run at first, they require some Nuget packages to be installed depending on your testing framework (see images below).
 
-- SpecFlow is always required in your test project
-- SpecFlow.NUnit is required if you are using NUnit to write your tests
-- SpecFlow.xUnit is required if you are using xUnit to write your tests
-- SpecFlow.MsTest is required if you are using MsTest to write your tests
+- **SpecFlow** is always required in your test project
+- **SpecFlow.NUnit** is required if you are using **NUnit** to write your tests
+- **SpecFlow.xUnit** is required if you are using **xUnit** to write your tests
+- **SpecFlow.MsTest** is required if you are using **MsTest** to write your tests
 
 ![Install required Nuget packages for SpecFlow](https://cdn.hashnode.com/res/hashnode/image/upload/v1682673285994/YjoF6PBZj.webp?auto=format)
 
@@ -177,9 +175,9 @@ In case of failures, there is detailed information in the Test Explorer at what 
 
 ## Quick summary
 
-- Install SpecFlow extension for your IDE (Visual Studio, Rider)
-- Install SpecFlow Nuget packages in your test project
-- Create a feature file and write your tests in Gherkin syntax
+- Install SpecFlow extension for your IDE ([Visual Studio](https://marketplace.visualstudio.com/items?itemName=TechTalkSpecFlowTeam.SpecFlowForVisualStudio), [Rider](https://plugins.jetbrains.com/plugin/15957-specflow-for-rider/))
+- Install [SpecFlow Nuget packages](https://www.nuget.org/packages?q=SpecFlow) in your test project
+- Create a [feature file](https://specflow.org/learn/feature-files/) and write your tests in [Gherkin syntax](https://specflow.org/learn/gherkin/)
 - Create the step definitions
 - Implement the test methods
 - Run the tests
@@ -187,5 +185,3 @@ In case of failures, there is detailed information in the Test Explorer at what 
 ## Source code
 
 You can find the source code on [GitHub](https://github.com/xeladu/net_bdd).
-
-
