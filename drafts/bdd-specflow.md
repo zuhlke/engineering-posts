@@ -150,7 +150,7 @@ public class LoginStepDefinitions
 
 ## Executing the tests
 
-Build your project and then the test runner should find the new tests and be able to execute them. For every feature file, there will an auto-generated code after the build.
+Build your project and then the test runner should find the new tests and be able to execute them. For every feature file, there will be an auto-generated code file after the build.
 
 The tests won’t run at first, they require some Nuget packages to be installed depending on your testing framework (see images below).
 
