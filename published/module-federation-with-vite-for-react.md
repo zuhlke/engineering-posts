@@ -5,7 +5,6 @@ tags: web-development, microfrontend, module-federation, react, vite
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1681956795984/TRA8XJ_Ir.webp?auto=format
 publishAs: NipunaMarcusZuhlke
 hideFromHashnodeCommunity: false
-ignorePost: true
 ---
 
 With the introduction to the [Microservice](https://martinfowler.com/articles/microservices.html) architecture for the backend, developers were looking into developing a similar architecture for frontend applications which is what we now know as [Micro frontends](https://micro-frontends.org/). 
