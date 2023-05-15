@@ -14,7 +14,7 @@ This architecture has a similar set of pros and cons as Microservices but for th
 
 Module federation is a concept that gets different builds to come together to make one application. So in most cases, one will be the host application which will bring all other remote components that are built to be shared.
 
-![How federation looks like](https://cdn.hashnode.com/res/hashnode/image/upload/v1681957205265/bcuUQoe-I.webp?auto=format)
+![How federation looks like](https://cdn.hashnode.com/res/hashnode/image/upload/v1684143305626/sOm-0Zulj.png?auto=format)
 
 Figure 1 shows a rough explanation of how it works. In the host application, there will be a reference to each remote component as an import or a Lazy Loaded module. 
 At the remote servers where each “HomePage App” and “Payment App” is hosted, shared components are packaged into a JavaScript module and will be publicly available as built JavaScript files (in the above example “homepage.js” and “payment.js”). 
@@ -513,7 +513,7 @@ What you need to check is
   * You have not added the correct list of shared libraries to `shared` property on either your remote app Vite config or host app Vite config. The shared list of both sides should be the same.
   * Check anything that should be shared between remotes and the host app is added to the shared list.
 2. **Failed to load the remote modules.**
- ![Error in similar case will look like this](https://cdn.hashnode.com/res/hashnode/image/upload/v1681972716537/H7Z_c3bgp.webp?auto=format)
+ ![Error in similar case will look like this](https://cdn.hashnode.com/res/hashnode/image/upload/v1681972716537/H7Z%5Fc3bgp.webp?auto=format)
 
 What you need to check is
   * Check whether each remote module name in the host side Vite config is unique.
