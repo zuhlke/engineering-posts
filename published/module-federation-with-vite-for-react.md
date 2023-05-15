@@ -513,7 +513,7 @@ What you need to check is
   * You have not added the correct list of shared libraries to `shared` property on either your remote app Vite config or host app Vite config. The shared list of both sides should be the same.
   * Check anything that should be shared between remotes and the host app is added to the shared list.
 2. **Failed to load the remote modules.**
- ![Error in similar case will look like this](https://cdn.hashnode.com/res/hashnode/image/upload/v1681972716537/H7Z_c3bgp.webp?auto=format)
+ ![Error in similar case will look like this](https://cdn.hashnode.com/res/hashnode/image/upload/v1681972716537/H7Z%5Fc3bgp.webp?auto=format)
 
 What you need to check is
   * Check whether each remote module name in the host side Vite config is unique.
