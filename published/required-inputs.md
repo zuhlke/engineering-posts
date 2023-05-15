@@ -5,7 +5,6 @@ tags: web-development, components, bugs-and-errors, angular, basics
 cover: https://cdn.hashnode.com/res/hashnode/image/stock/unsplash/GOMhuCj-O9w/upload/1cbf9ef13852f5d6028cdffde9c9c4cf.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
 publishAs: timouti
 hideFromHashnodeCommunity: false
-ignorePost: true
 ---
 
 Have you ever added an Angular component to a page view and wondered which component inputs are required? Have you ever created a new component and asked yourself if you can enforce specific inputs? Have you ever been annoyed by dealing with potentially undefined inputs for expected inputs? If so, then you my friend, are up for a treat!
