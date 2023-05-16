@@ -14,8 +14,7 @@ In today’s fast-paced business world, keeping up with technology is vital for 
 
 There are two primary and wildly different workloads: transactional and analytical. Examples of transactional workloads include processing payments, managing reservations, and handling customer and inventory data. These use cases require low latency, data consistency, high availability, and so forth. Transactional databases like MySQL, Postgres, and SQL Server are specifically designed to meet these requirements, as they are optimized for millisecond record retrieval and concurrent updates.
 
-![Transactional vs. Analytical](https://cdn.hashnode.com/res/hashnode/image/upload/v1684160155618/9gLee4yBD.png?auto=format)
-*Transactional vs. Analytical*
+![Transactional vs. Analytical](https://cdn.hashnode.com/res/hashnode/image/upload/v1684253435064/ZWe3z2oci.png?auto=format)
 
 However, analytical workloads, such as user behavior analysis, trend prediction, and report generation, help businesses gain actionable insights to drive crucial company decisions and boost revenue, streamline operations, and cut expenses. Data warehouses such as Teradata, Redshift, and Snowflake are optimized to summarize vast amounts of data. They can handle sophisticated and complex queries that could take many hours to process.
 
@@ -31,12 +30,11 @@ Row-stores and column-stores provide distinct ways to organize and store data in
 
 Conversely, column-stores arrange data in columns, with each column containing a single attribute of all records. This format is efficient for analytical workloads involving aggregations, as column-stores are optimized for reading a single column efficiently. However, they are not optimal for transactional workloads, as reading and modifying a single record necessitates accessing and updating multiple columns.
 
-![Row-store vs. Column-store](https://cdn.hashnode.com/res/hashnode/image/upload/v1684167780987/LLMD-tEiO.png?auto=format)
-*Row-store vs. Column-store*
+![Row-store vs. Column-store](https://cdn.hashnode.com/res/hashnode/image/upload/v1684253449764/82bLPWXKC.png?auto=format)
 
 HTAP solutions store data in both row and columnar formats, enabling databases to access data in the most suitable format for each workload. One challenge with this approach is that the columnar format is not optimized for writing a single entry each time. This is because the columnar format does not store the entry continuously, as is common in row-format. However, batching writes is relatively efficient in columnar format. Therefore, to address this challenge, HTAP solutions store newly written data in a write-optimized row format that are periodically converted to a read-optimized columnar format. This conversion from row to columnar format occurs automatically, transparently, and in the background, allowing for seamless integration of both workloads in a single database system.
 
-![Diagram of HTAP architectures](https://cdn.hashnode.com/res/hashnode/image/upload/v1684232229284/6KwiXVwJ4.png?auto=format)*Diagram of HTAP architectures*
+![Diagram of HTAP architectures](https://cdn.hashnode.com/res/hashnode/image/upload/v1684253467424/rVlAzQzZH.png?auto=format)
 
 By leveraging the strengths of both row and columnar formats, HTAP systems deliver efficient processing for transactional and analytical workloads, resulting in optimal performance across a wide range of data processing scenarios. Utilizing both formats simultaneously enable real-time operational analytics, allowing businesses to run transactional and analytical queries on the same underlying data store for faster insights and more informed decision-making.
 
