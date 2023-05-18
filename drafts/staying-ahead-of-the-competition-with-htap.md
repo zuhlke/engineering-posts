@@ -28,7 +28,7 @@ It is great to hear that Hybrid Transactional Analytical Processing can combine 
 
 Row-stores and column-stores provide distinct ways to organize and store data in databases. Row-stores are advantageous for transactional workloads, as they store complete records together. This improves the performance of reading and writing to a single record.
 
-Conversely, column-stores arrange data in columns, with each column containing a single attribute of all records. This format is efficient for analytical workloads involving aggregations, as column-stores are optimized for reading a single column efficiently. However, they are not optimal for transactional workloads, as reading and modifying a single record necessitates accessing and updating multiple columns.
+Conversely, column-stores arrange data in columns, with each column containing a single attribute of all records. This format is efficient for analytical workloads involving aggregations, as column-stores are optimized for reading a single column efficiently. However, they are not optimal for transactional workloads, as reading and modifying a single record requires accessing and updating multiple columns.
 
 ![Row-store vs. Column-store](https://cdn.hashnode.com/res/hashnode/image/upload/v1684253449764/82bLPWXKC.png?auto=format)
 
@@ -40,7 +40,7 @@ By leveraging the strengths of both row and columnar formats, HTAP systems deliv
 
 # HTAP solutions 
 
-Hybrid Transactional Analytical Processing (HTAP) refers to the ability of a database to simultaneously handle both transactional and analytical workloads simultaneously, providing real-time insights. When the term was first defined by Gartner in 2014, Forrester later referred to the technology as “Translytical”. Since then, several solutions have emerged to support HTAP workloads.
+Hybrid Transactional Analytical Processing (HTAP) refers to the ability of a database to simultaneously handle both transactional and analytical workloads simultaneously, providing real-time insights. When the term was first defined by Gartner in 2014 and Forrester later referred to the technology as “Translytical”. Since then, several solutions have emerged to support HTAP workloads.
 
 One of the most prominent solutions in the market is [Oracle Database](https://www.oracle.com/database/in-memory/), which introduced its In-Memory Column Store in 2014. This feature-rich solution allows businesses using Oracle Database to run analytical queries with impressive performance without migrating the data. Oracle also offers [MySQL HeatWave](https://www.oracle.com/mysql/heatwave/), an accelerator for MySQL that allows integration with data lakes, further improving its HTAP capabilities.
 
@@ -48,7 +48,7 @@ One of the most prominent solutions in the market is [Oracle Database](https://w
 
 # What are the benefits of using HTAP? 
 
-- **Real-time analysis of data**: Real-time analysis of data: An insurance company implemented HTAP to enable real-time risk analysis and significantly improved their analytical query performance from 50x to 200x. This is just one example of the true power of real-time data in a competitive business environment where quick decisions are crucial. HTAP facilitates real-time analytics, enabling businesses to make informed decisions faster.
+- **Real-time analysis of data**: An insurance company implemented HTAP to enable real-time risk analysis and significantly improved their analytical query performance from 50x to 200x. This is just one example of the true power of real-time data in a competitive business environment where quick decisions are crucial. HTAP facilitates real-time analytics, enabling businesses to make informed decisions faster.
 
 - **Reduce complexity**: Forrester Research estimates that by 2024, the number of enterprises adopting HTAP seeking a common data platform that is easier to manage will double. Many companies are looking for alternatives because managing multiple data sources, systems, and processes is a challenging task with a lot of pitfalls. By having all the data stored in a single database, businesses can easily access, analyze, and manage their data. When using HTAP, companies can ensure that they have a single source of truth for their data. Having a single copy of the data simplifies data management and reduces the risk of errors and inconsistencies.
 
