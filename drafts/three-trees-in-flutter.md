@@ -36,9 +36,7 @@ class MyWidget extends StatelessWidget {
 
 The widget tree of this example is very simple as the following image visualizes.
 
-<div style="width: 60%; height: 60%">
-![Widget Tree](https://cdn.hashnode.com/res/hashnode/image/upload/v1684687330012/vuSdPUtnf.png?auto=format)
-</div>
+<img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1684687330012/vuSdPUtnf.png?auto=format" width=60% height=60%>
 
 The first tree shows the defined widget tree, but Flutter created a refined widget tree, that is illustrated on the right side. But why is Flutter adding tree additonal widgets into the widget tree? To address this question, it's crucial to understand Flutter's two categories of widgets for defining UI elements: StatefulWidgets/StatelessWidgets and RenderObjectWidgets. RenderObjectWidgets are responsible for rendering elements on the screen, while StatefulWidgets/StatelessWidgets simplify their usage. As a developer, you typically combine and configure existing widgets within a StatefulWidget/StatelessWidget, rarely creating RenderObjectWidgets directly. Many widgets provided by Flutter are themselves StatefulWidget/StatelessWidget, but ultimately, each of these widgets contributes at least one RenderObjectWidget to the tree, as only RenderObjectWidgets have the knowledge to render elements on the canvas.
 
