@@ -17,7 +17,7 @@ In Flutter, a Widget tree refers to the hierarchical structure of Widgets that a
 
 At its core, Flutter follows a declarative approach, where the user interface is described using a tree of immutable Widgets. Each Widget represents a specific UI element, such as a button, text, image, or even a complex layout. Widgets can be combined and nested within each other to create more complex user interfaces.
 
-Let's make a small example of a Widget tree. The follwing example draws a red container with the text "Hello" in it.
+Let's make a small example of a Widget tree. The following example draws a red container with the text "Hello" in it.
 
 ```dart
 class MyWidget extends StatelessWidget {
@@ -87,13 +87,13 @@ Let's check the first example again and take a look of how their Element and Ren
 <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1684687397242/th4DOl27p.png?auto=format" width=70% height=70%>
 </p>
 
-As the Widget tree is immutalbe it gets rebuild a lot. The Element and RenderObject trees are mutable and dont get recreated that frequently. The Element tree is responsible for the lifecyle and connects the Widget tree with the RenderObject tree. As you can see, every widget generates an Element, but not every Element has a RenderObject. Only RenderObjectElement generate RenderObjects, all other elements send their configuration down to the next RenderObjectElement. The following illustration shows the two different Element types.
+As the Widget tree is immutalbe it gets rebuild a lot. The Element and RenderObject trees are mutable and do not get recreated that frequently. The Element tree is responsible for the lifecycle and connects the Widget tree with the RenderObject tree. As you can see, every widget generates an Element, but not every Element has a RenderObject. Only RenderObjectElements generate RenderObjects, all other elements send their configuration down to the next RenderObjectElement. The following illustration shows the two different Element types.
  
  <p align="center">
  <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1684687427351/X78ENpgNl.png?auto=format" width=50% height=50%>
   </p>
 
-The previous illustration includes another interesting detail. The Element implements the BuildContext. That means that the BuildContext included in every build method is nothing other than an Element with restricted access. That's why the BuildContext has all the knowlege of an Element, like the lifecycle state or their position in the tree. As the following code shows, the BuildContext can be casted to a Element.
+The previous illustration includes another interesting detail. The Element implements the BuildContext. That means that the BuildContext included in every build method is nothing other than an Element with restricted access. That's why the BuildContext has all the knowledge of an Element, like the lifecycle state or their position in the tree. As the following code shows, the BuildContext can be casted to a Element.
 
 ```dart { .customCodeStyle }
 Widget build(BuildContext context) {
@@ -109,7 +109,7 @@ Widget build(BuildContext context) {
   }
 ```
 
-The cast to an Element lets you access all the properties of an Element. This can be very interesting for educational reasons, but its not recommended in production. This is the reason why Flutter does not allow direct access and adds the properties to the BuildContext. The following tables sums up the most imporant attributes of the three objects.
+The cast to an Element lets you access all the properties of an Element. This can be very interesting for educational reasons, but its not recommended in production. This is the reason why Flutter does not allow direct access and adds the properties to the BuildContext. The following tables summarize the most important attributes of the three objects.
 
 |  | Widget | Element | RenderObject |
 |---|---|---|---|
