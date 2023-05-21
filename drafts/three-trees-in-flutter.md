@@ -112,10 +112,10 @@ Widget build(BuildContext context) {
 The cast to an Element lets you access all the properties of an Element. This can be very interesting for educational reasons, but its not recommended in production. This is the reason why Flutter does not allow direct access and adds the properties to the BuildContext. The following tables sums up the most imporant attributes of the three objects.
 
 |             | Widget                       | Element                                                                                                      | RenderObject                |     |
-| ----------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------ | --------------------------- | --- |
-| Mutable     | false                        | true                                                                                                         | true                        |     |
-| Lightweight | true                         | false                                                                                                        | false                       |     |
-| Jobs        | - Holds widget configuration | - Responsible for lifecycle <br> - Holds state of StatefulWidgets <br> - Connects Widgets with RenderObjects | - Responsible for rendering |     |
+| ----------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------ | --------------------------- |
+| Mutable     | false                        | true                                                                                                         | true                        |
+| Lightweight | true                         | false                                                                                                        | false                       |
+| Jobs        | - Holds configuration | - Responsible for lifecycle <br> - Holds state of StatefulWidgets <br> - Connects Widgets with RenderObjects | - Responsible for rendering |
 
 # Conclusion
 
