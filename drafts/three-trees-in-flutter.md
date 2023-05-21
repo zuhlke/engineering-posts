@@ -7,17 +7,17 @@ publishAs: gabduss
 hideFromHashnodeCommunity: false
 ---
 
-Flutter, Google's powerful UI framework, operates on a unique architecture that efficiently renders user interfaces. At the core of this architecture are three interconnected trees: the widget tree, element tree, and render object tree.
+Flutter, Google's powerful UI framework, operates on a unique architecture that efficiently renders user interfaces. At the core of this architecture are three interconnected trees: the Widget tree, Element tree, and RenderObject tree.
 
 In this blog post, we will dive into the inner workings of Flutter's three trees and understand their relationships. These trees play a vital role in constructing and rendering UI components, enabling developers to create visually stunning and performant applications.
 
 # The widget tree
 
-In Flutter, a widget tree refers to the hierarchical structure of widgets that are used to compose the user interface of an application. The widget tree represents the visual components of the app and their relationships with each other.
+In Flutter, a Widget tree refers to the hierarchical structure of Widgets that are used to compose the user interface of an application. The Widget tree represents the visual components of the app and their relationships with each other.
 
-At its core, Flutter follows a declarative approach, where the user interface is described using a tree of immutable widgets. Each widget represents a specific UI element, such as a button, text, image, or even a complex layout. Widgets can be combined and nested within each other to create more complex user interfaces.
+At its core, Flutter follows a declarative approach, where the user interface is described using a tree of immutable Widgets. Each Widget represents a specific UI element, such as a button, text, image, or even a complex layout. Widgets can be combined and nested within each other to create more complex user interfaces.
 
-Let's make a small example of a widget tree. The follwing example draws a red container with the text "Hello" in it.
+Let's make a small example of a Widget tree. The follwing example draws a red container with the text "Hello" in it.
 
 ```dart
 class MyWidget extends StatelessWidget {
@@ -34,14 +34,14 @@ class MyWidget extends StatelessWidget {
 }
 ```
 
-The widget tree of this example is very simple as the following image visualizes.
+The Widget tree of this example is very simple as the following image visualizes.
 
  <p align="center">
 <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1684687330012/vuSdPUtnf.png?auto=format" width=60% height=60%>
  </p>
-The first tree shows the defined widget tree, but Flutter created a refined widget tree, that is illustrated on the right side. But why is Flutter adding tree additonal widgets into the widget tree? To address this question, it's crucial to understand Flutter's two categories of widgets for defining UI elements: StatefulWidgets/StatelessWidgets and RenderObjectWidgets. RenderObjectWidgets are responsible for rendering elements on the screen, while StatefulWidgets/StatelessWidgets simplify their usage. As a developer, you typically combine and configure existing widgets within a StatefulWidget/StatelessWidget, rarely creating RenderObjectWidgets directly. Many widgets provided by Flutter are themselves StatefulWidget/StatelessWidget, but ultimately, each of these widgets contributes at least one RenderObjectWidget to the tree, as only RenderObjectWidgets have the knowledge to render elements on the canvas.
+The first tree shows the defined Widget tree, but Flutter created a refined Widget tree, that is illustrated on the right side. But why is Flutter adding tree additonal Widgets into the Widget tree? To address this question, it's crucial to understand Flutter's two categories of widgets for defining UI elements: StatefulWidgets/StatelessWidgets and RenderObjectWidgets. RenderObjectWidgets are responsible for rendering Elements on the screen, while StatefulWidgets/StatelessWidgets simplify their usage. As a developer, you typically combine and configure existing Widgets within a StatefulWidget/StatelessWidget, rarely creating RenderObjectWidgets directly. Many Widgets provided by Flutter are themselves StatefulWidget/StatelessWidget, but ultimately, each of these widgets contributes at least one RenderObjectWidget to the tree, as only RenderObjectWidgets have the knowledge to render Elements on the canvas.
 
-The following illustration shows all types of widgets.
+The following illustration shows all types of Widgets.
 
  <p align="center">
 <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1684687367533/AdMsKBnCM.png?auto=format" width=80% height=80%>
@@ -66,16 +66,16 @@ The previous example shows a popular example: the container widget. You can set 
 }
 ```
 
-In Flutter, a widget gets rebuilt when its internal state changes or when its parent widget requests a rebuild. Here are some common scenarios that trigger widget rebuilds:
+In Flutter, a Widget gets rebuilt when its internal state changes or when its parent widget requests a rebuild. Here are some common scenarios that trigger widget rebuilds:
 
-- Initial build: When a widget is first inserted into the widget tree-
-- State changes: If a widget's internal state changes, because of user interactions or an network respons.
+- Initial build: When a Widget is first inserted into the widget tree.
+- State changes: If a Widget's internal state changes, because of user interactions or an network response.
 - InheritedWidget changes: Widgets can receive data changes from ancestor widgets.
 - Layout changes: If the layout constraints of a widget changes, e.g. the oriantation of a device changes.
-- Widget tree updates: If a widget's parent requests a rebuild.
-- Animation updates: If a widget includes an animation, it typically rebuilds on every frame.
+- Widget tree updates: If a Widget's parent requests a rebuild.
+- Animation updates: If a Widget includes an animation, it typically rebuilds on every frame.
 
-As you can see, widgets get rebuild a lot. That's why they need to be extremly lightweight.
+As you can see, Widgets get rebuild a lot. That's why they need to be extremly lightweight.
 
 # The three trees in Flutter
 
@@ -87,7 +87,7 @@ Let's check the first example again and take a look of how their Element and Ren
 <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1684687397242/th4DOl27p.png?auto=format" width=70% height=70%>
 </p>
 
-As the widget tree is immutalbe and gets rebuild a lot. The Element and RenderObject trees are mutable and dont get recreated that frequently. The Element tree is responsible for the lifecyle and connects the Widget tree with the RenderObject tree. As you can see, every widget generates an Element, but not every Element has a RenderObject. Only RenderObjectElement generate RenderObjects, all other elements send their configuration down to the next RenderObjectElement. The following illustration shows the two different Element types.
+As the Widget tree is immutalbe it gets rebuild a lot. The Element and RenderObject trees are mutable and dont get recreated that frequently. The Element tree is responsible for the lifecyle and connects the Widget tree with the RenderObject tree. As you can see, every widget generates an Element, but not every Element has a RenderObject. Only RenderObjectElement generate RenderObjects, all other elements send their configuration down to the next RenderObjectElement. The following illustration shows the two different Element types.
  
  <p align="center">
  <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1684687427351/X78ENpgNl.png?auto=format" width=50% height=50%>
@@ -109,7 +109,7 @@ Widget build(BuildContext context) {
   }
 ```
 
-The cast to an Element lets you access all the properties of an Element. This can be very interesting for educational reasons, but its not recommended in production. The is a reason why the don't allow direct access and add the properties to the BuildContext. The following tables sums up the most imporant attributes of the three objects.
+The cast to an Element lets you access all the properties of an Element. This can be very interesting for educational reasons, but its not recommended in production. This is the reason why Flutter does not allow direct access and adds the properties to the BuildContext. The following tables sums up the most imporant attributes of the three objects.
 
 |             | Widget                       | Element                                                                                                      | RenderObject                |     |
 | ----------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------ | --------------------------- | --- |
@@ -119,4 +119,4 @@ The cast to an Element lets you access all the properties of an Element. This ca
 
 # Conclusion
 
-In conclusion, the widget tree, element tree, and render object tree are three interconnected trees in Flutter that are vital for constructing and rendering UI components efficently. The widget tree represents the hierarchical structure of immutable widgets that describe the UI elements. Render object widgets handle the rendering, while elements are responsible for the lifecycle and connect the widget tree with the render object tree.
+In conclusion, the widget tree, element tree, and render object tree are three interconnected trees in Flutter that are vital for constructing and rendering UI components efficently. The widget tree represents the hierarchical structure of immutable widgets that describe the UI elements. RenderObject widgets handle the rendering, while elements are responsible for the lifecycle and connect the widget tree with the RenderObject tree.
