@@ -83,7 +83,7 @@ Let's check the first example again and take a look of how their Element and Ren
 
 As the widget tree is immutalbe and gets rebuild a lot. The Element and RenderObject trees are mutable and dont get recreated that frequently. The Element tree is responsible for the lifecyle and connects the Widget tree with the RenderObject tree. As you can see, every widget generates an Element, but not every Element has a RenderObject. Only RenderObjectElement generate RenderObjects, all other elements send their configuration down to the next RenderObjectElement. The following illustration shows the two different Element types.
  
- <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1684687427351/X78ENpgNl.png?auto=format" width=50% height=50%>
+ <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1684687427351/X78ENpgNl.png?auto=format" align="center" width=50% height=50%>
 
 The previous illustration includes another interesting detail. The Element implements the BuildContext. That means that the BuildContext included in every build method is nothing other than an Element with restricted access. That's why the BuildContext has all the knowlege of an Element, like the lifecycle state or their position in the tree. As the following code shows, the BuildContext can be casted to a Element.
 
