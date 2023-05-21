@@ -36,12 +36,17 @@ class MyWidget extends StatelessWidget {
 
 The widget tree of this example is very simple as the following image visualizes.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1684687330012/vuSdPUtnf.png?auto=format)
+<div style="width: 60%; height: 60%">
+![Widget Tree](https://cdn.hashnode.com/res/hashnode/image/upload/v1684687330012/vuSdPUtnf.png?auto=format)
+</div>
 
 The first tree shows the defined widget tree, but Flutter created a refined widget tree, that is illustrated on the right side. But why is Flutter adding tree additonal widgets into the widget tree? To address this question, it's crucial to understand Flutter's two categories of widgets for defining UI elements: StatefulWidgets/StatelessWidgets and RenderObjectWidgets. RenderObjectWidgets are responsible for rendering elements on the screen, while StatefulWidgets/StatelessWidgets simplify their usage. As a developer, you typically combine and configure existing widgets within a StatefulWidget/StatelessWidget, rarely creating RenderObjectWidgets directly. Many widgets provided by Flutter are themselves StatefulWidget/StatelessWidget, but ultimately, each of these widgets contributes at least one RenderObjectWidget to the tree, as only RenderObjectWidgets have the knowledge to render elements on the canvas.
 
 The following illustration shows all types of widgets.
+
+<div style="width: 80%; height: 80%">
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1684687367533/AdMsKBnCM.png?auto=format)
+</div>
 
 The previous example shows a popular example: the container widget. You can set a color and a padding on the widget. Flutter will transform it to a ColoredBox and a Padding RenderObjectWidget. The ColoredBox will be responsible to draw the color, the Padding will be responsible to draw the padding. It is also possible to use the RenderObjectWidget directly, like the following code shows.
 
@@ -78,12 +83,16 @@ As you can see, widgets get rebuild a lot. That's why they need to be extremly l
 To keep the widgets lightweight Flutter has two additonal trees: the element tree and the RenderObject tree. Those three trees are connected with each other.
 
 Let's check the first example again and take a look of how their Element and RenderObject tree look like.
-
+  
+<div style="width: 60%; height: 60%">
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1684687397242/th4DOl27p.png?auto=format)
+</div>
 
 As the widget tree is immutalbe and gets rebuild a lot. The Element and RenderObject trees are mutable and dont get recreated that frequently. The Element tree is responsible for the lifecyle and connects the Widget tree with the RenderObject tree. As you can see, every widget generates an Element, but not every Element has a RenderObject. Only RenderObjectElement generate RenderObjects, all other elements send their configuration down to the next RenderObjectElement. The following illustration shows the two different Element types.
-
+  
+<div style="width: 60%; height: 60%">
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1684687427351/X78ENpgNl.png?auto=format)
+</div>
 
 The previous illustration includes another interesting detail. The Element implements the BuildContext. That means that the BuildContext included in every build method is nothing other than an Element with restricted access. That's why the BuildContext has all the knowlege of an Element, like the lifecycle state or their position in the tree. As the following code shows, the BuildContext can be casted to a Element.
 
