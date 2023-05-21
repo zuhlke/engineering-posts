@@ -1,5 +1,5 @@
 ---
-title: Understanding the three trees in Flutter: Widget tree, Element tree and RenderObject tree
+title: Understanding the three trees in Flutter - Widget tree, Element tree and RenderObject tree
 domain: software-engineering-corner.hashnode.dev
 tags: flutter, flutter-widgets
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1684687187737/Tgk7dXIfu.png?auto=format
