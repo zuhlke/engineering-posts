@@ -36,13 +36,17 @@ class MyWidget extends StatelessWidget {
 
 The widget tree of this example is very simple as the following image visualizes.
 
+ <p align="center">
 <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1684687330012/vuSdPUtnf.png?auto=format" width=60% height=60%>
-
+ </p>
 The first tree shows the defined widget tree, but Flutter created a refined widget tree, that is illustrated on the right side. But why is Flutter adding tree additonal widgets into the widget tree? To address this question, it's crucial to understand Flutter's two categories of widgets for defining UI elements: StatefulWidgets/StatelessWidgets and RenderObjectWidgets. RenderObjectWidgets are responsible for rendering elements on the screen, while StatefulWidgets/StatelessWidgets simplify their usage. As a developer, you typically combine and configure existing widgets within a StatefulWidget/StatelessWidget, rarely creating RenderObjectWidgets directly. Many widgets provided by Flutter are themselves StatefulWidget/StatelessWidget, but ultimately, each of these widgets contributes at least one RenderObjectWidget to the tree, as only RenderObjectWidgets have the knowledge to render elements on the canvas.
 
 The following illustration shows all types of widgets.
-<img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1684687367533/AdMsKBnCM.png?auto=format" width=80% height=80%>
 
+ <p align="center">
+<img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1684687367533/AdMsKBnCM.png?auto=format" width=80% height=80%>
+ </p>
+  
 The previous example shows a popular example: the container widget. You can set a color and a padding on the widget. Flutter will transform it to a ColoredBox and a Padding RenderObjectWidget. The ColoredBox will be responsible to draw the color, the Padding will be responsible to draw the padding. It is also possible to use the RenderObjectWidget directly, like the following code shows.
 
 ```dart
@@ -79,7 +83,9 @@ To keep the widgets lightweight Flutter has two additonal trees: the element tre
 
 Let's check the first example again and take a look of how their Element and RenderObject tree look like.
 
+ <p align="center">
 <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1684687397242/th4DOl27p.png?auto=format" width=70% height=70%>
+</p>
 
 As the widget tree is immutalbe and gets rebuild a lot. The Element and RenderObject trees are mutable and dont get recreated that frequently. The Element tree is responsible for the lifecyle and connects the Widget tree with the RenderObject tree. As you can see, every widget generates an Element, but not every Element has a RenderObject. Only RenderObjectElement generate RenderObjects, all other elements send their configuration down to the next RenderObjectElement. The following illustration shows the two different Element types.
  
