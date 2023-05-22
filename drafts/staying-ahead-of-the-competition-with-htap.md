@@ -76,4 +76,4 @@ To successfully implement HTAP in your organization, consider the following step
 
 5. **Monitor and optimize your system**: After implementation, monitor your system and optimize it for performance. Typical steps to improve query performance are evaluating the query plan, adjusting database settings, and optimizing queries. Consider monitoring system metrics to understand where the database is underperforming.
 
-If you are interested in learning more about HTAP or would like to implement it for your business, please feel free to [contact me](mailto:daniel.costa@zuehlke.com). I will gladly help you better understand HTAP and find the best solution for your unique business needs.
+If you are interested in learning more about HTAP or would like to implement it for your business, please feel free to contact me. I will gladly help you better understand HTAP and find the best solution for your unique business needs.
