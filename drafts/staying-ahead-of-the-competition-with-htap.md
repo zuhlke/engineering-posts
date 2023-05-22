@@ -10,7 +10,7 @@ publishAs: daco
 ---
 In today’s fast-paced business world, keeping up with technology is vital for staying ahead of the competition. Hybrid Transactional Analytical Processing (HTAP) is a powerful tool that can provide organizations with real-time insights into their operational data, giving them a significant edge over their competitors. By analyzing data faster, businesses can speed up the delivery of value to their clients. This guide will explore the benefits and drawbacks of HTAP technology and provide practical steps for companies to implement it successfully.
 
-# Transactional vs. Analytical 
+## Transactional vs. Analytical 
 
 There are two primary and wildly different workloads: transactional and analytical. Examples of transactional workloads include processing payments, managing reservations, and handling customer and inventory data. These use cases require low latency, data consistency, high availability, and so forth. Transactional databases like MySQL, Postgres, and SQL Server are specifically designed to meet these requirements, as they are optimized for millisecond record retrieval and concurrent updates.
 
@@ -22,7 +22,7 @@ Traditionally, businesses would maintain separate databases for operational and 
 
 HTAP has emerged as a novel solution for businesses seeking to streamline their data management processes, offering a unified system that seamlessly handles transactions and real-time data analysis. Real-time analytics enables businesses to support cross-selling, dynamic pricing, and automate advertising campaigns. With HTAP, companies can stay competitive in today’s data-driven market without worrying about the hassles and expenses of running separate databases and building an ETL process.
 
-# How HTAP works?
+## How HTAP works?
 
 It is great to hear that Hybrid Transactional Analytical Processing can combine both transactional and analytical workloads in the same database. But how is this possible? The key lies in the way data is stored. Row stores and column stores provide distinct ways to organize and store data in databases. Row stores are advantageous for transactional workloads, as they store complete records together. This improves the performance of reading and writing to a single record.
 
@@ -36,7 +36,7 @@ HTAP solutions store data in both row and columnar formats, enabling databases t
 
 By leveraging the strengths of both row and columnar formats, HTAP systems deliver efficient processing for transactional and analytical workloads, resulting in optimal performance across a wide range of data processing scenarios. Utilizing both formats simultaneously enable real-time operational analytics, allowing businesses to run transactional and analytical queries on the same underlying data store for faster insights and more informed decision-making.
 
-# HTAP solutions 
+## HTAP solutions 
 
 Hybrid Transactional Analytical Processing (HTAP) refers to the ability of a database to simultaneously handle both transactional and analytical workloads simultaneously, providing real-time insights. When the term was first defined by Gartner in 2014 and Forrester later referred to the technology as “Translytical”. Since then, several solutions have emerged to support HTAP workloads.
 
@@ -44,15 +44,15 @@ One of the most prominent solutions in the market is [Oracle Database](https://w
 
 [SAP HANA](https://www.sap.com/products/technology-platform/hana/what-is-sap-hana.html) is another long-standing database that focuses on fast analytical responses while supporting transactions. Additionally, PingCAP has extended its highly scalable key-value store, TiKV, to support analytical queries via its open-source [TiDB](https://www.pingcap.com/tidb/) solution. Microsoft has also added support for near real-time analytics to [SQL Server](https://learn.microsoft.com/en-us/sql/relational-databases/indexes/columnstore-indexes-overview?view=sql-server-ver16) and [Azure Cosmos DB](https://learn.microsoft.com/en-us/azure/cosmos-db/synapse-link), while Google recently announced [AlloyDB](https://cloud.google.com/alloydb) for Postgres, a cloud solution that claims to be 100x faster for analytical queries. Snowflake has also introduced [Unistore](https://www.snowflake.com/en/data-cloud/workloads/unistore/), a cloud-based platform that offers HTAP capabilities.
 
-# What are the benefits of using HTAP? 
+## What are the benefits of using HTAP? 
 
 - **Real-time analysis of data**: An insurance company implemented HTAP to enable real-time risk analysis and significantly improved their analytical query performance from 50x to 200x. This is just one example of the true power of real-time data in a competitive business environment where quick decisions are crucial. HTAP facilitates real-time analytics, enabling businesses to make informed decisions faster.
 
 - **Reduce complexity**: Forrester Research estimates that by 2024, the number of enterprises adopting HTAP seeking a common data platform that is easier to manage will double. Many companies are looking for alternatives because managing multiple data sources, systems, and processes is a challenging task with a lot of pitfalls. By having all the data stored in a single database, businesses can easily access, analyze, and manage their data. When using HTAP, companies can ensure that they have a single source of truth for their data. Having a single copy of the data simplifies data management and reduces the risk of errors and inconsistencies.
 
-- **Cost-effective**: A company with a focus on software automation for marketing, reduced more than 50% of the costs by avoiding moving data between multiple systems. Switching to an HTAP solution can help save on costs by combining transactional and analytical processing on the same database system. These costs include, among others, hardware, training, software licenses, and maintenance. It also eliminates the need to operate and transfer data between separate systems, which can be costly, time-consuming, and error-prone.
+- **Cost-effective**: A company with a focus on software automation for marketing reduced more than 50% of the costs by avoiding moving data between multiple systems. Switching to an HTAP solution can help save on costs by combining transactional and analytical processing on the same database system. These costs include, among others, hardware, training, software licenses, and maintenance. It also eliminates the need to operate and transfer data between separate systems, which can be costly, time-consuming, and error-prone.
 
-# When should I avoid using HTAP?
+## When should I avoid using HTAP?
 
 - **Single workload**: If your business only has one type of workload, either transactional or analytical, then using HTAP may not be necessary. HTAP is designed to handle both workloads efficiently in a single database. In this case, opting for an HTAP solution can increase operational costs and complexity without providing any benefits.
 
@@ -62,7 +62,7 @@ One of the most prominent solutions in the market is [Oracle Database](https://w
 
 - **Challenging integration**: HTAP systems are designed to provide a unified storage platform for an organization's data. However, some use cases may require specialized databases with unique capabilities that can be difficult to integrate. While some HTAP solutions may offer integration with existing data lakes and data warehouses, it can still be challenging to seamlessly integrate different data sources.
 
-# Steps for Successful HTAP Implementation
+## Steps for Successful HTAP Implementation
 
 To successfully implement HTAP in your organization, consider the following steps:
 
