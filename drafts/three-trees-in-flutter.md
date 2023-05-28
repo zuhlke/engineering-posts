@@ -115,7 +115,7 @@ The cast to an Element lets you access all the properties of an Element. This ca
 |---|---|---|---|
 | Mutable | false | true | true |
 | Lightweight | true | false | false |
-| Jobs | - Holds configuration | - Responsible for lifecycle<br> - Holds state of StatefulWidgets<br> - Connects Widgets with RenderObjects | - Responsible for rendering |
+| Responsibilities | - Holds configuration | - Responsible for lifecycle<br> - Holds state of StatefulWidgets<br> - Connects Widgets with RenderObjects | - Responsible for rendering |
 
 # Conclusion
 
