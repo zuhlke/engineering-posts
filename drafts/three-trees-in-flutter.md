@@ -109,7 +109,7 @@ Widget build(BuildContext context) {
   }
 ```
 
-The cast to an Element lets you access all the properties of an Element. This can be very interesting for educational reasons, but its not recommended in production. This is the reason why Flutter does not allow direct access and adds the properties to the BuildContext. The following tables summarize the most important attributes of the three objects.
+The cast to an Element lets you access all the properties of an Element. This can be very interesting for educational reasons, but its not recommended in production. This is the reason why Flutter does not allow direct access. The following tables summarize the most important attributes of the three objects.
 
 |  | Widget | Element | RenderObject |
 |---|---|---|---|
