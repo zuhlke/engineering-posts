@@ -47,7 +47,7 @@ The following illustration shows all types of Widgets.
 <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1684687367533/AdMsKBnCM.png?auto=format" width=80% height=80%>
  </p>
   
-The previous example shows a popular example: the container widget. You can set a color and a padding on the widget. Flutter will transform it to a ColoredBox and a Padding RenderObjectWidget. The ColoredBox will be responsible to draw the color, the Padding will be responsible to draw the padding. It is also possible to use the RenderObjectWidget directly, like the following code shows.
+The previous example shows a popular example: the container Widget. You can set a color and a padding on the widget. Flutter will transform it to a ColoredBox and a Padding RenderObjectWidget. The ColoredBox will be responsible to draw the color, the Padding will be responsible to draw the padding. It is also possible to use the RenderObjectWidget directly, like the following code shows.
 
 ```dart
  class MyWidget extends StatelessWidget {
