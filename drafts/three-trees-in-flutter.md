@@ -119,4 +119,4 @@ The cast to an Element lets you access all the properties of an Element. This ca
 
 # Conclusion
 
-In conclusion, the widget tree, element tree, and render object tree are three interconnected trees in Flutter that are vital for constructing and rendering UI components efficently. The widget tree represents the hierarchical structure of immutable widgets that describe the UI elements. RenderObject widgets handle the rendering, while elements are responsible for the lifecycle and connect the widget tree with the RenderObject tree.
+In conclusion, the Widget tree, Element tree, and RenderObject tree are three interconnected trees in Flutter that are vital for constructing and rendering UI components efficently. The Widget tree represents the hierarchical structure of immutable Widgets that describe the UI elements. RenderObjects handle the rendering, while Elements are responsible for the lifecycle and connect the Widget tree with the RenderObject tree.
