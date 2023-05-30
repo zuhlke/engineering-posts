@@ -6,7 +6,6 @@ tags: dotnet,bdd,tdd,testing,csharp
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1682689039164/_2bkGoHwv.webp?auto=format
 publishAs: aldu
 hideFromHashnodeCommunity: false
-ignorePost: true
 ---
 
 [Behaviour-Driven Development (BDD)](https://en.wikipedia.org/wiki/Behavior-driven_development) is a technique of agile software development to ensure that the requirements of the software to be developed are fulfilled. To achieve this a special syntax called **Gherkin** (see below) is used to write down the specification which then can be translated by tools into test case skeletons. The developers add the test code and write/enhance the application until the test passes.
