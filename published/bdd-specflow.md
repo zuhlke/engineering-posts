@@ -183,4 +183,4 @@ In case of failures, there is detailed information in the Test Explorer at what 
 
 ## Source code
 
-You can find the source code on [GitHub](https://github.com/xeladu/net%5Fbdd).
+You can find the source code on [GitHub](https://github.com/xeladu/net\_bdd).
