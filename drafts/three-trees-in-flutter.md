@@ -117,6 +117,6 @@ The cast to an Element lets you access all the properties of an Element. This ca
 | Lightweight | true | false | false |
 | Responsibilities | - Holds configuration | - Responsible for lifecycle<br> - Holds state of StatefulWidgets<br> - Connects Widgets with RenderObjects | - Responsible for rendering |
 
-# Conclusion
+## Conclusion
 
 In conclusion, the Widget tree, Element tree, and RenderObject tree are three interconnected trees in Flutter that are vital for constructing and rendering UI components efficently. The Widget tree represents the hierarchical structure of immutable Widgets that describe the UI elements. RenderObjects handle the rendering, while Elements are responsible for the lifecycle and connect the Widget tree with the RenderObject tree.
