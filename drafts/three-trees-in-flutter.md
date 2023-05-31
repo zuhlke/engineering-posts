@@ -87,7 +87,7 @@ Let's check the first example again and take a look of how their Element and Ren
 <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1684687397242/th4DOl27p.png?auto=format" width=70% height=70%>
 </p>
 
-As the Widget tree is immutalbe it gets rebuild a lot. The Element and RenderObject trees are mutable and do not get recreated that frequently. The Element tree is responsible for the lifecycle and connects the Widget tree with the RenderObject tree. As you can see, every widget generates an Element, but not every Element has a RenderObject. Only RenderObjectElements generate RenderObjects, all other elements send their configuration down to the next RenderObjectElement. The following illustration shows the two different Element types.
+As the Widget tree is immutable it gets rebuilt a lot. The Element and RenderObject trees are mutable and do not get recreated that frequently. The Element tree is responsible for the lifecycle and connects the Widget tree with the RenderObject tree. As you can see, every widget generates an Element, but not every Element has a RenderObject. Only RenderObjectElements generate RenderObjects, all other elements send their configuration down to the next RenderObjectElement. The following illustration shows the two different Element types.
  
  <p align="center">
  <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1684687427351/X78ENpgNl.png?auto=format" width=50% height=50%>
