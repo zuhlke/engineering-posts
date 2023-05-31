@@ -11,7 +11,7 @@ Flutter, Google's powerful UI framework, operates on a unique architecture that 
 
 In this blog post, we will dive into the inner workings of Flutter's three trees and understand their relationships. These trees play a vital role in constructing and rendering UI components, enabling developers to create visually stunning and performant applications.
 
-# The widget tree
+## The widget tree
 
 In Flutter, a Widget tree refers to the hierarchical structure of Widgets that are used to compose the user interface of an application. The Widget tree represents the visual components of the app and their relationships with each other.
 
