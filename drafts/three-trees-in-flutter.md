@@ -75,7 +75,7 @@ In Flutter, a Widget gets rebuilt when its internal state changes or when its pa
 - Widget tree updates: If a Widget's parent requests a rebuild.
 - Animation updates: If a Widget includes an animation, it typically rebuilds on every frame.
 
-As you can see, Widgets get rebuild a lot. That's why they need to be extremly lightweight.
+As you can see, Widgets get rebuilt a lot. That's why they need to be extremely lightweight.
 
 # The three trees in Flutter
 
