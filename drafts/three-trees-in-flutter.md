@@ -5,13 +5,14 @@ tags: flutter, flutter-widgets
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1684687187737/Tgk7dXIfu.png?auto=format
 publishAs: gabduss
 hideFromHashnodeCommunity: false
+ignorePost: true
 ---
 
 Flutter, Google's powerful UI framework, operates on a unique architecture that efficiently renders user interfaces. At the core of this architecture are three interconnected trees: the Widget tree, Element tree, and RenderObject tree.
 
 In this blog post, we will dive into the inner workings of Flutter's three trees and understand their relationships. These trees play a vital role in constructing and rendering UI components, enabling developers to create visually stunning and performant applications.
 
-## The widget tree
+## The Widget tree
 
 In Flutter, a Widget tree refers to the hierarchical structure of Widgets that are used to compose the user interface of an application. The Widget tree represents the visual components of the app and their relationships with each other.
 
@@ -35,18 +36,14 @@ class MyWidget extends StatelessWidget {
 ```
 
 The Widget tree of this example is very simple as the following image visualizes.
+![Example Widget tree](https://cdn.hashnode.com/res/hashnode/image/upload/v1684687330012/vuSdPUtnf.png?auto=format)
 
- <p align="center">
-<img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1684687330012/vuSdPUtnf.png?auto=format" width=60% height=60%>
- </p>
-The first tree shows the defined Widget tree, but Flutter created a refined Widget tree, that is illustrated on the right side. But why is Flutter adding three additonal Widgets into the Widget tree? To address this question, it's crucial to understand Flutter's two categories of widgets for defining UI elements: StatefulWidgets/StatelessWidgets and RenderObjectWidgets. RenderObjectWidgets are responsible for rendering Elements on the screen, while StatefulWidgets/StatelessWidgets simplify their usage. As a developer, you typically combine and configure existing Widgets within a StatefulWidget/StatelessWidget, rarely creating RenderObjectWidgets directly. Many Widgets provided by Flutter are themselves StatefulWidget/StatelessWidget, but ultimately, each of these widgets contributes at least one RenderObjectWidget to the tree, as only RenderObjectWidgets have the knowledge to render Elements on the canvas.
+The first tree shows the defined Widget tree, but Flutter created a refined Widget tree, that is illustrated on the right side. But why is Flutter adding three additional Widgets to the Widget tree? To address this question, it's crucial to understand Flutter's two categories of widgets for defining UI elements: StatefulWidgets/StatelessWidgets and RenderObjectWidgets. RenderObjectWidgets are responsible for rendering Elements on the screen, while StatefulWidgets/StatelessWidgets simplify their usage. As a developer, you typically combine and configure existing Widgets within a StatefulWidget/StatelessWidget, rarely creating RenderObjectWidgets directly. Many Widgets provided by Flutter are themselves StatefulWidget/StatelessWidget, but ultimately, each of these widgets contributes at least one RenderObjectWidget to the tree, as only RenderObjectWidgets have the knowledge to render Elements on the canvas.
 
 The following illustration shows all types of Widgets.
 
- <p align="center">
-<img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1684687367533/AdMsKBnCM.png?auto=format" width=80% height=80%>
- </p>
-  
+![Different Widget types](https://cdn.hashnode.com/res/hashnode/image/upload/v1684687367533/AdMsKBnCM.png?auto=format)
+
 The previous example shows a popular example: the container Widget. You can set a color and padding on the widget. Flutter will transform it to a ColoredBox and a Padding RenderObjectWidget. The ColoredBox will be responsible to draw the color, the Padding will be responsible to draw the padding. It is also possible to use the RenderObjectWidget directly, as the following code shows.
 
 ```dart
@@ -81,19 +78,15 @@ As you can see, Widgets get rebuilt a lot. That's why they need to be extremely 
 
 To keep the widgets lightweight Flutter has two additional trees: the element tree and the RenderObject tree. Those three trees are connected.
 
-Let's check the first example again and take a look of how their Element and RenderObject tree look like.
+Let's check the first example again and take a look at what their Element and RenderObject trees look like.
 
- <p align="center">
-<img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1684687397242/th4DOl27p.png?auto=format" width=70% height=70%>
-</p>
+![The three trees in Flutter](https://cdn.hashnode.com/res/hashnode/image/upload/v1684687397242/th4DOl27p.png?auto=format)
 
 As the Widget tree is immutable it gets rebuilt a lot. The Element and RenderObject trees are mutable and do not get recreated that frequently. The Element tree is responsible for the lifecycle and connects the Widget tree with the RenderObject tree. As you can see, every widget generates an Element, but not every Element has a RenderObject. Only RenderObjectElements generate RenderObjects, all other elements send their configuration down to the next RenderObjectElement. The following illustration shows the two different Element types.
- 
- <p align="center">
- <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1684687427351/X78ENpgNl.png?auto=format" width=50% height=50%>
-  </p>
 
-The previous illustration includes another interesting detail. The Element implements the BuildContext. That means that the BuildContext included in every build method is nothing other than an Element with restricted access. That's why the BuildContext has all the knowledge of an Element, like the lifecycle state or their position in the tree. As the following code shows, the BuildContext can be casted to a Element.
+![Element types](https://cdn.hashnode.com/res/hashnode/image/upload/v1684687427351/X78ENpgNl.png?auto=format)
+
+The previous illustration includes another interesting detail. The Element implements the BuildContext. That means that the BuildContext included in every build method is nothing other than an Element with restricted access. That's why the BuildContext has all the knowledge of an Element, like the lifecycle state or its position in the tree. As the following code shows, the BuildContext can be casted to an Element.
 
 ```dart { .customCodeStyle }
 Widget build(BuildContext context) {
@@ -109,13 +102,13 @@ Widget build(BuildContext context) {
   }
 ```
 
-The cast to an Element lets you access all the properties of an Element. This can be very interesting for educational reasons, but its not recommended in production. This is the reason why Flutter does not allow direct access. The following table summarizes the most important attributes of the three objects.
+The cast to an Element lets you access all the properties of an Element. This can be very interesting for educational reasons, but it's not recommended in production. This is the reason why Flutter does not allow direct access. The following table summarizes the most important attributes of the three objects.
 
-|  | Widget | Element | RenderObject |
-|---|---|---|---|
-| Mutable | false | true | true |
-| Lightweight | true | false | false |
-| Responsibilities | - Holds configuration | - Responsible for lifecycle<br> - Holds state of StatefulWidgets<br> - Connects Widgets with RenderObjects | - Responsible for rendering |
+|                  | Widget              | Element                                                                        | RenderObject |
+| ---------------- | ------------------- | ------------------------------------------------------------------------------ | ------------ |
+| Mutable          | false               | true                                                                           | true         |
+| Lightweight      | true                | false                                                                          | false        |
+| Responsibilities | Holds configuration | Lifecycle, holds state of StatefulWidgets, connects Widgets with RenderObjects | Rendering    |
 
 ## Conclusion
 
