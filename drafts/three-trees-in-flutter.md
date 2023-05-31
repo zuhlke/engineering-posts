@@ -77,7 +77,7 @@ In Flutter, a Widget gets rebuilt when its internal state changes or when its pa
 
 As you can see, Widgets get rebuilt a lot. That's why they need to be extremely lightweight.
 
-# The three trees in Flutter
+## The three trees in Flutter
 
 To keep the widgets lightweight Flutter has two additonal trees: the element tree and the RenderObject tree. Those three trees are connected with each other.
 
