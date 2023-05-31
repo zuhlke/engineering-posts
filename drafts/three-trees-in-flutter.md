@@ -79,7 +79,7 @@ As you can see, Widgets get rebuilt a lot. That's why they need to be extremely 
 
 ## The three trees in Flutter
 
-To keep the widgets lightweight Flutter has two additonal trees: the element tree and the RenderObject tree. Those three trees are connected with each other.
+To keep the widgets lightweight Flutter has two additional trees: the element tree and the RenderObject tree. Those three trees are connected.
 
 Let's check the first example again and take a look of how their Element and RenderObject tree look like.
 
