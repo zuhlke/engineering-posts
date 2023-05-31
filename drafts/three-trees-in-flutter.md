@@ -69,7 +69,7 @@ The previous example shows a popular example: the container Widget. You can set 
 In Flutter, a Widget gets rebuilt when its internal state changes or when its parent widget requests a rebuild. Here are some common scenarios that trigger widget rebuilds:
 
 - Initial build: When a Widget is first inserted into the widget tree.
-- State changes: If a Widget's internal state changes, because of user interactions or an network response.
+- State changes: If a Widget's internal state changes, because of user interactions or a network response.
 - InheritedWidget changes: Widgets can receive data changes from ancestor widgets.
 - Layout changes: If the layout constraints of a widget changes, e.g. the oriantation of a device changes.
 - Widget tree updates: If a Widget's parent requests a rebuild.
