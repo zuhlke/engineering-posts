@@ -46,6 +46,6 @@ They behave exactly the same and offer the same functions. One cool thing is tha
 
 ![xml doc](https://cdn.hashnode.com/res/hashnode/image/upload/v1672652289997/68d840b3-1d4d-483d-91cd-4a92a638db85.jpeg)
 
-## Conclusion
+## Conclusion
 
 The new regular expression source generators are an excellent and convenient addition to the .NET ecosystem. 
