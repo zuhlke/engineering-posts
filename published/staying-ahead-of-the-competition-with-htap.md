@@ -4,7 +4,6 @@ slug: staying-ahead-of-the-competition-with-htap
 tags: databases, realtime, performance, big-data, data-analysis
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1684249684644/c1cbc90b-d3e9-4af6-b8a7-619d5f6abf10.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
 domain: software-engineering-corner.hashnode.dev
-ignorePost: true
 hideFromHashnodeCommunity: false
 publishAs: daco
 ---
