@@ -1,7 +1,7 @@
 ---
 title: ASP.NET Core Integration Testing
 domain: software-engineering-corner.hashnode.dev
-tags: aspnet-core integration testing web-api sql-server sqlite software-testing
+tags: aspnet-core, integration, testing, web-api, sql-server, sqlite, software-testing
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1672570479569/c96d6c44-6544-4b64-8e45-e72cb03ea237.jpeg
 hideFromHashnodeCommunity: false
 publishAs: fabioscagliola
