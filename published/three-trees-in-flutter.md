@@ -87,7 +87,7 @@ As the Widget tree is immutable it gets rebuilt a lot. The Element and RenderObj
 
 The previous illustration includes another interesting detail. The Element implements the BuildContext. That means that the BuildContext included in every build method is nothing other than an Element with restricted access. That's why the BuildContext has all the knowledge of an Element, like the lifecycle state or its position in the tree. As the following code shows, the BuildContext can be casted to an Element.
 
-```dart { .customCodeStyle }
+```dart
 Widget build(BuildContext context) {
     var element = context as Element;
 
