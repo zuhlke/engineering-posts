@@ -9,7 +9,7 @@ ignorePost: true
 ---
 
 
-A search function is a crucial feature in an application, playing an important role in enhancing the user experience. By simply entering relevant keywords or phrases, the users get instant access to the precise data they require. This saves him from the cumbersome task of manually navigating through intricate menus or hierarchies, making their interaction with the application more intuitive and efficient.
+A search function is a crucial feature in an application, playing an important role in enhancing the user experience. By simply entering relevant keywords or phrases, the users get instant access to the precise data they require. This saves them from the cumbersome task of manually navigating through intricate menus or hierarchies, making their interaction with the application more intuitive and efficient.
 
 However, writing a good search is hard. A good search function must be able to analyse even large datasets efficiently and find the results relevant for the individual user, instead of simply returning results matching the user input. When, for example, searching a cooking recipe database for “carrot and egs” (note the spelling mistake), recipes using “eggs”, “eggs and carrots” as well as “egg and carrot” must be returned as well.
 
