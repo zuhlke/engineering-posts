@@ -29,7 +29,7 @@ Here is an image showing an overview of MVVM:
 
 <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1689944789630/U5s61XI6s.png?auto=format" width="750"/>
 
-The above image illustrates how data flows in MVVM. The view raises events these events get handled in the view model which then knows how to interact with the model e.g. call business logic or interact with data objects. After the interaction with the model ended, the view model updates the bound properties. Bound properties are data objects that the UI elements e.g. a button, a label etc. on the view bind to. Finally, this update will then lead to a re-render of the UI elements, which then display the new data.
+The above image illustrates how data flows in MVVM. The view raises events these events get handled in the view model which then knows how to interact with the model e.g. call business logic or interact with data objects. After the interaction with the model ended, the view model updates the bound properties. Bound properties are data objects that the UI elements e.g. a button, a label, etc. on the view bind to. Finally, this update will then lead to a re-render of the UI elements, which then display the new data.
 
 In the following chapter, you can find a detailed explanation of the involved components with a code example implemented in .NET MAUI.
 
