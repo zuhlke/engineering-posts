@@ -257,4 +257,4 @@ With the help of the MVVM Community Toolkit, I was able to reduce the lines of c
 
 ### Takeaways
 
-MVVM is a simple design pattern that makes UI code more readable and maintainable. It decouples the view from the view model and model. Thus it is easier to unit test and extend. In addition, the MVVM Community Toolkit solves the problem with the boilerplate implementation that MVVM in XAML-based solutions introduces. The approach used by the MVVM Community Toolkit is very lightweight, intuitive and mature these factors make the library a safe pick for me for every XAML-based project.
+MVVM is a simple design pattern that makes UI code more readable and maintainable. It decouples the view from the view model and model. Thus it is easier to unit test and extend. In addition, the MVVM Community Toolkit solves the problem with the boilerplate implementation that MVVM in XAML-based solutions introduces. The approach used by the MVVM Community Toolkit is very lightweight, intuitive and mature. These factors make the library a safe pick for me for every XAML-based project.
