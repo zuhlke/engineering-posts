@@ -10,32 +10,38 @@ hideFromHashnodeCommunity: false
 publishAs: romanutti
 ---
 
-The software development world is an ever-evolving landscape. New technologies and methodologies are perpetually surfacing, each promising a more efficient and effective way to create high-quality software. One such approach that is gaining significant traction is API-first development.
-
-This article describes the API-first approach, and [how the latest openapi-generator-gradle-plugin version now allows you to have multiple specification files](####OpenAPI-Generator).
+The software development world is an ever-evolving landscape. Technologies and methodologies continuously evolve - each promising a more efficient and effective way to create high-quality software. One such approach that is gaining significant traction is *API-first* development.
+This article describes the API-first approach, and how the latest [openapi-generator](https://github.com/OpenAPITools/openapi-generator) finally supports multiple specification files.
 
 ### What does API-first mean?
 
-API-first design is a development paradigm that prioritizes your APIs and how your different software pieces communicate with each other, at the top of your project's needs. In this approach, APIs are designed before any line of code is written.
+API-first design is a development paradigm that prioritizes your APIs (Application Programming Interfaces) and how your different software pieces communicate with each other. In this approach, APIs are designed before any line of code is written.
 
-To outline how the API should act, we use [OpenAPI Specification](https://spec.openapis.org/oas/v3.1.0). Following this standard, we can define endpoints, operations, parameters, error messages, and other information in a way that both humans and computers understand.
+To outline how the API should act, [OpenAPI Specification](https://spec.openapis.org/oas/v3.1.0) is used. It is a standard, that allows us to define endpoints, operations, parameters, error messages, and other information in a way that both humans and computers understand.
+
+A fully fledged example of an OpenAPI specification can be found [here](https://editor.swagger.io/).
 
 ### The benefits of API-first development
 
 [TODO] Further describe each example
 
-* Development teams can work in parallel
+* __Better APIs__: A good API is one that fulfills the needs of its clients, is easy to use and produces maintainable code. Thinking about the API first helps you to come up with the API you want - rather than one that your code potentially generates.
 
-* Code-generation
+* __Development teams can work in parallel__: As soon as the API specification is defined, both (or even all, if multiple clients) can start their implementation work in parallel.
 
-* Integration tested
+* __Code-generation__: Client and server code can be generated from the API specification. 
 
+* __Integration tested__: Having the API defined first improves the chances that they your client actually talks correctly to your server. Generating code and building your development and build processes around API-first improves the chances even more.
 
 ### The tools
 
 #### Swagger Editor
 
+The [Swagger Editor](https://editor.swagger.io/) is a browser-based editor where you can write OpenAPI specifications. It provides a live preview of the API documentation and allows you to generate server and client code in a variety of languages. If you checked out the openAPI example before, you already have seen it in action.
+
 #### OpenAPI Generator
+
+A commonly used tool to generate code based on openAPI specifications is the [openapi-generator](https://openapi-generator.tech/). It comes in different ways: As [CLI](https://central.sonatype.com/artifact/org.openapitools/openapi-generator-cli/7.0.0), [maven-plugin](https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator-maven-plugin/README.md) or [gradle-plugin](https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin). In this example we will use the latest version (7.0.1) of the gradle-plugin.
 
 openapi/user-api.yaml
 
@@ -73,7 +79,7 @@ paths:
 
 ```kotlin
 plugins {
-    id("org.openapi.generator") version "7.0.0-beta"
+    id("org.openapi.generator") version "7.0.1"
 }
 ```
 
@@ -156,4 +162,4 @@ public interface UsersApi {
 
 ### APIs as "first-class" citizens
 
-An API-first approach to building software can benefit your organization in many ways. However, keep in mind that just using and adopting the tools is not enough. The API-first approach requires embracing a new process - and even more crucial: A shift from thinking in code to a code-agnostic way to design your APIs.
+Using API-first as approach to build software can benefit your organization in many ways. However, keep in mind that just using and adopting the tools is not enough. The API-first approach requires embracing a new process - and even more crucial: A shift from thinking in code to a code-agnostic way to design your APIs.
