@@ -239,7 +239,7 @@ Same as for the server, we can generate a client by using the respective generat
 
 ```kotlin
 openApiGenerate {
-    generatorName.set("angular-typesript")
+    generatorName.set("angular-typescript")
     inputSpec.set("$rootDir/openapi/user-api.yaml")
     outputDir.set("$buildDir/generated")
 }
