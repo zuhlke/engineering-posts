@@ -170,6 +170,67 @@ public interface UsersApi {
 }
 ```
 
+And also a data transfer object (DTO) was generated:
+
+```java
+@Generated
+public class User {
+
+  private Integer id;
+
+  private String username;
+  
+  /**
+   * Constructor with only required parameters
+   */
+  public User(Integer id, String username) {
+    this.id = id;
+    this.username = username;
+  }
+
+  public User id(Integer id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Unique identifier for the user.
+   * @return id
+  */
+  @NotNull 
+  @Schema(name = "id", description = "Unique identifier for the user.", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("id")
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  public User username(String username) {
+    this.username = username;
+    return this;
+  }
+
+  /**
+   * User's username.
+   * @return username
+  */
+  @NotNull 
+  @Schema(name = "username", description = "User's username.", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("username")
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+}
+
+```
+
 The OpenAPI generator provides a lot of options to customize the generated code. For example, you can specify the package name, the name of the generated classes, custom type-mappings, and of course, other generators such as `javascript`, `typescript`, `kotlin` or `go`. For a complete list of options, please refer to the [documentation](https://github.com/OpenAPITools/openapi-generator)
 
 ### A more realistic example
