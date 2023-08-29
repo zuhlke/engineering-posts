@@ -1,6 +1,6 @@
 ---
 title: Effortless API-first 
-subtitle: Using OpenAPI Generator's latest multiple spec-file feature ✨
+subtitle: Part one of our API-first series 🛠️
 slug: api-first-development
 tags: api, rest-api, openapi, gradle, api-first
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1690024103909/5Im8zw6FL.jpg?auto=format
@@ -10,14 +10,16 @@ hideFromHashnodeCommunity: false
 publishAs: romanutti
 ---
 
-The software development world is an ever-evolving landscape. Technologies and methodologies continuously evolve - each promising a more efficient and effective way to create high-quality software. One such approach that is gaining significant traction is *API-first* development.
-This article describes the API-first approach and how the latest [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator) finally supports multiple specification files.
+The software development world is an ever-evolving landscape. Technologies and methodologies continuously evolve - each promising a more efficient and effective way to create high-quality software. 
+One such approach that is gaining significant traction is *API-first* development.
 
-> Note: Release 7.0.1 that will fix https://github.com/OpenAPITools/openapi-generator/issues/16419 is expected to be released later this year. Until then multiple spec-files are only supported by the CLI version.
+In this article series we will explore the idea behind API-first, look at practicable examples and [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator)'s new multiple specification files feature.
+
+> Note: Release 7.0.1 that will fix [issue 16419](https://github.com/OpenAPITools/openapi-generator/issues/16419) is expected to be released later this year. Until then multiple specification files are only supported by the CLI version.
 
 ### What does API-first mean?
 
-API-first design is a development paradigm that prioritizes our APIs and how our different software pieces communicate. In this approach, APIs are designed before any line of code is written.
+API-first design is a development paradigm that prioritizes our APIs, or application programming interfaces, and how our different software pieces communicate. In this approach, APIs are designed before any line of code is written.
 
 [OpenAPI Specification](https://spec.openapis.org/oas/v3.1.0) is used to outline how the API should act. It is a standard that allows us to define endpoints, operations, parameters, error messages, and other information in a way that both humans and computers understand.
 
@@ -45,12 +47,12 @@ The [Swagger Editor](https://editor.swagger.io/) is a browser-based editor where
 
 #### OpenAPI Generator
 
-A commonly used tool to generate code based on openAPI specifications is the [openapi-generator](https://openapi-generator.tech/). It comes in different ways: As [CLI](https://central.sonatype.com/artifact/org.openapitools/openapi-generator-cli/7.0.0), [Maven plugin](https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator-maven-plugin/README.md) or [Gradle plugin](https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin).
+A commonly used tool to generate code based on openAPI specifications is the [OpenAPI Generator](https://openapi-generator.tech/). It comes in different ways: As [CLI](https://central.sonatype.com/artifact/org.openapitools/openapi-generator-cli/7.0.0), [Maven plugin](https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator-maven-plugin/README.md) or [Gradle plugin](https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin).
 
 ### A first example
 
 To give an example of how API-first can be used we will create a simple API and generate the required code.
-This example uses the latest version (`7.0.1`) of the [Gradle plugin](https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin).
+This example uses version `7.0.1` of the [Gradle plugin](https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin).
 
 As described earlier, we start with designing our API. In this first step, we define an endpoint that returns the details of a specific user. The specification is written in YAML and can be found in the `openapi` directory.
 
@@ -95,14 +97,14 @@ components:
 ```
 
 The specification consists of the following elements:
-- **`openapi`**: Specifies the version of the OpenAPI specification being used.
+- **`openapi`**: Defines the version of the OpenAPI specification being used.
 - **`info`**: Version, name and a brief description of the API.
-- **`paths`**: Represents all available endpoints - in our case one to retrieve user details, including supported operations, parameters and possible responses.
-- **`components`**: Used to define reusable data models - in this case a `User` object.
+- **`paths`**: Exposes all available endpoints - in our case a `GET` endpoint to retrieve user details, including supported operations, parameters and possible responses.
+- **`components`**: Used to define reusable data models. Currently, we only have a `User` object.
 
 So far, so clear.
 
-Having our OpenAPI specification we can now generate the required code. To do so, we need to add the following to our `build.gradle.kts` file:
+Having our OpenAPI specification we can now generate the required code. To do so, we need to add the following plugin to our `build.gradle.kts` file:
 
 ```kotlin
 plugins {
@@ -110,9 +112,10 @@ plugins {
 }
 ```
 
-#### Generate server
+### Generating the server
 
-The plugin now allows us to specify further how the code should be generated. In this example, we want to generate a Spring server. Therefore, we need to add the following task to our `build.gradle.kts` file:
+The plugin now allows us to specify further how the code should be generated. 
+In this example, we want to generate a [Spring](https://spring.io/) server. Therefore, we need to add the following task to our `build.gradle.kts` file:
 
 ```kotlin
 openApiGenerate {
@@ -125,7 +128,7 @@ openApiGenerate {
 
 Let's see what we configured: 
 * `generatorName` specifies the generator to use. 
-* `inputSpec` contains the OpenAPI specification. 
+* `inputSpec` contains the OpenAPI specification that we use to generate our code.
 * `configFile` allows to further customize the code generation (checkout the [docs](https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator-gradle-plugin/README.adoc#configuration) to learn more about the available options).
 * `outputDir` specifies the directory where the generated code should be placed.
 
@@ -174,7 +177,7 @@ public interface UsersApi {
 }
 ```
 
-And also a data transfer object (DTO) was generated:
+And also the data transfer object (DTO) that is returned by the server was generated:
 
 ```java
 @Generated
@@ -218,11 +221,11 @@ public class User {
   }
 
   /**
-   * User's username.
+   * User's name.
    * @return username
   */
   @NotNull 
-  @Schema(name = "username", description = "User's username.", requiredMode = Schema.RequiredMode.REQUIRED)
+  @Schema(name = "username", description = "User's name.", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("username")
   public String getUsername() {
     return username;
@@ -235,9 +238,11 @@ public class User {
 
 ```
 
-#### Generate client
+### Generating the client
 
-Same as for the server, we can generate a client by using the respective generator:
+Same as for the server, we can generate a client by using a suitable generator.
+In our case we want to generate a [TypeScript](https://www.typescriptlang.org/) client. 
+Therefore, we choose the `typescript-angular` generator in our gradle task:
 
 ```kotlin
 openApiGenerate {
@@ -248,9 +253,16 @@ openApiGenerate {
 }
 ```
 
-The generator will generate a service that can be used to call the API:
+The generator will generate a service that can be used to call the API. 
+As the client code in our case includes the fully-fledged implementation of the service, we can directly use it in our application.
+
 
 ```typescript
+/**
+ * NOTE: This class is auto generated by OpenAPI Generator (https://openapi-generator.tech).
+ * https://openapi-generator.tech
+ * Do not edit the class manually.
+ */
 @Injectable({
     providedIn: 'root'
 })
@@ -267,12 +279,7 @@ export class UserService {
      * @param reportProgress flag to report request and response progress.
      */
     public usersUserIdGet(userId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (userId === null || userId === undefined) {
-            throw new Error('Required parameter userId was null or undefined when calling usersUserIdGet.');
-        }
-
-        let localVarHeaders = this.defaultHeaders;
-        // ....
+        // ...
     }
 }
 ```
@@ -291,168 +298,15 @@ export interface User {
      */
     id: number;
     /**
-     * User's username.
+     * User's name.
      */
     username: string;
 }
 ```
 
-### A more realistic example
+Bonus tip on organizing code: Keep your generated code in a separate directory or module to keep it isolated from your application code. This will make it easier to manage and update your generated code as your API evolves over time.
 
-In the real world, our APIs grow over time. Having more than one file to define all endpoints and data models can become quite messy. Therefore, we want to split our API specification into multiple files.
-Thankfully, a new `inputSpecRootDirectory` option allows us to specify a directory containing multiple OpenAPI specification files. The plugin will then merge all files into one specification and generate the code based on that.
+### Conclusion
 
-```kotlin
-openApiGenerate {
-    generatorName.set("spring") 
-    inputSpecRootDirectory.set("$rootDir/openapi")
-    configFile.set("$rootDir/api-config.json")
-    outputDir.set("$buildDir/generated")
-}
-```
-
-Imagine we additionally have to build an API that lists a specific order. Again, We can create an API specification file `openapi/order-api.yaml`.
-
-_openapi/order-api.yaml:_
-
-```yaml
-openapi: 3.0.0
-info:
-  version: 1.0.0
-  title: User API
-  description: API to manage orders
-paths:
-  /orders/{orderId}:
-    get:
-      summary: Get details of a specific order by ID
-      parameters:
-        - name: orderId
-          in: path
-          description: ID of the order to retrieve
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Order'
-components:
-  schemas:
-    Order:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique identifier for the order.
-        comment:
-          type: string
-          description: Order note.
-      required:
-        - id
-        - comment
-```
-
-If we again run the code generation, we will see that the generator created a merged file referencing both specifications.
-
-```yaml
-openapi: "3.0.0"
-paths:
-  /orders:
-    $ref: "./order-api.yaml#/paths/~1orders"
-  /users:
-    $ref: "./user-api.yaml#/paths/~1users"
-info:
-  title: "Merged openAPI spec"
-  version: "1.0.0"
-```
-
-### Extra: Reusing data models
-
-In a scenario like this, we will most likely face the situation where we want to share a model between API specifications.
-For example, let's assume we want to return the ordering user in our `/users/{orderId}` endpoint.
-Thankfully OpenAPI specification allows us to reference an external schema using the `$ref` attribute (the one we saw just before).
-
-That way, we can define a common data model in a separate file and reference it in both API specifications.
-
-_openapi/common.yaml:_
-
-```yaml
-components:
-  schemas:
-    User:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique identifier for the user.
-        username:
-          type: string
-          description: User's username.
-      required:
-        - id
-        - username
-```
-
-Our user API references now that common data model.
-
-_openapi/user-api.yaml:_
-```yaml
-openapi: 3.0.0
-info:
-  version: 1.0.0
-  title: User API
-paths:
-  /users/{userId}:
-    get:
-      summary: Get details of a specific user by ID
-      parameters:
-        - name: userId
-          description: ID of the user to retrieve
-          in: path
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: 'common.yaml#/components/schemas/User'
-```
-
-And also the order API can make use of the shared data model.
-
-_openapi/order-api.yaml:_
-
-```yaml
-openapi: 3.0.0
-info:
-  version: 1.0.0
-  title: Order API
-paths:
-  /users/{orderId}:
-    get:
-      summary: Get details of a specific user by order ID
-      parameters:
-        - name: orderId
-          description: ID of the order that placed the order
-          in: path
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: 'common.yaml#/components/schemas/User'
-```
-
-### APIs as "first-class" citizens
-
-Using API-first as an approach to build software can benefit your organization in many ways. However, remember that more than just using and adopting the tools is required. The API-first approach requires embracing a new process - and even more crucial: Shifting from thinking in code to a code-agnostic way to design your APIs.
+As we can see, the OpenAPI Generator is a powerful tool that can be used to generate code for both server and client side.
+In the next article we will look at a more realistic example and how [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator) helps you to keep your specification files structured.
