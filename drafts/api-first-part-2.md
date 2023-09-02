@@ -11,10 +11,10 @@ publishAs: romanutti
 ---
 
 The API-first approach prioritizes APIs over code and puts them at the beginning of the software development process.
-In our previous article we looked at the idea behind API-first development and some first example. 
-In this article series we will focus on how [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator)'s new multiple specification files feature let us organize our APIs.
+Our previous article looked at the idea behind API-first development and some first examples.
+This article will focus on how [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator)'s new multiple specification files feature lets us organize our APIs.
 
-> Note: Release 7.0.1 that will fix [issue 16419](https://github.com/OpenAPITools/openapi-generator/issues/16419) is expected to be released later this year. Until then multiple specification files are only supported by the CLI version.
+> Note: Release 7.0.1 that will fix [issue 16419](https://github.com/OpenAPITools/openapi-generator/issues/16419) is expected to be released later this year. Until then, multiple specification files are only supported by the CLI version.
 
 ### Multiple specifications
 
@@ -30,7 +30,7 @@ openApiGenerate {
 }
 ```
 
-In the last article we already created a simple API specification file `user-api.yaml` for a user management API.
+In the last article, we created a simple API specification file `user-api.yaml` for a user management API.
 Imagine we additionally have to build an API that lists a specific order. Again, we can create an API specification file `order-api.yaml`.
 
 _openapi/order-api.yaml:_
@@ -96,10 +96,10 @@ In our example `./order-api.yaml#/~1order` means we
 
 ### Don't repeat yourself
 
-In a scenario like this, we will most likely face the situation where we want to share a model between API specifications.
+In a scenario like this, we will likely face a situation where we want to share a model between API specifications.
 Let's assume we want to return the user in
 * our user API to get the user details via `/users/{userId}` and in
-* order API to the the user that placed an order via `/users/{orderId}`.
+* order API to the user that placed an order via `/users/{orderId}`.
 
 Again, `$ref` is our friend: We can define a common data model in a separate file and reference it in both API specifications.
 
@@ -150,7 +150,7 @@ paths:
                 $ref: 'common.yaml#/components/schemas/User'
 ```
 
-And also the order API can make use of the shared data model.
+And the order API can use the shared data model, too.
 
 _openapi/order-api.yaml:_
 
@@ -181,6 +181,6 @@ paths:
 
 ### APIs as "first-class" citizens
 
-Using API-first as an approach to build software can benefit your organization in many ways. 
-In this article series we looked at what API-first means and how OpenAPI Generator can help you to adopt this approach.
+Using API-first to build software can benefit your organization in many ways. 
+In this article series, we looked at what API-first means and how OpenAPI Generator can help you to adopt this approach.
 However, remember that more than just using and adopting the tools is required. The API-first approach requires embracing a new process - and even more crucial: Shifting from thinking in code to a code-agnostic way to design your APIs.

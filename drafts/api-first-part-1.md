@@ -13,9 +13,7 @@ publishAs: romanutti
 The software development world is an ever-evolving landscape. Technologies and methodologies continuously evolve - each promising a more efficient and effective way to create high-quality software. 
 One such approach that is gaining significant traction is *API-first* development.
 
-In this article series we will explore the idea behind API-first, look at practicable examples and [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator)'s new multiple specification files feature.
-
-> Note: Release 7.0.1 that will fix [issue 16419](https://github.com/OpenAPITools/openapi-generator/issues/16419) is expected to be released later this year. Until then multiple specification files are only supported by the CLI version.
+In this article series, we will explore the idea behind API-first, look at practicable examples and [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator)'s new multiple specification files feature.
 
 ### What does API-first mean?
 
@@ -29,17 +27,17 @@ A fully-fledged example of an OpenAPI specification can be found [here](https://
 
 API-first comes with a lot of benefits. Here are some of them:
 
-* __Better APIs__: A good API fulfills its clients' needs, is easy to use and produces maintainable code. Thinking about the API first helps you come up with the API you want - rather than one your code accidentally generates.
+* __Better APIs__: Designing an API upfront forces you to talk about the purpose of the API and how it should behave. This leads to APIs that fit their consumers' needs, are easier to use, and often reduce server and client complexity.
 
 * __Development teams can work in parallel__: As soon as the API specification is defined, both server and clients can start their implementation work in parallel.
 
 * __Code-generation__: Client and server code can be generated from the API specification.
 
-* __Integration tested__: Having the API defined first improves the chances that our client talks correctly to our server. Generating code and building your development and build processes around API-first improves the chances even more.
+* __Integration tested__: Having the API defined first improves the chances that our client talks correctly to our server. Generating code and building your development and ci/cd-processes around API-first improves the chances even more.
 
 ### The tools
 
-Appropriate tooling is essential for API-first development. The following two will make our life easier:
+Appropriate tooling is essential for API-first development. The following two will make our lifes easier:
 
 #### Swagger Editor
 
@@ -47,11 +45,11 @@ The [Swagger Editor](https://editor.swagger.io/) is a browser-based editor where
 
 #### OpenAPI Generator
 
-A commonly used tool to generate code based on openAPI specifications is the [OpenAPI Generator](https://openapi-generator.tech/). It comes in different ways: As [CLI](https://central.sonatype.com/artifact/org.openapitools/openapi-generator-cli/7.0.0), [Maven plugin](https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator-maven-plugin/README.md) or [Gradle plugin](https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin).
+A commonly used tool to generate code based on OpenAPI specifications is the [OpenAPI Generator](https://openapi-generator.tech/). It comes in different ways: As [CLI](https://central.sonatype.com/artifact/org.openapitools/openapi-generator-cli/7.0.0), [Maven plugin](https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator-maven-plugin/README.md) or [Gradle plugin](https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin).
 
 ### A first example
 
-To give an example of how API-first can be used we will create a simple API and generate the required code.
+To give an example of how API-first can be used, we will create a simple API and generate the required code.
 This example uses version `7.0.1` of the [Gradle plugin](https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin).
 
 As described earlier, we start with designing our API. In this first step, we define an endpoint that returns the details of a specific user. The specification is written in YAML and can be found in the `openapi` directory.
@@ -104,7 +102,7 @@ The specification consists of the following elements:
 
 So far, so clear.
 
-Having our OpenAPI specification we can now generate the required code. To do so, we need to add the following plugin to our `build.gradle.kts` file:
+Having our OpenAPI specification, we can now generate the required code. To do so, we need to add the following plugin to our `build.gradle.kts` file:
 
 ```kotlin
 plugins {
@@ -114,8 +112,8 @@ plugins {
 
 ### Generating the server
 
-The plugin now allows us to specify further how the code should be generated. 
-In this example, we want to generate a [Spring](https://spring.io/) server. Therefore, we need to add the following task to our `build.gradle.kts` file:
+The plugin now allows us to specify further how the code should be generated.
+We want to generate a [Spring](https://spring.io/) server in this example. Therefore, we need to add the following task to our `build.gradle.kts` file:
 
 ```kotlin
 openApiGenerate {
@@ -128,8 +126,8 @@ openApiGenerate {
 
 Let's see what we configured: 
 * `generatorName` specifies the generator to use. 
-* `inputSpec` contains the OpenAPI specification that we use to generate our code.
-* `configFile` allows to further customize the code generation (checkout the [docs](https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator-gradle-plugin/README.adoc#configuration) to learn more about the available options).
+* `inputSpec` contains the OpenAPI specification we use to generate our code.
+* `configFile` allows to customize further the code generation (check out the [docs](https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator-gradle-plugin/README.adoc#configuration) to learn more about the available options).
 * `outputDir` specifies the directory where the generated code should be placed.
 
 We are now ready to run the code generation. To do so, we can run the following command:
@@ -141,20 +139,9 @@ We are now ready to run the code generation. To do so, we can run the following 
 This will result in an interface that can be implemented in the respective controller on sever side.
 
 ```java
-/**
- * NOTE: This class is auto generated by OpenAPI Generator (https://openapi-generator.tech) (7.0.0-beta).
- * https://openapi-generator.tech
- * Do not edit the class manually.
- */
 @Generated
 public interface UsersApi {
 
-    /**
-     * GET /users/{userId} : Get details of a specific user by ID
-     *
-     * @param userId ID of the user to retrieve (required)
-     * @return OK (status code 200)
-     */
     @Operation(
             operationId = "usersUserIdGet",
             summary = "Get details of a specific user by ID",
@@ -167,7 +154,7 @@ public interface UsersApi {
     @RequestMapping(
             method = RequestMethod.GET,
             value = "/users/{userId}",
-            produces = { "application/json" }
+            produces = {"application/json"}
     )
     default ResponseEntity<User> usersUserIdGet(
             @Parameter(name = "userId", description = "ID of the user to retrieve", required = true, in = ParameterIn.PATH) @PathVariable("userId") Integer userId
@@ -177,7 +164,7 @@ public interface UsersApi {
 }
 ```
 
-And also the data transfer object (DTO) that is returned by the server was generated:
+And also, the data transfer object (DTO) that is returned by the server was generated:
 
 ```java
 @Generated
@@ -187,9 +174,6 @@ public class User {
 
   private String username;
   
-  /**
-   * Constructor with only required parameters
-   */
   public User(Integer id, String username) {
     this.id = id;
     this.username = username;
@@ -199,11 +183,7 @@ public class User {
     this.id = id;
     return this;
   }
-
-  /**
-   * Unique identifier for the user.
-   * @return id
-  */
+  
   @NotNull 
   @Schema(name = "id", description = "Unique identifier for the user.", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("id")
@@ -219,11 +199,7 @@ public class User {
     this.username = username;
     return this;
   }
-
-  /**
-   * User's name.
-   * @return username
-  */
+  
   @NotNull 
   @Schema(name = "username", description = "User's name.", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("username")
@@ -240,71 +216,48 @@ public class User {
 
 ### Generating the client
 
-Same as for the server, we can generate a client by using a suitable generator.
-In our case we want to generate a [TypeScript](https://www.typescriptlang.org/) client. 
+Just as we generated server code, we can also generate client code using an appropriate generator.
+In our case, we want to generate a [TypeScript](https://www.typescriptlang.org/) client. 
 Therefore, we choose the `typescript-angular` generator in our gradle task:
 
 ```kotlin
 openApiGenerate {
-    generatorName.set("angular-typescript")
+    generatorName.set("typescript-angular")
     inputSpec.set("$rootDir/openapi/user-api.yaml")
     configFile.set("$rootDir/api-config.json")
     outputDir.set("$buildDir/generated")
 }
 ```
 
-The generator will generate a service that can be used to call the API. 
-As the client code in our case includes the fully-fledged implementation of the service, we can directly use it in our application.
-
-
+The generator will generate a service that can be used to call the API (generated services are quite verbose - for clarity, we focus on the relevant parts):
 ```typescript
-/**
- * NOTE: This class is auto generated by OpenAPI Generator (https://openapi-generator.tech).
- * https://openapi-generator.tech
- * Do not edit the class manually.
- */
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string|string[], @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient) {
         // ...
     }
-
-    /**
-     * Get details of a specific user by ID
-     * @param userId ID of the user to retrieve
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public usersUserIdGet(userId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    
+    public usersUserIdGet(userId: number): Observable<User> {
         // ...
     }
 }
 ```
 
-And also corresponding data transfer objects were generated:
+As the client code in our case includes the fully-fledged implementation of the service, we can directly use it in our application.
+
+Also, a corresponding data transfer object was generated:
 
 ```typescript
-/**
- * NOTE: This class is auto generated by OpenAPI Generator (https://openapi-generator.tech).
- * https://openapi-generator.tech
- * Do not edit the class manually.
- */
-export interface User { 
-    /**
-     * Unique identifier for the user.
-     */
+export interface User {
     id: number;
-    /**
-     * User's name.
-     */
     username: string;
 }
 ```
 
-Bonus tip on organizing code: Keep your generated code in a separate directory or module to keep it isolated from your application code. This will make it easier to manage and update your generated code as your API evolves over time.
+ A final thought about organizing your code: Keep your generated code in a separate directory or module to keep it isolated from your application code. This will make managing and updating your generated code easier as your API evolves over time.
 
 ### Conclusion
 
