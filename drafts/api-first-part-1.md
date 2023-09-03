@@ -2,8 +2,8 @@
 title: Effortless API-first 
 subtitle: Part one of our API-first series 🛠️
 slug: api-first-development
-tags: api, rest-api, openapi, gradle, api-first
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1690024103909/5Im8zw6FL.jpg?auto=format
+tags: api, rest, openapi, gradle, api-first, rest-api, apis
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1693750471478/jlvfV142C.jpg?auto=format
 domain: software-engineering-corner.hashnode.dev
 ignorePost: true
 hideFromHashnodeCommunity: false
