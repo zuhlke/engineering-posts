@@ -14,7 +14,7 @@ The API-first approach prioritizes APIs over code and puts them at the beginning
 Our previous article looked at the idea behind API-first development and some first examples.
 This article will focus on how [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator)'s new multiple specification files feature lets us organize our APIs.
 
-> Note: Release 7.0.1 that will fix [issue 16419](https://github.com/OpenAPITools/openapi-generator/issues/16419) is expected to be released later this year. Until then, multiple specification files are only supported by the CLI version.
+> Note: Release 7.0.1 that will fix [issue 16419](https://github.com/OpenAPITools/openapi-generator/issues/16419) and allows multiple specification files is expected to be released later this month 🔥 Until then, the feature is only supported by the CLI version.
 
 ### Multiple specifications
 
@@ -44,6 +44,8 @@ paths:
   /orders/{orderId}:
     get:
       summary: Get details of a specific order by ID
+      tags:
+        - orders
       parameters:
         - name: orderId
           in: path
@@ -134,6 +136,8 @@ paths:
   /users/{userId}:
     get:
       summary: Get details of a specific user by ID
+      tags:
+        - users
       parameters:
         - name: userId
           description: ID of the user to retrieve
@@ -163,6 +167,8 @@ paths:
   /users/{orderId}:
     get:
       summary: Get details of a specific user by order ID
+      tags:
+        - orders
       parameters:
         - name: orderId
           description: ID of the order that placed the order

@@ -50,7 +50,7 @@ A commonly used tool to generate code based on OpenAPI specifications is the [Op
 ### A first example
 
 To give an example of how API-first can be used, we will create a simple API and generate the required code.
-This example uses version `7.0.1` of the [Gradle plugin](https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin).
+This example uses version `7.0.0` of the [Gradle plugin](https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin).
 
 As described earlier, we start with designing our API. In this first step, we define an endpoint that returns the details of a specific user. The specification is written in YAML and can be found in the `openapi` directory.
 
@@ -64,6 +64,8 @@ paths:
   /users/{userId}:
     get:
       summary: Get details of a specific user by ID
+      tags:
+        - users
       parameters:
         - name: userId
           in: path
@@ -106,7 +108,7 @@ Having our OpenAPI specification, we can now generate the required code. To do s
 
 ```kotlin
 plugins {
-    id("org.openapi.generator") version "7.0.1"
+    id("org.openapi.generator") version "7.0.0"
 }
 ```
 
@@ -234,7 +236,7 @@ The generator will generate a service that can be used to call the API (generate
 @Injectable({
     providedIn: 'root'
 })
-export class UserService {
+export class UsersService {
 
     constructor(protected httpClient: HttpClient) {
         // ...
