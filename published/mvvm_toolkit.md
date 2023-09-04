@@ -5,7 +5,6 @@ tags: dotnet,mvvm,xaml,maui,csharp
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1690127804577/EjgHPiPhl.png?auto=format
 publishAs: NiZarper
 hideFromHashnodeCommunity: false
-ignorePost: true
 ---
 
 # Reducing boilerplate code with the MVVM Community Toolkit in .NET MAUI
