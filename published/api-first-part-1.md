@@ -4,7 +4,6 @@ subtitle: Part one of our API-first series 🛠️
 tags: api, rest, openapi, gradle, api-first, rest-api, apis
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1693750471478/jlvfV142C.jpg?auto=format
 domain: software-engineering-corner.hashnode.dev
-ignorePost: true
 hideFromHashnodeCommunity: false
 publishAs: romanutti
 ---
