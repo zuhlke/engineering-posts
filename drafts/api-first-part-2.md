@@ -1,7 +1,6 @@
 ---
 title: Multi-File OpenAPI Specifications
 subtitle: Part two of our API-first series ✨
-slug: api-first-development
 tags: api, rest, openapi, gradle, api-first, rest-api, apis
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1693750140935/5qa-wBJUA.jpg?auto=format
 domain: software-engineering-corner.hashnode.dev
