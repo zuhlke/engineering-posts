@@ -6,7 +6,6 @@ tags: web-development, angular, components, html, template
 cover: https://cdn.hashnode.com/res/hashnode/image/stock/unsplash/9nXBuHKkafU/upload/32547a47488e49867018f2436a958559.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
 publishAs: timouti
 hideFromHashnodeCommunity: false
-ignorePost: true
 ---
 
 Sometimes you have to deal with handling various views for different data types. In this article, we explore dynamic components loading in Angular.
