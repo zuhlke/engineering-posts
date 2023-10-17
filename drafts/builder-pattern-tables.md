@@ -76,7 +76,7 @@ You can find an example of our shared table template at the bottom of this artic
 Our first shared table input is the table configuration, or rather list of column configurations. Thereby, the column definition interface consists of four basic parts: the column title, a unique column ID (used for testing with cypress), the cell content configuration, and styling information.
 
 ```typescript
-export type TableCellContentTypes =
+export type TableCellContentType =
   | TableCellContentValue
   | TableCellContentValueList
   | TableCellContentIcon
@@ -88,8 +88,8 @@ export type TableColumnConfiguration<T> = {
   title: string;
   cellContent: {
     displayType: TableCellDisplayingType;
-    valueGetterFn: (data: T) => TableCellContentTypes;
-    formatFn: (cellValue: TableCellContentTypes) => TableCellContentTypes;
+    valueGetterFn: (data: T) => TableCellContentType;
+    formatFn: (cellValue: TableCellContentType) => TableCellContentType;
   };
   styling: {
     width?: string;
@@ -112,7 +112,7 @@ So, when we look at the "Created" date column of our example table, this would y
   "title": "Created",
   "columnId": "created-date",
   "cellContent": {
-    "displayType": TableCellContentTypes.TableCellContentValue,
+    "displayType": TableCellContentType.TableCellContentValue,
     "valueGetterFn": (date: ExampleTO) => date.created,
     "formattingFn": (date?: string) => formatDate(date, 'mediumShort')
   },
@@ -180,7 +180,7 @@ export class TableColumnConfigBuilder<T> {
       cellContent: {
         ...this.columnDef.cellContent,
         valueGetterFn: valueGetterFn,
-        formatFn: (value: TableCellContentTypes) => {
+        formatFn: (value: TableCellContentType) => {
           if (typeof value === 'string') {
             return esasDate(value, format);
           }
