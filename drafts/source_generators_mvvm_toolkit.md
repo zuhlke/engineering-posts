@@ -5,6 +5,7 @@ tags: dotnet,mvvm,xaml,maui,csharp
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1697099583332/Lv8fEMIab.png?auto=format
 publishAs: NiZarper
 hideFromHashnodeCommunity: false
+ignorePost: true
 ---
 
 # Source Generators in the MVVM Community Toolkit
