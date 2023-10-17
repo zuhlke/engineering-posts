@@ -42,7 +42,7 @@ ASP.NET uses this extensively in e.g. controller classes, etc. The difference be
 Let us now have a look at an example from the MVVM Community Toolkit.
 
 The following code was taken from the last blog post mentioned in the first chapter of this blog post.
-It shows an implementation of a view model with the MVVM Community Toolkit. If you are interested in the benefits of the MVVM Community Toolkit I highly recommend you to read the [first blog post]((https://software-engineering-corner.hashnode.dev/reducing-boilerplate-code-with-the-mvvm-community-toolkit-in-net-maui)).
+It shows an implementation of a view model with the MVVM Community Toolkit. If you are interested in the benefits of the MVVM Community Toolkit I highly recommend you to read the [first blog post](https://software-engineering-corner.hashnode.dev/reducing-boilerplate-code-with-the-mvvm-community-toolkit-in-net-maui).
 
 
 ```C#
