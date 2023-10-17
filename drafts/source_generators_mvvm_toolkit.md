@@ -90,7 +90,7 @@ Here are the corresponding Source Generator classes:
 
 These classes implement the logic for generating code that implements the INotifyPropertyChanged interface, creates observable properties from annotated fields, and creates relay commands from annotated methods.
 
-Due to the fact that all Source Generators consist of the same two steps namely the Initialize and Execute step, I am going to focus on the [ObservablePropertyGenerator](https://github.com/CommunityToolkit/dotnet/blob/main/src/CommunityToolkit.Mvvm.SourceGenerators/ComponentModel/ObservablePropertyGenerator.cs).
+Due to the fact that all Source Generators consist of the same two steps, namely the Initialize and Execute step, I am going to focus on the [ObservablePropertyGenerator](https://github.com/CommunityToolkit/dotnet/blob/main/src/CommunityToolkit.Mvvm.SourceGenerators/ComponentModel/ObservablePropertyGenerator.cs).
 
 The code defines a class that implements the IIncrementalGenerator interface, which is a new feature in Roslyn 4.0 that enables writing incremental Source Generators. Incremental Source Generators are more efficient and scalable than regular Source Generators, as they only run when necessary and can cache intermediate results.
 
