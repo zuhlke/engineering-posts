@@ -1,6 +1,6 @@
 ---
-title: One Table to Rule them All 
-subtitle: Leveraging the Builder Pattern to Craft Maintainable HTML Tables
+title: One table to rule them all
+subtitle: Leveraging the builder pattern to craft maintainable HTML tables
 domain: software-engineering-corner.hashnode.dev
 tags: web-development, angular, components, html, angular-material, build, javascript, typescript, frontend, tips, functional-programming, learn, design-patterns, web, software-architecture, webdevelopment
 cover: https://cdn.hashnode.com/res/hashnode/image/stock/unsplash/QI3VFt5YOlg/upload/1ad02a99eb473f317da5c464673eb90d.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
@@ -63,15 +63,16 @@ The following example shows a fairly simple Angular Material table. Can you make
 
 ### Shared Table
 
-As a first step, you might think about creating a shared component for your tables. This ensures that all tables within your application are consistent and easy to maintain. However, crafting such a shared table component is not as easy as it seems. The table would need to handle various data entities, cell formats, cell types, and date formats. And the more features you need to pack into your table, the more complex such a shared table can get. 
+As a first step, you might think about creating a shared component for your tables. This ensures that all tables within your application are consistent and easy to maintain. However, crafting such a shared table component is not as easy as it seems. The table would need to handle various data entities, cell formats, cell types, and date formats. And the more features you need to pack into your table, the more complex such a shared table can get.
 
 Our shared table requires two inputs. First, the table configuration, consisting of headers, the data type for each column, information on how to retrieve the cell value from our data entity, and potential information about stylings and formatting of the cell value and columns.
 
-Second, the list of data entities or rather the row objects that we want to display in our table. Thereby, the table needs to be able to deal with various data types (when using Typescript at least, but why wouldn't you use Typescript in the first place).
+Second, the list of data entities or rather the row objects that we want to display in our table. Thereby, the table needs to be able to deal with various data types (when using TypeScript at least, but why wouldn't you use TypeScript in the first place).
 
 You can find an example of our shared table template at the bottom of this article.
 
 ### Column Configuration
+
 Our first shared table input is the table configuration, or rather list of column configurations. Thereby, the column definition interface consists of four basic parts: the column title, a unique column ID (used for testing with cypress), the cell content configuration, and styling information.
 
 ```typescript
@@ -100,7 +101,7 @@ export type TableColumnConfiguration<T> = {
 
 The `cellContent` attribute defines a value getter function specifying how to retrieve the required cell value from our data object. We can also add formatting functions here to e.g. transform the fetched value to a date or currency.
 
-The `displayType` attribute is used to switch between icons, buttons, string lists (multi-line), or simple string values displaying inside the table cell. Of course, this could easily be extended with other types that you want to display in your table cells, like references or even nested tables (please don't do that). 
+The `displayType` attribute is used to switch between icons, buttons, string lists (multi-line), or simple string values displaying inside the table cell. Of course, this could easily be extended with other types that you want to display in your table cells, like references or even nested tables (please don't do that).
 
 The `styling` attribute helps us to improve the responsiveness of the columns by defining min and max width (if required), or even fixed-width columns.
 
@@ -122,7 +123,7 @@ So, when we look at the "Created" date column of our example table, this would y
 }
 ```
 
-# Builder Pattern
+### Builder Pattern
 
 There are not a lot of use cases where I would consider using a builder pattern in front-end applications. However, when dealing with the column configurations of our shared table component, it comes in quite handy. The builder pattern allows us to easily create such column definitions in a readable and scalable fashion.
 
@@ -138,7 +139,7 @@ public initTable{
 }
 ```
 
-So, every time you add a table to your component, you need to specify all the columns of your table using the `TableColumnConfigBuilder`. The builder itself is fairly straightforward. For each build step, you simply modify the generic column definition by adding, removing, or changing attributes. For example, in the build step `date()` we define a value getter, a min. and max. width and change the formatting of the cell to date formatting. Below is an excerpt of our table builder with a few sample steps:
+So, every time you add a table to your component, you need to specify all the columns of your table using the `TableColumnConfigBuilder`. The builder itself is fairly straightforward. For each build step, you simply modify the generic column definition by adding, removing, or changing attributes. For example, in the build step `date()` we define a value getter, a `min` and `max` width and change the formatting of the cell to date formatting. Below is an excerpt of our table builder with a few sample steps:
 
 ```typescript
 /**
@@ -196,7 +197,7 @@ export class TableColumnConfigBuilder<T> {
   }
 
   /**
-   * Sets the min and max width of the column to accommodate a typical PRIMA ID or user ID
+   * Sets the min and max width of the column to accommodate a typical ID
    */
   id(valueGetterFn: (data: T) => TableCellContentValue) {
     this.columnDef = {
@@ -228,7 +229,7 @@ export class TableColumnConfigBuilder<T> {
 
 The beneficial part of this builder pattern is that we can easily modify all tables in our application at once. If we e.g. decide to change the formatting of our date columns, we can easily change it in the builder, and it will be effective for all date columns in our application. Additionally, we have consistency by design, so an ID column is always the same size, or a multi-line list is always displayed the same.
 
-Moreover, the template of the components containing tables is clean and not clustered with table boilerplate code anymore. It just requires the two inputs, and thats it. Furthermore, it can be tested quite easily with unit and component tests.
+Moreover, the template of the components containing tables is clean and not clustered with table boilerplate code anymore. It just requires the two inputs, and that's it. Furthermore, it can be tested quite easily with unit and component tests.
 
 ```xml
 <app-table>
@@ -241,7 +242,7 @@ Moreover, the template of the components containing tables is clean and not clus
 
 The only drawback of the builder pattern is the added complexity of the shared table template. It has to be quite generic and cover various displaying types using `ngTemplates`, `ngTemplateOutlet`, and `ngTemplateOutletContext` in our Angular example, which are not so commonly used.
 
-However, implementing this shared table template is mostly a one-time effort and helps us to drastically reduce the maintenance and implementation costs for all the tables that follow. 
+However, implementing this shared table template is mostly a one-time effort and helps us to drastically reduce the maintenance and implementation costs for all the tables that follow.
 
 Our final shared table might look something like this:
 
@@ -255,7 +256,6 @@ Our final shared table might look something like this:
     ></mat-row>
 
     <ng-container
-            fxLayout="row"
             *ngFor="let column of columnDefinitions" <--- OUR COLUMN CONFIGURATION
             [matColumnDef]="column.columnId"
     >
