@@ -34,7 +34,7 @@ It is important to mention that currently, Source Generators can only be impleme
 
 
 Before the introduction of Source Generators, generating code based on compiled code was already possible. This was done via Runtime Reflection.
-ASP.NET uses this extensively in e.g. controller classes, etc. The difference between Source Generators and Reflection is the point of time when the generation of code happens and the performance impact. For example, ASP.NET uses Runtime Reflection, there the generation of code occurs during the start-up. This means you can only accept requests once all the Runtime Reflection code is finished. Compared to Source Generators, where the code generation happens during the compile time. This would reduce the start-up time of an ASP.NET application.
+ASP.NET uses this extensively in e.g. controller classes, etc. The difference between Source Generators and Reflection is the point of time when the generation of code happens and the performance impact. For example, ASP.NET uses Runtime Reflection, where the generation of code occurs during the start-up. This means you can only accept requests once all the Runtime Reflection code is finished. Compared to Source Generators, where the code generation happens during the compile time. This would reduce the start-up time of an ASP.NET application.
 
 
 ### Implementation of a Source Generator in the MVVM Community Toolkit
