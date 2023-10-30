@@ -2,7 +2,7 @@
 title: Source Generators in the MVVM Community Toolkit
 domain: software-engineering-corner.hashnode.dev
 tags: dotnet,mvvm,xaml,maui,csharp
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1697099583332/Lv8fEMIab.png?auto=format
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1698661889105/p9p9msTSF.jpg?auto=format
 publishAs: NiZarper
 hideFromHashnodeCommunity: false
 ---
