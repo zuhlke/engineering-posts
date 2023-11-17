@@ -1,7 +1,7 @@
 ---
 title: Moving from Sass to CSS variables to implement Dark Mode
 domain: software-engineering-corner.hashnode.dev
-tags: web-development, css, sass
+tags: web-development, css, sass, variables
 cover: https://cdn.hashnode.com/res/hashnode/image/unsplash/xcweYgakbRo/upload/v1660032971546/KNUGnflXq.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
 publishAs: r3dDoX
 hideFromHashnodeCommunity: false
