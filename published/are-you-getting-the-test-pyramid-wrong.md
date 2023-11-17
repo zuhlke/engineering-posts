@@ -102,7 +102,7 @@ class ReportDownloaderTest {
 
         assertThat(response.isRight()).isTrue();
         assertThat(response.get().contentType()).isEqualTo(MediaType.APPLICATION_XML);
-        assertThat(new String(response.get().contents()).isEqualTo("...");
+        assertThat(new String(response.get().contents())).isEqualTo("...");
     }
 }
 ```
