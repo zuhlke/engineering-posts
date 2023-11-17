@@ -102,7 +102,7 @@ class ReportDownloaderTest {
 
         assertThat(response.isRight()).isTrue();
         assertThat(response.get().contentType()).isEqualTo(MediaType.APPLICATION_XML);
-        assertThat(new String(response.get().contents()).isEqualTo("...");
+        assertThat(new String(response.get().contents())).isEqualTo("...");
     }
 }
 ```
@@ -163,7 +163,7 @@ In the `ReportStorageServiceTest`, we should care about what matters: is the ent
 
 Some developers might argue that avoiding mocks in unit tests makes them slower. But have they become religious about how fast their unit tests should run? Some insist that unit tests must finish within sub-seconds. So far, I've suggested using fakes over mocks in unit tests to simulate behaviours and verify state changes. Apparently, this approach is slower than using mocks and verifying the interactions, but it would still finish within seconds. So let's say it's ten times slower. But does that really mean it is slow, and should we avoid it because of that?
 
-![The Test Pyramid (Image is licensed under the Creative Commons Attribution-Share Alike 4.0 International license)](https://cdn.hashnode.com/res/hashnode/image/upload/v1697727090616/amGGHuTQ-.png?auto=format)
+![The Test Pyramid (Image is licensed under the Creative Commons Attribution-Share Alike 4.0 International license)](https://cdn.hashnode.com/res/hashnode/image/upload/v1700214797121/_e2gMi_3t.jpg?auto=format)
 
 Let's revisit the Test Pyramid. We write a large number of unit tests because they are the cheapest to create and the fastest to give us feedback. But that's not the point. The point is that unit tests provide the most value compared to other types of tests. They're worth creating and running, even if they take seconds to run. If a unit test can ensure the correctness of some complex application code, it's worth running, regardless of how long it takes as long as it is within seconds. On the other hand, if a unit test takes only sub-seconds to run but doesn't give us much confidence in the correctness of the behaviours, it's not worth creating in the first place.
 
