@@ -1,6 +1,5 @@
 ---
 title: Are you getting the Test Pyramid wrong?
-subtitle: Why do many developers often write unit tests that are hard to maintain and find it difficult to implement the Test Pyramid effectively?
 tags: software-testing, test, test-driven-development, testing, tdd, unit-testing
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1697726994015/J1s4TfZO9.jpg?auto=format
 domain: software-engineering-corner.hashnode.dev
