@@ -1,0 +1,81 @@
+---
+title: Building page transitions react router v6 & framer motion
+subtitle: And doing so the right way
+domain: software-engineering-corner.hashnode.dev
+tags: web-development, react, css
+cover: image with blurry background (i.e. racecar)
+publishAs: Salv
+hideFromHashnodeCommunity: false
+ignorePost: true
+---
+
+
+
+# The goal
+Based on a properly layouted Application, we want to have better transitions when switching between the pages. Is a pure client side rendered react app that uses the [createBrowserRouter function](https://reactrouter.com/en/main/routers/create-browser-router) together with the [RouterProvider](https://reactrouter.com/en/main/routers/router-provider) component. Also the code base uses a [layout route](https://reactrouter.com/en/main/start/concepts#layout-routes) with a n `AppLayout` component.
+
+A simple setup of a `RouterProvider` with the routes also using the `AppLayout` to layout the application. The Components mapped here in the children section of the routes are the effective contentful pages of the application.
+
+```tsx
+const routes: RouteObject[] = [
+  {
+    path: '/',
+    element: <AppLayout />,
+    children: [
+      { element: <Navigate to="home" replace /> },
+      { path: 'home', element: <Home /> },
+      { path: 'blog/:slug', element: <Blog /> },
+      { path: 'author', element: <Author /> },
+      { path: '', element: <DefaultPage /> },
+      { path: '*', element: <UnavailableErrorPage /> },
+    ],
+  },
+];
+
+const router = createBrowserRouter(routes);
+
+export const AppRoutes: React.FC<PropsWithChildren<unknown>> = () => {
+  return <RouterProvider router={router} />;
+};
+```
+
+The `AppLayout` component is very simple. Important here is that we use the 
+[Outlet](https://reactrouter.com/en/main/start/concepts#outlets) to render the matched children routes within the applications layout
+```tsx
+export const AppLayout = () => {
+  return (
+    <div>
+      <AppHeader />
+      <main>
+        <Outlet />
+      </main>
+      <AppNavigation />
+    </div>
+  );
+};
+```
+
+The `App` component uses the App Routes and in this simple setup, nothing else.
+```tsx
+export const App = () => {
+  return <AppRoutes />;
+};
+```
+
+## Adding framer motion to the solution
+First we need to add [framer motion](https://npmjs.com/package/framer-motion) - it provides functionality to handle the transitions when mounting & unmounting react components as well as provides a great API to write animations. 
+
+A more barebone approach with out any animation support by itself would be [react transition group](https://www.npmjs.com/package/react-transition-group).
+
+## Setting up the framer motion and transition 
+--> Setup up the stuff
+
+now its not working
+### Components not properly mounted/unmounted
+--> verify with react dev tools
+
+### Jumping page
+--> positioning absolutely inside parent
+
+## Wrap up
+now you're set up and ready to go
