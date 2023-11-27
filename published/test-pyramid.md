@@ -1,5 +1,5 @@
 ---
-title: Are you getting the Test Pyramid wrong?
+title: Are you using the Test Pyramid wrong?
 tags: software-testing, test-driven-development, testing, tdd, unit-testing
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1697726994015/J1s4TfZO9.jpg?auto=format
 domain: software-engineering-corner.hashnode.dev
