@@ -8,9 +8,9 @@ hideFromHashnodeCommunity: false
 ignorePost: true
 ---
 
-Why isn't my div centered? Why does it overflow? Why do I always have to override a lot of rules to make CSS less unpredictable?
+Why isn't my `div` centered? Why does it overflow? Why do I always have to override a lot of rules to make CSS less unpredictable?
 
-Yes, I know how it feels, CSS sometimes doesn't make any sense at all. And one of the reasons that explains this situation is that it has accumulated many, many design mistakes throughout its history.
+Yes, I know how it feels, CSS sometimes doesn't make any sense at all. And one of the reasons is that it has accumulated many, many design mistakes throughout its history.
 
 Today we will take a look at one of many, one of a long list, today we will cover the case of `border-radius`.
 
@@ -26,7 +26,7 @@ If we explore the list we will see a lot of interesting examples. And our protag
 
 Let's begin with a simple example:
 
-![Alt text](https://cdn.hashnode.com/res/hashnode/image/upload/v1702070975942/ItF3SkH1G.png?auto=format&w=500)
+![Square to circle using border-radius](https://cdn.hashnode.com/res/hashnode/image/upload/v1702070975942/ItF3SkH1G.png?auto=format&w=500)
 
 ```html
 <div class="square"></div>
@@ -47,11 +47,11 @@ Let's begin with a simple example:
 }
 ```
 
-So far nothing too unusual. Perhaps the most interesting part is that we have applied a `border-radius` equal to the width of the square (`200px`). This is unusual. If we want to create a circle, we usually do `border-radius: 50%` instead, right? But what happens if we use `100%`, or if we use the specific width of our element, or maybe even more than that? Well, this is one of the key concepts to understand `border-radius`.
+So far, nothing too unusual. Perhaps the most interesting part is that we have applied a `border-radius` equal to the width of the square (`200px`). This is unusual. If we want to create a circle, we usually do `border-radius: 50%` instead, right? But what happens if we use `100%`, or if we use the specific width of our element, or maybe even more than that? Well, this is one of the key concepts to understand `border-radius`.
 
 When we have a square, the **maximum** value that the `border-radius` property accepts is always half of its width. If we put more than this amount, CSS will ignore it and take the maximum value, that is, `width/2` as we have said. On the other hand, the **minimum** value is `0`. If we pass a smaller number, negative in this case, CSS will ignore it and assume 0, which is the same as if we were not applying any `border-radius` at all.
 
-But why does this behavior occur and what exactly does CSS do with that value? Well, the key is in its name: `radius`. CSS uses the `border-radius` value to build a **circle** with that radius. And then it uses it to **round** the **corners** of our element. This sounds complicated but you will see that it is very simple to understand visually.
+But why does this behavior occur and what exactly does CSS do with the `border-radius` value? Well, the key is in its name: `radius`. CSS uses the `border-radius` value to build a **circle** with that radius. And then it uses it to **round** the **corners** of our element. This sounds complicated but you will see that it is very simple to understand visually.
 
 In our example from earlier, we had a square with a `width: 200px` and a `border-radius: 200px`. However, as we have seen, the maximum value for `border-radius` in this case is half the width of the square, so in reality, CSS will assume a value equivalent to `border-radius: 100px`. Therefore, we would have a case identical to the following:
 
@@ -72,13 +72,13 @@ In our example from earlier, we had a square with a `width: 200px` and a `border
 }
 ```
 
-![Alt text](https://cdn.hashnode.com/res/hashnode/image/upload/v1702070975942/ItF3SkH1G.png?auto=format&w=500)
+![Square to circle using border-radius](https://cdn.hashnode.com/res/hashnode/image/upload/v1702070975942/ItF3SkH1G.png?auto=format&w=500)
 
 As you would expect, the result is the same as before. But that's not what's interesting. Let's now see how CSS goes from the square (left) to the circle (right):
 
-First let's visualize the `radius=100px` circle:
+First, let's visualize the `radius=100px` circle:
 
-![Alt text](https://cdn.hashnode.com/res/hashnode/image/upload/v1702071789670/PfrRC8iEl.png?auto=format&w=500)
+![Square to circle showing rouding circle of border-radius](https://cdn.hashnode.com/res/hashnode/image/upload/v1702071789670/PfrRC8iEl.png?auto=format&w=500)
 
 Now the idea of **rounding** is very clear, CSS simply follows the curve of the circle to round the **corner** (and not the **border**) of our element.
 
@@ -105,13 +105,13 @@ Another reason to claim that `border-radius` should have been called `corner-rad
 }
 ```
 
-![Alt text](https://cdn.hashnode.com/res/hashnode/image/upload/v1702071817271/1HNRRWnkr.png?auto=format&w=500)
+![Square to rounded corner using border-radius](https://cdn.hashnode.com/res/hashnode/image/upload/v1702071817271/1HNRRWnkr.png?auto=format&w=500)
 
 The `border-top-left-radius` property allows us to round that specific **corner**, following the same idea we explained before.
 
 Since the `border-radius` is `50px`, which is less than the width of the square (or even less than its half), we don't have to worry about maximums or minimums. In short, CSS will use a `radius=50px` circle to round the corner:
 
-![Alt text](https://cdn.hashnode.com/res/hashnode/image/upload/v1702071835074/gY5IBfwDl.png?auto=format&w=500)
+![Square to rounded corner showing rouding circle of border-radius](https://cdn.hashnode.com/res/hashnode/image/upload/v1702071835074/gY5IBfwDl.png?auto=format&w=500)
 
 As you might imagine, there are also CSS properties that allow us to apply a `border-radius` to the rest of the corners (`border-top-right-radius`, `border-bottom-right-radius` and `border-bottom-left-radius`). 
 
@@ -129,7 +129,7 @@ On the other hand, the `border-radius` property itself can also accept multiple 
 }
 ```
 
-When we pass 4 values to `border-radius`, CSS applies them clockwise starting from the top left corner. And there is also the possibility to pass 3 or 2 values. It is interesting to check the [documentation][shortHandPropertiesDocs] to discover all the possibilities.
+When we pass four values to `border-radius`, CSS applies them clockwise starting from the top left corner. And there is also the possibility to pass three or two values. It is interesting to check the [documentation][shortHandPropertiesDocs] to discover all the possibilities.
 
 In any case, this syntax is useful to see intuitively that the higher the `border-radius`, the more pronounced the curvature of the **corner**:
 
@@ -150,14 +150,14 @@ In any case, this syntax is useful to see intuitively that the higher the `borde
 }
 ```
 
-![Alt text](https://cdn.hashnode.com/res/hashnode/image/upload/v1702071853396/QsnEtorzM.png?auto=format&w=500)
+![Square to all rounded corners using border-radius](https://cdn.hashnode.com/res/hashnode/image/upload/v1702071853396/QsnEtorzM.png?auto=format&w=500)
 
 
 If we go from the upper left corner, clockwise, the `border-radius` applied increases and, with it, the curvature is also more pronounced. This makes sense, because the larger the `border-radius` the larger the circle to be used to round the corner in particular will be.
 
 Apart from this, we can also see something curious when we use `border-radius` with multiple values, the logic of minimum and maximum seems to change. In this case we have a square with `width=200px`, which means that the maximum `border-radius` should be `100px` (its half). However, in the last corner we are applying more than that and it seems to be working, its curve is more pronounced:
 
-![Alt text](https://cdn.hashnode.com/res/hashnode/image/upload/v1702071872263/gvb9AfjLs.png?auto=format&w=500)
+![Square to all rounded corners focusing on greater border-radius](https://cdn.hashnode.com/res/hashnode/image/upload/v1702071872263/gvb9AfjLs.png?auto=format&w=500)
 
 The reality is that when we use multiple values for `border-radius` the maximum value constraints change a bit. But this is a discussion for another more in-depth article 😉.
 
